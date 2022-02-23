@@ -80,15 +80,26 @@ final class GameGrid
 
     public function __toString(): string
     {
-        return array_reduce($this->grid, function (string $carry, array $row) {
+        $rowLength = 0;
+        $grid = array_reduce($this->grid, function (string $carry, array $row) use (&$rowLength) {
+            $carry .= '|';
+
             foreach ($row as $cell) {
                 $carry .= " $cell ";
             }
 
-            $carry .= PHP_EOL;
+            $carry .= '|' . PHP_EOL;
+
+            if ($rowLength === 0) {
+                $rowLength = strlen($carry);
+            }
 
             return $carry;
         }, '');
+
+        $border = str_repeat('-', $rowLength - 1) . PHP_EOL;
+
+        return $border . $grid . $border;
     }
 
     /**
