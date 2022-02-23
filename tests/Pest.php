@@ -11,7 +11,11 @@
 |
 */
 
-uses(Tests\TestCase::class)->in('Feature');
+use Tests\CreatesApplication;
+
+uses(Tests\TestCase::class, CreatesApplication::class)->in('Feature');
+
+beforeEach()->createApplication();
 
 /*
 |--------------------------------------------------------------------------
