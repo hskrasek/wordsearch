@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Game;
 
 use Illuminate\Support\Str;
 
-final class GameGrid
+use function retry;
+
+final class Grid
 {
     private array $grid;
 
