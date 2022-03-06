@@ -14,8 +14,8 @@ it('can insert a word into the grid in any direction', function (string $directi
 
     $grid = new Grid(15);
     $grid->insertWord($word, Direction::from($direction));
+    $grid->finalize();
 
-    expect((string)$grid)->toBeString()->toContain(...Str::ucsplit($word));
     expect($grid->findWord('APPLE', $grid->getWordCoordinates()['APPLE']))->toBeTrue();
 })->with('directions');
 
@@ -32,14 +32,10 @@ it('can insert multiple words in any direction', function () {
 
     $grid->insertWord('HALO', Arr::random($directions));
 
-    $gridString = (string)$grid;
+    $grid->finalize();
 
-    expect($gridString)->toBeString()->toContain(...Str::ucsplit('APPLE'));
     expect($grid->findWord('APPLE', $grid->getWordCoordinates()['APPLE']))->toBeTrue();
-    expect($gridString)->toBeString()->toContain(...Str::ucsplit('UNMARRED'));
     expect($grid->findWord('UNMARRED', $grid->getWordCoordinates()['UNMARRED']))->toBeTrue();
-    expect($gridString)->toBeString()->toContain(...Str::ucsplit('OXYTOCIN'));
     expect($grid->findWord('OXYTOCIN', $grid->getWordCoordinates()['OXYTOCIN']))->toBeTrue();
-    expect($gridString)->toBeString()->toContain(...Str::ucsplit('HALO'));
     expect($grid->findWord('HALO', $grid->getWordCoordinates()['HALO']))->toBeTrue();
 });
