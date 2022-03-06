@@ -10,11 +10,15 @@ use function retry;
 
 final class Grid
 {
+    private const PLACEHOLDER = '-';
+
     private array $grid;
+
+    private array $wordCoordinates;
 
     public function __construct(private int $size)
     {
-        $this->grid = array_fill(0, $this->size, array_fill(0, $this->size, '-'));
+        $this->grid = array_fill(0, $this->size, array_fill(0, $this->size, self::PLACEHOLDER));
     }
 
     public function insertWord(string $word, Direction $direction): void
@@ -81,6 +85,64 @@ final class Grid
         foreach ($insertCoordinates as $index => $coordinate) {
             $this->grid[$coordinate[0]][$coordinate[1]] = $letters[$index];
         }
+
+        $this->wordCoordinates[$word] = $insertCoordinates;
+    }
+
+    public function finalize(): void
+    {
+        for ($x = 0; $x < $this->size; $x++) {
+            for ($y = 0; $y < $this->size; $y++) {
+                if ($this->grid[$x][$y] !== self::PLACEHOLDER) {
+                    continue;
+                }
+
+                $this->grid[$x][$y] = chr(random_int(65, 90));
+            }
+        }
+    }
+
+    /**
+     * @param string $word
+     * @param array<array> $coordinates
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function findWord(string $word, array $coordinates): bool
+    {
+        if (!array_key_exists($word, $this->wordCoordinates)) {
+            throw new \Exception('Word does not exist in grid. TODO REPLACE WITH NAMED');
+        }
+
+        $wordCoordinates = $this->wordCoordinates[$word];
+
+        foreach ($coordinates as $coordinate) {
+            if (!$this->doesCoordinateExist($wordCoordinates, $coordinate)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return array{string: array}
+     */
+    public function getWordCoordinates(): array
+    {
+        return $this->wordCoordinates;
+    }
+
+    private function doesCoordinateExist(array $wordCoordinates, array $coordinate): bool
+    {
+        $found = false;
+
+        foreach ($wordCoordinates as $wordCoordinate) {
+            $found = $found || $wordCoordinate === $coordinate;
+        }
+
+        return $found;
     }
 
     public function __toString(): string
@@ -113,7 +175,7 @@ final class Grid
     private function randomizeCoordinates(): array
     {
         return array_map(
-            function (array $coords) {
+            static function (array $coords) {
                 shuffle($coords);
 
                 return $coords;
