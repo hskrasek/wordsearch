@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Game;
 
+use App\Exceptions\Game\GridException;
 use Illuminate\Support\Str;
 
 use function retry;
@@ -78,7 +79,7 @@ final class Grid
             // if it couldn't be inserted, we will do something. TODO: Figure out something
             // if insertable, insert and return true
             if (count($insertCoordinates) < $wordLength) {
-                throw new \Exception('Failed to insert word. TODO REPLACE WITH NAMED EXCEPTION');
+                throw GridException::unableToInsertWord(implode('', $letters));
             }
         });
 
@@ -112,7 +113,7 @@ final class Grid
     public function findWord(string $word, array $coordinates): bool
     {
         if (!array_key_exists($word, $this->wordCoordinates)) {
-            throw new \Exception('Word does not exist in grid. TODO REPLACE WITH NAMED');
+            throw GridException::wordNotInGrid($word);
         }
 
         $wordCoordinates = $this->wordCoordinates[$word];
