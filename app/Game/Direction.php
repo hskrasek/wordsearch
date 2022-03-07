@@ -28,4 +28,9 @@ enum Direction: string
             self::West => [0, -1],
         };
     }
+
+    public static function random(): self
+    {
+        return self::cases()[array_rand(self::cases())];
+    }
 }
