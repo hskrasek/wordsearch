@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace App\Game;
 
 use App\Exceptions\Game\GridException;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
 use function retry;
 
-final class Grid
+final class Grid implements Arrayable, \JsonSerializable
 {
     private const PLACEHOLDER = '-';
 
     private array $grid;
 
-    private array $wordCoordinates;
+    private array $wordCoordinates = [];
 
     public function __construct(private int $size)
     {
@@ -24,8 +25,8 @@ final class Grid
 
     public function insertWord(string $word, Direction $direction): void
     {
-        $wordLength = strlen($word);
-        $letters    = Str::ucsplit($word);
+        $wordLength        = strlen($word);
+        $letters           = Str::ucsplit($word);
         $insertCoordinates = [];
 
         retry(100, function () use ($wordLength, $letters, &$insertCoordinates, $direction) {
@@ -59,7 +60,7 @@ final class Grid
                     // the word to be inserted into the grid
                     if (
                         ($endX < 0 || $endY < 0) ||
-                        ($endX > ($this->size -1) || $endY > ($this->size -1))
+                        ($endX > ($this->size - 1) || $endY > ($this->size - 1))
                     ) {
                         // Exit inserts, and try new coordinates
                         break;
@@ -67,7 +68,7 @@ final class Grid
 
                     $insertCoordinates[] = [
                         $x,
-                        $y
+                        $y,
                     ];
 
                     $x += $direction->toCardinality()[0];
@@ -149,7 +150,7 @@ final class Grid
     public function __toString(): string
     {
         $rowLength = 0;
-        $grid = array_reduce($this->grid, function (string $carry, array $row) use (&$rowLength) {
+        $grid      = array_reduce($this->grid, function (string $carry, array $row) use (&$rowLength) {
             $carry .= '|';
 
             foreach ($row as $cell) {
@@ -163,7 +164,7 @@ final class Grid
             }
 
             return $carry;
-        }, '');
+        },                        '');
 
         $border = str_repeat('-', $rowLength - 1) . PHP_EOL;
 
@@ -186,5 +187,27 @@ final class Grid
                 range(0, $this->size - 1),
             ]
         );
+    }
+
+    public function toArray()
+    {
+        return [
+            'grid'             => $this->grid,
+            'word_coordinates' => $this->getWordCoordinates(),
+        ];
+    }
+
+    public static function fromArray(array $array): self
+    {
+        return tap(new self(count($array['grid'])), function (self $grid) use ($array) {
+            $grid->grid            = $array['grid'];
+            $grid->wordCoordinates = $array['word_coordinates'];
+            $grid->size            = count($array['grid']);
+        });
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
