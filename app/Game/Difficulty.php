@@ -28,9 +28,9 @@ enum Difficulty: int
     public function gridSize(): int
     {
         return match ($this) {
-            self::Easy => 5,
-            self::Medium => 8,
-            self::Hard => 13,
+            self::Easy => 10,
+            self::Medium => 16,
+            self::Hard => 26,
             self::Insane => 34,
         };
     }
