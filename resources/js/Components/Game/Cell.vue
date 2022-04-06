@@ -1,31 +1,30 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 
-defineProps({
+const props = defineProps({
     x: Number,
     y: Number,
-    letter: String,
-})
+    cell: Object,
+});
 
 const isSelected = ref(false);
 
-const emit = defineEmits({
-    selectCell(letter, x, y) {
-        console.log(isSelected);
+const emit = defineEmits(['selectCell']);
 
-        return true;
-    }
-});
+function selectCell() {
+    isSelected.value = !isSelected.value;
 
+    emit('selectCell', props.x, props.y);
+}
 </script>
 
 <template>
     <div
-        class="hover:bg-sky-300 cell text-base text-center font-semibold align-middle"
-        @click="$emit('selectCell', letter, x, y)"
-        :class="{'bg-green-300': isSelected}"
+        class="hover:bg-sky-300 cell text-base text-center font-semibold align-middle cursor-default"
+        @click="selectCell"
+        :class="{'bg-green-300': isSelected, 'bg-green-400': cell.found}"
     >
-        {{ letter }}
+        {{ cell.letter }}
     </div>
 </template>
 
@@ -34,8 +33,8 @@ const emit = defineEmits({
     margin: 0 auto;
     border: none;
     display: table-cell;
-    height: 2.5vw;
-    width: 2.5vw;
+    height: 2vw;
+    width: 2vw;
     padding: 0;
     outline: 0;
 
