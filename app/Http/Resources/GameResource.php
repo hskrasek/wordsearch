@@ -25,7 +25,8 @@ class GameResource extends JsonResource
         $coordinatesToStamp = $this->words
             ->filter(fn(Word $word) => $word->session->found)
             ->reduce(
-                fn(array $carry, Word $word) => [...$carry, ...$wordCoordinates[$word->text]]
+                fn(array $carry, Word $word) => [...$carry, ...$wordCoordinates[$word->text]],
+                []
             );
 
         foreach ($coordinatesToStamp as $coords) {
