@@ -15,6 +15,8 @@ class Game extends Model
 {
     use HasFactory;
 
+    public $touches = ['words'];
+
     protected $fillable = [
         'difficulty',
     ];
@@ -52,6 +54,13 @@ class Game extends Model
 
     public function words(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Word::class);
+        return $this->belongsToMany(Word::class)
+            ->as('session')
+            ->withPivot(['found', 'found_at',]);
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
     }
 }
