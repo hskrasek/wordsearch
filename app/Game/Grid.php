@@ -6,11 +6,12 @@ namespace App\Game;
 
 use App\Exceptions\Game\GridException;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 use function retry;
 
-final class Grid implements Arrayable, \JsonSerializable
+final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
 {
     private const PLACEHOLDER = '-';
 
@@ -29,8 +30,12 @@ final class Grid implements Arrayable, \JsonSerializable
         $letters           = Str::ucsplit($word);
         $insertCoordinates = [];
 
-        retry(100, function () use ($wordLength, $letters, &$insertCoordinates, $direction) {
+        retry(100, function (int $attempts) use ($wordLength, $letters, &$insertCoordinates, &$direction) {
             [$xCoordinates, $yCoordinates] = $this->randomizeCoordinates();
+
+            if ($attempts > 0 && 100 % $attempts === 0) {
+                $direction = Direction::random();
+            }
 
             for ($i = 0; $i < $this->size; $i++) {
                 // If we are iterating to a new set of x and y coordinates,
@@ -48,10 +53,12 @@ final class Grid implements Arrayable, \JsonSerializable
 
                 foreach ($letters as $letter) {
                     // The cell is not empty, and does not equal the letter
-                    if ((
+                    if (
+                        (
                         $this->grid[$x][$y] !== '-' &&
                         $this->grid[$x][$y] !== $letter
-                    )) {
+                        )
+                    ) {
                         // Exit inserts, and try new coordinates
                         break;
                     }
@@ -102,6 +109,12 @@ final class Grid implements Arrayable, \JsonSerializable
                 $this->grid[$x][$y] = chr(random_int(65, 90));
             }
         }
+        $this->grid = iterator_to_array(
+            collect($this->grid)
+                ->mapInto(Collection::class)
+                ->map(fn(Collection $row) => $row->mapInto(Cell::class))
+                ->getIterator()
+        );
     }
 
     /**
@@ -164,7 +177,7 @@ final class Grid implements Arrayable, \JsonSerializable
             }
 
             return $carry;
-        },                        '');
+        }, '');
 
         $border = str_repeat('-', $rowLength - 1) . PHP_EOL;
 
@@ -189,25 +202,68 @@ final class Grid implements Arrayable, \JsonSerializable
         );
     }
 
+    /**
+     * @return array<int, array<int, Cell>
+     */
     public function toArray()
     {
-        return [
-            'grid'             => $this->grid,
-            'word_coordinates' => $this->getWordCoordinates(),
-        ];
+        return $this->grid;
     }
 
     public static function fromArray(array $array): self
     {
         return tap(new self(count($array['grid'])), function (self $grid) use ($array) {
-            $grid->grid            = $array['grid'];
+            $grid->grid            = self::unserializeGrid($array['grid']);
             $grid->wordCoordinates = $array['word_coordinates'];
             $grid->size            = count($array['grid']);
         });
     }
 
+    /**
+     * @param array $grid
+     *
+     * @return array<int, array<int, Cell>
+     */
+    private static function unserializeGrid(array $grid): array
+    {
+        foreach ($grid as $x => $row) {
+            foreach ($row as $y => $cell) {
+                $grid[$x][$y] = new Cell($cell['letter']);
+
+                if ($cell['found']) {
+                    $grid[$x][$y]->find();
+                }
+            }
+        }
+
+        return $grid;
+    }
+
     public function jsonSerialize(): mixed
     {
-        return $this->toArray();
+        return [
+            'grid'             => $this->toArray(),
+            'word_coordinates' => $this->getWordCoordinates(),
+        ];
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return array_key_exists($offset, $this->grid);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->grid[$offset];
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        throw new \LogicException("Grids cannot be modified in this manner");
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        throw new \LogicException("Grids cannot be modified in this manner");
     }
 }
