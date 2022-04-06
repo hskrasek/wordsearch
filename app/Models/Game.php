@@ -11,6 +11,29 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+/**
+ * App\Models\Game
+ *
+ * @property int $id
+ * @property string $uuid
+ * @property Difficulty $difficulty
+ * @property Grid $grid
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Word[] $words
+ * @property-read int|null $words_count
+ * @method static \Database\Factories\GameFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereDifficulty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereGrid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereUuid($value)
+ * @mixin \Eloquent
+ */
 class Game extends Model
 {
     use HasFactory;
