@@ -43,25 +43,3 @@ Route::post('games', function (Request $request) {
 
     return new GameResource($game);
 });
-
-Route::post('/games/{game}/solve', function (Request $request, Game $game) {
-    if (!$game->words->contains($word = Word::where('text', $request->word)->first())) {
-        return \response([], 422);
-    }
-
-    $wordCoordinates = $game->grid->getWordCoordinates()[$word->text];
-
-    $solved = false;
-
-    foreach ($wordCoordinates as $index => $wordCoordinate) {
-        $solved = $solved || $wordCoordinate === $request->coordinates[$index];
-    }
-
-    if (!$solved) {
-        return \response([], 422);
-    }
-
-    $game->words()->updateExistingPivot($word, ['found' => true, 'found_at' => Carbon::now()]);
-
-    return Redirect::route('game.play', [$game->uuid]);
-});

@@ -149,6 +149,11 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
         return $this->wordCoordinates;
     }
 
+    public function size(): int
+    {
+        return $this->size;
+    }
+
     private function doesCoordinateExist(array $wordCoordinates, array $coordinate): bool
     {
         $found = false;

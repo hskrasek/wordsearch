@@ -28,7 +28,7 @@ function solve() {
             ...data,
             word: data.word.join('')
         }))
-        .post(`/api/games/${props.uuid}/solve`, {
+        .post(`/game/${props.uuid}/solve`, {
         preserveScroll: true,
         onSuccess() {
             form.reset();
@@ -65,7 +65,6 @@ function solve() {
         </ul>
       </div>
       <div class="container">
-        <p>{{ form.word.join('') }}</p>
         <form @submit.prevent="solve">
           <label
             for="word"
@@ -89,6 +88,9 @@ function solve() {
             disabled
             type="hidden"
           >
+          <div v-if="form.errors.coordinates">
+            {{ form.errors.coordinates }}
+          </div>
           <button
             type="submit"
             class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
