@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import BreezeButton from '@/Components/Button.vue';
 import BreezeGuestLayout from '@/Layouts/Guest.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import route from 'ziggy';
 
 const props = defineProps({
     status: String,

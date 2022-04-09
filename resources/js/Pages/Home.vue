@@ -17,7 +17,10 @@ defineProps({
       </h1>
       <form>
         <ul>
-          <template v-for="difficulty in difficulties">
+          <template
+            v-for="(difficulty, i) in difficulties"
+            :key="i"
+          >
             <li>
               <Link
                 href="/game"

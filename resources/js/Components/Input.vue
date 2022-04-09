@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
+// eslint-disable-next-line vue/require-prop-types
 defineProps(['modelValue']);
 
 defineEmits(['update:modelValue']);

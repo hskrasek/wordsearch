@@ -1,7 +1,8 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, defineProps } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3';
 
+// eslint-disable-next-line vue/require-prop-types
 const props = defineProps(['href', 'active']);
 
 const classes = computed(() => props.active

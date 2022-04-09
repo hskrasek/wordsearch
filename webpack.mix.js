@@ -1,6 +1,7 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
+const path = require("path");
 
-require('laravel-mix-eslint')
+require("laravel-mix-eslint");
 
 /*
  |--------------------------------------------------------------------------
@@ -13,18 +14,21 @@ require('laravel-mix-eslint')
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.alias({
+    ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue"),
+})
+    .js("resources/js/app.js", "public/js")
     .vue()
     .eslint({
         fix: true,
-        extensions: ['js', 'vue']
+        extensions: ["js", "vue"],
     })
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-        require('autoprefixer'),
+    .postCss("resources/css/app.css", "public/css", [
+        require("postcss-import"),
+        require("tailwindcss"),
+        require("autoprefixer"),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require("./webpack.config"));
 
 if (mix.inProduction()) {
     mix.version();

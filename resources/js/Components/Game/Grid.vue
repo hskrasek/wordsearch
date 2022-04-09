@@ -1,11 +1,10 @@
 <script setup>
-import {defineEmits, defineProps} from 'vue';
 import Cell from './Cell';
 
 defineProps({
     grid: {
         type: Array,
-        default: []
+        default: () => []
     }
 });
 

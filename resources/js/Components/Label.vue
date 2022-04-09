@@ -1,4 +1,7 @@
 <script setup>
+import {defineProps} from "vue";
+
+// eslint-disable-next-line vue/require-prop-types
 defineProps(['value']);
 </script>
 

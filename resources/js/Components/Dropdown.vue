@@ -3,11 +3,14 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps({
     align: {
+        type: String,
         default: 'right'
     },
     width: {
+        type: String,
         default: '48'
     },
+    // eslint-disable-next-line vue/require-prop-types
     contentClasses: {
         default: () => ['py-1', 'bg-white']
     }
