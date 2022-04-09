@@ -1,49 +1,18 @@
 <script setup>
-import {computed, inject, reactive} from 'vue';
-import {Inertia} from '@inertiajs/inertia';
-import {useForm} from '@inertiajs/inertia-vue3'
-
+import {defineEmits, defineProps} from 'vue';
 import Cell from './Cell';
 
-const props = defineProps({
-    grid: Array
-})
-
-const gameId = inject('game-id');
-
-const size = computed(() => props.grid.length)
-
-let selectedWord = reactive({
-    letters: [],
-    coordinates: [],
+defineProps({
+    grid: {
+        type: Array,
+        default: []
+    }
 });
 
-const form = useForm({
-    word: computed(() => selectedWord.letters.join('')),
-    coordinates: computed(() => selectedWord.coordinates)
-});
+const emit = defineEmits(['selectCell']);
 
 function selectedCell(x, y) {
-    selectedWord.letters.push(props.grid[x][y].letter);
-    selectedWord.coordinates.push([x, y]);
-}
-
-function solve() {
-    Inertia.post(`/api/games/${gameId}/solve`, form, {
-        preserveScroll: true,
-        onSuccess() {
-            selectedWord.letters = [];
-            selectedWord.coordinates = [];
-
-            form.reset();
-        },
-        onError() {
-            selectedWord.letters = [];
-            selectedWord.coordinates = [];
-
-            form.reset();
-        },
-    });
+    emit('selectCell', x, y);
 }
 
 // TODO: Revisit click/touch and "drag"
@@ -56,36 +25,23 @@ function solve() {
 </script>
 
 <template>
-    <div class="container">
-        <div id="game-grid" class="mx-auto">
-            <div v-for="(row, x) in grid" class="row">
-                <Cell v-for="(cell, y) in row" :cell="cell" :x="x" :y="y" @selectCell="selectedCell"/>
-            </div>
-        </div>
+  <div class="shadow bg-white px-4 py-3 flex border-2 border-gray-800 table">
+    <div
+      v-for="(row, x) in grid"
+      :key="x"
+      class="w-full m-0 table-row"
+    >
+      <Cell
+        v-for="(cell, y) in row"
+        :key="y"
+        :cell="cell"
+        :x="x"
+        :y="y"
+        @select-cell="selectedCell"
+      />
     </div>
-    <div class="container">
-        <div class="mx-auto">
-            <form @submit.prevent="solve">
-                <input type="hidden" v-model="form.word">
-                <input type="hidden" v-model="form.coordinates">
-
-                <button type="submit">Solve</button>
-            </form>
-        </div>
-    </div>
+  </div>
 </template>
 
 <style scoped>
-#game-grid {
-    display: table;
-    border: 2px solid black;
-    padding: 1vw;
-}
-
-.row {
-    width: 100%;
-    margin: 0 auto;
-
-    display: table-row;
-}
 </style>

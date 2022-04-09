@@ -12,20 +12,9 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            },
-            gridTemplateRows: {
-                // Simple 8 row grid
-                '8': 'repeat(8, minmax(0, 1fr))',
-                '13': 'repeat(13, minmax(0, 1fr))',
-                '34': 'repeat(34, minmax(0, 1fr))',
-            },
-            gridTemplateColumns: {
-                '8': 'repeat(8, minmax(0, 1fr))',
-                '13': 'repeat(13, minmax(0, 1fr))',
-                '34': 'repeat(34, minmax(0, 1fr))',
             }
         },
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [require('@tailwindcss/forms'),],
 };

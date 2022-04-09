@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue';
+import {defineEmits, defineProps, ref} from 'vue';
 
 const props = defineProps({
     x: Number,
@@ -19,13 +19,13 @@ function selectCell() {
 </script>
 
 <template>
-    <div
-        class="hover:bg-sky-300 cell text-base text-center font-semibold align-middle cursor-default"
-        @click="selectCell"
-        :class="{'bg-green-300': isSelected, 'bg-green-400': cell.found}"
-    >
-        {{ cell.letter }}
-    </div>
+  <div
+    class="hover:bg-sky-300 cell text-base text-center font-semibold align-middle cursor-default"
+    :class="{'bg-green-300': isSelected, 'bg-green-400': cell.found}"
+    @click="selectCell"
+  >
+    {{ cell.letter }}
+  </div>
 </template>
 
 <style scoped>
@@ -33,8 +33,8 @@ function selectCell() {
     margin: 0 auto;
     border: none;
     display: table-cell;
-    height: 2vw;
-    width: 2vw;
+    height: 1.5vw;
+    width: 1.5vw;
     padding: 0;
     outline: 0;
 
