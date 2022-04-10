@@ -1,7 +1,7 @@
 <script setup>
 import Grid from '../Components/Game/Grid';
 import {Head, useForm} from '@inertiajs/inertia-vue3';
-import {defineProps} from "vue";
+import {computed, defineProps} from "vue";
 
 const props = defineProps({
     difficulty: String,
@@ -11,41 +11,56 @@ const props = defineProps({
     id: Number,
 });
 
+// Need a better name for this
+const trackingGrid = computed(() => {
+    return props.grid.map(row => row.map(cell => Object.assign(cell, {selected: false})));
+})
+
 const form = useForm({
     word: [],
     coordinates: []
 });
 
 function selectLetter(x, y) {
-    console.log(x, y);
-    form.word.push(props.grid[x][y].letter);
-    form.coordinates.push([x, y]);
+    trackingGrid.value[x][y].selected = !trackingGrid.value[x][y].selected;
+
+    if (`${x}-${y}` in form.word && `${x}-${y}` in form.coordinates) {
+        delete form.word[`${x}-${y}`];
+        delete form.coordinates[`${x}-${y}`];
+
+        return;
+    }
+
+    form.word[`${x}-${y}`] = props.grid[x][y].letter;
+    form.coordinates[`${x}-${y}`] = [x, y];
+
+    console.log(form);
 }
 
 function solve() {
     form
         .transform((data) => ({
-            ...data,
-            word: data.word.join('')
+            coordinates: Object.values(data.coordinates),
+            word: Object.values(data.word).join('')
         }))
         .post(`/game/${props.uuid}/solve`, {
-        preserveScroll: true,
-        onSuccess() {
-            form.reset();
-        },
-        onError() {
-            form.reset();
-        },
-    });
+            preserveScroll: true,
+            onSuccess() {
+                form.reset();
+            },
+            onError() {
+                form.reset();
+            },
+        });
 }
 </script>
 
 <template>
   <Head :title="'Game ' + uuid" />
 
-  <div class="container mx-auto gap-2 columns-2">
+  <div class="container mx-auto gap-x-0.5 columns-2">
     <Grid
-      :grid="grid"
+      :grid="trackingGrid"
       class="break-after-column"
       @select-cell="selectLetter"
     />
@@ -80,7 +95,10 @@ function solve() {
               class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
             >
           </div>
-          <div v-if="form.errors.word">
+          <div
+            v-if="form.errors.word"
+            class="text-red-500"
+          >
             {{ form.errors.word }}
           </div>
           <input
@@ -88,7 +106,10 @@ function solve() {
             disabled
             type="hidden"
           >
-          <div v-if="form.errors.coordinates">
+          <div
+            v-if="form.errors.coordinates"
+            class="text-red-500"
+          >
             {{ form.errors.coordinates }}
           </div>
           <button

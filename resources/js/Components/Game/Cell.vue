@@ -1,19 +1,13 @@
 <script setup>
-import { ref } from 'vue';
-
 const props = defineProps({
     x: Number,
     y: Number,
     cell: Object,
 });
 
-const isSelected = ref(false);
-
 const emit = defineEmits(['selectCell']);
 
 function selectCell() {
-    isSelected.value = !isSelected.value;
-
     emit('selectCell', props.x, props.y);
 }
 </script>
@@ -21,7 +15,7 @@ function selectCell() {
 <template>
   <div
     class="hover:bg-sky-300 cell text-base text-center font-semibold align-middle cursor-default"
-    :class="{'bg-green-300': isSelected, 'bg-green-400': cell.found}"
+    :class="{'bg-green-300': cell.selected, 'bg-green-400': cell.found}"
     @click="selectCell"
   >
     {{ cell.letter }}

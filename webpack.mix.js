@@ -1,5 +1,4 @@
 const mix = require("laravel-mix");
-const path = require("path");
 
 require("laravel-mix-eslint");
 
@@ -14,10 +13,7 @@ require("laravel-mix-eslint");
  |
  */
 
-mix.alias({
-    ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue"),
-})
-    .js("resources/js/app.js", "public/js")
+mix.js("resources/js/app.js", "public/js")
     .vue()
     .eslint({
         fix: true,

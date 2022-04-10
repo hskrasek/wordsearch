@@ -869,8 +869,13 @@ select {
 .justify-items-center {
   justify-items: center;
 }
-.gap-2 {
-  gap: 0.5rem;
+.gap-x-0\.5 {
+  -moz-column-gap: 0.125rem;
+       column-gap: 0.125rem;
+}
+.gap-x-0 {
+  -moz-column-gap: 0px;
+       column-gap: 0px;
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -1181,6 +1186,10 @@ select {
 .text-gray-800 {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 .text-green-600 {
   --tw-text-opacity: 1;
