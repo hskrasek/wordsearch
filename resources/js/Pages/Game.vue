@@ -58,15 +58,15 @@ function solve() {
 <template>
   <Head :title="'Game ' + uuid" />
 
-  <div class="container mx-auto gap-x-0.5 columns-2">
+  <div class="w-full grid grid-cols-4 container gap-4">
     <Grid
       :grid="trackingGrid"
-      class="break-after-column"
+      class="col-span-3"
       @select-cell="selectLetter"
     />
-    <div class="border-2 border-gray-800 w-96 p-1.5">
+    <div class="col-span-1 border-2 border-gray-800 w-56 p-1.5 mr-0">
       <h1 class="text-lg font-medium">
-        Difficulty: {{ difficulty }}
+        <span class="font-bold">Difficulty:</span> {{ difficulty }}
       </h1>
       <div class="columns-2">
         <ul>

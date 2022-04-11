@@ -24,7 +24,7 @@ function selectedCell(x, y) {
 </script>
 
 <template>
-  <div class="shadow bg-white px-4 py-3 flex border-2 border-gray-800 table">
+  <div class="bg-white px-4 py-3 flex border-2 border-gray-800 table">
     <div
       v-for="(row, x) in grid"
       :key="x"
