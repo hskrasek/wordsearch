@@ -16,9 +16,10 @@ function selectCell() {
   <div
     class="hover:bg-sky-300 cell text-base text-center font-semibold align-middle cursor-default"
     :class="{'bg-green-300': cell.selected, 'bg-green-400': cell.found}"
-    @click="selectCell"
   >
-    {{ cell.letter }}
+    <button @click="selectCell">
+      {{ cell.letter }}
+    </button>
   </div>
 </template>
 

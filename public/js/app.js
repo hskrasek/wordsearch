@@ -22820,10 +22820,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["hover:bg-sky-300 cell text-base text-center font-semibold align-middle cursor-default", {
       'bg-green-300': $props.cell.selected,
       'bg-green-400': $props.cell.found
-    }]),
+    }])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: $setup.selectCell
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cell.letter), 3
-  /* TEXT, CLASS */
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cell.letter), 1
+  /* TEXT */
+  )], 2
+  /* CLASS */
   );
 }
 
