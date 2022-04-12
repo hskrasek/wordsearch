@@ -11,7 +11,7 @@ class CreateGame extends Controller
 {
     public function __invoke(Request $request)
     {
-        $difficulty = Difficulty::from($request->input('difficulty.value'));
+        $difficulty = Difficulty::from((int)$request->input('difficulty'));
 
         $words = Word::query()
             ->whereBetween('length', [4, $difficulty->gridSize()])

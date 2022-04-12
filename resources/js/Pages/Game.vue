@@ -17,31 +17,31 @@ const trackingGrid = computed(() => {
 })
 
 const form = useForm({
-    word: [],
-    coordinates: []
+    word: new Map,
+    coordinates: new Map
 });
 
 function selectLetter(x, y) {
     trackingGrid.value[x][y].selected = !trackingGrid.value[x][y].selected;
 
-    if (`${x}-${y}` in form.word && `${x}-${y}` in form.coordinates) {
-        delete form.word[`${x}-${y}`];
-        delete form.coordinates[`${x}-${y}`];
+    const key = `${x},${y}`;
+
+    if (form.word.has(key) && form.coordinates.has(key)) {
+        form.word.delete(key);
+        form.coordinates.delete(key);
 
         return;
     }
 
-    form.word[`${x}-${y}`] = props.grid[x][y].letter;
-    form.coordinates[`${x}-${y}`] = [x, y];
-
-    console.log(form);
+    form.word.set(key, props.grid[x][y].letter);
+    form.coordinates.set(key, [x, y]);
 }
 
 function solve() {
     form
         .transform((data) => ({
-            coordinates: Object.values(data.coordinates),
-            word: Object.values(data.word).join('')
+            coordinates: Array.from(data.coordinates.values()),
+            word: Array.from(data.word.values()).join('')
         }))
         .post(`/game/${props.uuid}/solve`, {
             preserveScroll: true,
@@ -88,12 +88,13 @@ function solve() {
           <div class="mt-1 flex rounded-md shadow-sm">
             <input
               id="word"
-              v-model="form.word"
+              :value="Array.from(form.word.values()).join('')"
               type="text"
               disabled
               name="word"
               class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
             >
+            <p>{{ form.word.value }}</p>
           </div>
           <div
             v-if="form.errors.word"

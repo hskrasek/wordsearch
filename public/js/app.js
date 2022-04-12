@@ -22500,29 +22500,29 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
-      word: [],
-      coordinates: []
+      word: new Map(),
+      coordinates: new Map()
     });
 
     function selectLetter(x, y) {
       trackingGrid.value[x][y].selected = !trackingGrid.value[x][y].selected;
+      var key = "".concat(x, ",").concat(y);
 
-      if ("".concat(x, "-").concat(y) in form.word && "".concat(x, "-").concat(y) in form.coordinates) {
-        delete form.word["".concat(x, "-").concat(y)];
-        delete form.coordinates["".concat(x, "-").concat(y)];
+      if (form.word.has(key) && form.coordinates.has(key)) {
+        form.word["delete"](key);
+        form.coordinates["delete"](key);
         return;
       }
 
-      form.word["".concat(x, "-").concat(y)] = props.grid[x][y].letter;
-      form.coordinates["".concat(x, "-").concat(y)] = [x, y];
-      console.log(form);
+      form.word.set(key, props.grid[x][y].letter);
+      form.coordinates.set(key, [x, y]);
     }
 
     function solve() {
       form.transform(function (data) {
         return {
-          coordinates: Object.values(data.coordinates),
-          word: Object.values(data.word).join('')
+          coordinates: Array.from(data.coordinates.values()),
+          word: Array.from(data.word.values()).join('')
         };
       }).post("/game/".concat(props.uuid, "/solve"), {
         preserveScroll: true,
@@ -22571,15 +22571,24 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    difficulties: Array,
-    selectedDifficulty: String
+    difficulties: Array
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
+    var newGame = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
+      difficulty: ''
+    });
+
+    function startGame() {
+      newGame.post('/game');
+    }
+
     var __returned__ = {
+      newGame: newGame,
+      startGame: startGame,
       Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
-      Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
+      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -24010,15 +24019,16 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_9 = {
   "class": "mt-1 flex rounded-md shadow-sm"
 };
-var _hoisted_10 = {
+var _hoisted_10 = ["value"];
+var _hoisted_11 = {
   key: 0,
   "class": "text-red-500"
 };
-var _hoisted_11 = {
+var _hoisted_12 = {
   key: 1,
   "class": "text-red-500"
 };
-var _hoisted_12 = ["disabled"];
+var _hoisted_13 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
     title: 'Game ' + $props.uuid
@@ -24045,28 +24055,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* KEYED_FRAGMENT */
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.solve, ["prevent"])
-  }, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "word",
-    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $setup.form.word = $event;
-    }),
+    value: Array.from($setup.form.word.values()).join(''),
     type: "text",
     disabled: "",
     name: "word",
     "class": "focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-  }, null, 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.word]])]), $setup.form.errors.word ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.word), 1
+  }, null, 8
+  /* PROPS */
+  , _hoisted_10), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.word.value), 1
+  /* TEXT */
+  )]), $setup.form.errors.word ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.word), 1
   /* TEXT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.form.coordinates = $event;
     }),
     disabled: "",
     type: "hidden"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.coordinates]]), $setup.form.errors.coordinates ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.coordinates), 1
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.coordinates]]), $setup.form.errors.coordinates ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.coordinates), 1
   /* TEXT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
@@ -24074,7 +24084,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     disabled: $setup.form.processing
   }, " Solve ", 8
   /* PROPS */
-  , _hoisted_12)], 40
+  , _hoisted_13)], 40
   /* PROPS, HYDRATE_EVENTS */
   , _hoisted_7)])])])], 64
   /* STABLE_FRAGMENT */
@@ -24097,48 +24107,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "relative flex items-top justify-center min-h-screen"
+  "class": "grid grid-cols-1 items-center justify-center"
 };
 var _hoisted_2 = {
   "class": "max-w-6xl mx-auto sm:px-6 lg:px-8"
 };
 
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
-  "class": "text-3xl font-bold underline"
+  "class": "text-3xl font-bold text-center"
 }, " Choose Difficulty ", -1
 /* HOISTED */
 );
 
+var _hoisted_4 = ["onSubmit"];
+var _hoisted_5 = {
+  role: "group"
+};
+var _hoisted_6 = ["value", "onClick"];
+var _hoisted_7 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
-    title: "Welcome"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.difficulties, function (difficulty, i) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
-      key: i
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
-      href: "/game",
+    title: "Start Game"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.startGame, ["prevent"])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.difficulties, function (difficulty, i) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: i,
       type: "button",
-      as: "button",
-      method: "post",
-      data: {
-        difficulty: difficulty
-      },
-      "class": "bg-blue-500"
-    }, {
-      "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-        return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(difficulty.name), 1
-        /* TEXT */
-        )];
-      }),
-      _: 2
-      /* DYNAMIC */
-
-    }, 1032
-    /* PROPS, DYNAMIC_SLOTS */
-    , ["data"])]);
+      value: difficulty.value,
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["inline-block px-6 py-2.5 bg-blue-500 text-white font-semibold text-lg leading-tight uppercase hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-800 transition duration-150 ease-in-out", {
+        'rounded-l': i === 0,
+        'rounded-r': i === $props.difficulties.length - 1
+      }]),
+      onClick: function onClick($event) {
+        return $setup.newGame.difficulty = difficulty.value;
+      }
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(difficulty.name), 11
+    /* TEXT, CLASS, PROPS */
+    , _hoisted_6);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])])])])], 64
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "submit",
+    "class": "inline-block px-6 py-2.5 bg-green-300 text-white font-semibold text-lg leading-tight uppercase hover:bg-green-400 justify-center",
+    disabled: $setup.newGame.processing
+  }, " Start Game ", 8
+  /* PROPS */
+  , _hoisted_7)])], 40
+  /* PROPS, HYDRATE_EVENTS */
+  , _hoisted_4)])])], 64
   /* STABLE_FRAGMENT */
   );
 }
