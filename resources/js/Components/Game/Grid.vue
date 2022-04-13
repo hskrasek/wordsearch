@@ -13,22 +13,14 @@ const emit = defineEmits(['selectCell']);
 function selectedCell(x, y) {
     emit('selectCell', x, y);
 }
-
-// TODO: Revisit click/touch and "drag"
-// function handleDrag(event) {
-//     const cell = document.elementFromPoint(event.clientX, event.clientY);
-//
-//     console.log('Cell value: ');
-//     console.log(cell.textContent);
-// }
 </script>
 
 <template>
-  <div class="bg-white px-4 py-3 flex border-2 border-gray-800 table">
+  <div class="bg-white border-2 border-gray-800 table">
     <div
       v-for="(row, x) in grid"
       :key="x"
-      class="w-full m-0 table-row"
+      class="table-row"
     >
       <Cell
         v-for="(cell, y) in row"
