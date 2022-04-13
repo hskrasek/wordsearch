@@ -13,7 +13,7 @@ const props = defineProps({
 
 // Need a better name for this
 const trackingGrid = computed(() => {
-    return props.grid.map(row => row.map(cell => Object.assign(cell, {selected: false})));
+    return props.grid.map(row => row.map(cell => Object.assign(cell, {selected: false, wrong: false})));
 })
 
 const form = useForm({
@@ -49,7 +49,19 @@ function solve() {
                 form.reset();
             },
             onError() {
-                form.reset();
+                form.reset('word');
+                form.coordinates.forEach((coordinate) => {
+                    const [x, y] = coordinate;
+
+                    trackingGrid.value[x][y].wrong = true;
+                });
+                setTimeout(() => {
+                    form.coordinates.forEach((coordinate) => {
+                        const [x, y] = coordinate;
+                        trackingGrid.value[x][y].wrong = false;
+                    });
+                    form.reset();
+                }, 1000);
             },
         });
 }
@@ -77,7 +89,7 @@ function solve() {
           <li
             v-for="(word, i) in words"
             :key="i"
-            :class="{'line-through': word.found}"
+            :class="{'line-through decoration-solid': word.found}"
           >
             {{ word.text }}
           </li>
