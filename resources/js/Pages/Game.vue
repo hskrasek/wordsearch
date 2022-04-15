@@ -1,7 +1,8 @@
 <script setup>
 import Grid from '../Components/Game/Grid';
+import CompletionScreen from '../Components/Game/CompletionScreen';
 import {Head, useForm} from '@inertiajs/inertia-vue3';
-import {computed, defineProps} from "vue";
+import {computed} from "vue";
 
 const props = defineProps({
     difficulty: String,
@@ -124,4 +125,8 @@ function solve() {
       </div>
     </div>
   </div>
+  <CompletionScreen
+    v-if="is_completed"
+    :game-id="uuid"
+  />
 </template>

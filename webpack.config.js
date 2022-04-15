@@ -7,4 +7,7 @@ module.exports = {
             ziggy: path.resolve("vendor/tightenco/ziggy/dist/vue"),
         },
     },
+    devServer: {
+        writeToDisk: true,
+    },
 };
