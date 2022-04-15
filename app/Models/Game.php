@@ -6,6 +6,7 @@ use App\Casts\Grid as GridCast;
 use App\Game\Difficulty;
 use App\Game\Direction;
 use App\Game\Grid;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -57,13 +58,13 @@ class Game extends Model
      */
     public static function start(Difficulty $difficulty, Collection $words): Game
     {
-        $game             = new self();
+        $game = new self();
         $game->difficulty = $difficulty;
-        $game->uuid       = Str::uuid();
+        $game->uuid = Str::uuid();
 
         $grid = new Grid($difficulty->gridSize());
 
-        $words->each(fn (Word $word) => $grid->insertWord($word->text, Direction::random()));
+        $words->each(fn(Word $word) => $grid->insertWord($word->text, Direction::random()));
 
         $grid->finalize();
 
@@ -73,6 +74,14 @@ class Game extends Model
         $game->words()->attach($words);
 
         return $game;
+    }
+
+    public function isCompleted(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->words
+                    ->filter(fn(Word $word) => $word->session->found)->count() === $this->words->count()
+        );
     }
 
     public function words(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

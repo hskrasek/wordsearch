@@ -34,11 +34,12 @@ class GameResource extends JsonResource
         }
 
         return [
-            'id'         => $this->id,
-            'uuid'       => $this->uuid,
-            'difficulty' => $this->difficulty->name,
-            'grid'       => $grid->toArray(),
-            'words'      => WordResource::collection($this->words->sortBy(fn(Word $word) => $word->text)->values())
+            'id'           => $this->id,
+            'uuid'         => $this->uuid,
+            'difficulty'   => $this->difficulty->name,
+            'is_completed' => $this->isCompleted,
+            'grid'         => $grid->toArray(),
+            'words'        => WordResource::collection($this->words->sortBy(fn(Word $word) => $word->text)->values())
                 ->toArray($request),
         ];
     }

@@ -9,6 +9,7 @@ const props = defineProps({
     grid: Array,
     uuid: String,
     id: Number,
+    is_completed: Boolean
 });
 
 // Need a better name for this

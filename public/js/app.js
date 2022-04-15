@@ -22488,7 +22488,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     words: Array,
     grid: Array,
     uuid: String,
-    id: Number
+    id: Number,
+    is_completed: Boolean
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
