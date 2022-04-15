@@ -21792,12 +21792,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-// eslint-disable-next-line vue/require-prop-types
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['value'],
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
-    expose();
+    expose(); // eslint-disable-next-line vue/require-prop-types
+
     var __returned__ = {};
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -22494,7 +22494,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
-    var props = __props; // Need a better name for this
+    var props = __props;
+    var wordMap = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
+      return Array.from(props.words).reduce(function (carry, word) {
+        carry[word.text] = word.found;
+        return carry;
+      }, {});
+    }); // Need a better name for this
 
     var trackingGrid = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
       return props.grid.map(function (row) {
@@ -22523,6 +22529,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       form.word.set(key, props.grid[x][y].letter);
       form.coordinates.set(key, [x, y]);
+
+      if (Array.from(form.word.values()).join('') in wordMap.value) {
+        solve();
+      }
     }
 
     function solve() {
@@ -22561,6 +22571,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
     var __returned__ = {
       props: props,
+      wordMap: wordMap,
       trackingGrid: trackingGrid,
       form: form,
       selectLetter: selectLetter,
@@ -22849,11 +22860,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "w-8 h-8 table-cell text-center hover:bg-sky-300"
+  "class": "w-8 h-8 table-cell text-center"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["w-full h-full text-base font-semibold align-middle p-0 outline-0 border-none transition-colors duration-500 ease-in-out bg-white", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["w-full h-full text-base font-semibold align-middle p-0 outline-0 border-none hover:bg-sky-300 transition-colors duration-300 ease-in-out bg-white", {
       'bg-green-300': $props.cell.selected,
       'bg-green-400': $props.cell.found,
       'bg-red-500': !$props.cell.found && $props.cell.wrong
@@ -24042,28 +24053,14 @@ var _hoisted_8 = {
 var _hoisted_9 = {
   "class": "container"
 };
-var _hoisted_10 = ["onSubmit"];
-
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "word",
-  "class": "block text-sm font-medium text-gray-700"
-}, " Word ", -1
-/* HOISTED */
-);
-
-var _hoisted_12 = {
-  "class": "mt-1 flex rounded-md shadow-sm"
-};
-var _hoisted_13 = ["value"];
-var _hoisted_14 = {
+var _hoisted_10 = {
   key: 0,
   "class": "text-red-500"
 };
-var _hoisted_15 = {
+var _hoisted_11 = {
   key: 1,
   "class": "text-red-500"
 };
-var _hoisted_16 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
     title: 'Game ' + $props.uuid
@@ -24088,38 +24085,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     );
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.solve, ["prevent"])
-  }, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    id: "word",
-    value: Array.from($setup.form.word.values()).join(''),
-    type: "text",
-    disabled: "",
-    name: "word",
-    "class": "focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-  }, null, 8
-  /* PROPS */
-  , _hoisted_13)]), $setup.form.errors.word ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.word), 1
+  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [$setup.form.errors.word ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.word), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $setup.form.coordinates = $event;
-    }),
-    disabled: "",
-    type: "hidden"
-  }, null, 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.coordinates]]), $setup.form.errors.coordinates ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.coordinates), 1
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.form.errors.coordinates ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.coordinates), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "submit",
-    "class": "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-    disabled: $setup.form.processing
-  }, " Solve ", 8
-  /* PROPS */
-  , _hoisted_16)], 40
-  /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_10)])])])], 64
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])], 64
   /* STABLE_FRAGMENT */
   );
 }

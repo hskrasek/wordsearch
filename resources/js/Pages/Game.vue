@@ -12,6 +12,14 @@ const props = defineProps({
     is_completed: Boolean
 });
 
+const wordMap = computed(() => {
+    return Array.from(props.words).reduce((carry, word) => {
+        carry[word.text] = word.found;
+
+        return carry;
+    }, {});
+});
+
 // Need a better name for this
 const trackingGrid = computed(() => {
     return props.grid.map(row => row.map(cell => Object.assign(cell, {selected: false, wrong: false})));
@@ -36,6 +44,10 @@ function selectLetter(x, y) {
 
     form.word.set(key, props.grid[x][y].letter);
     form.coordinates.set(key, [x, y]);
+
+    if (Array.from(form.word.values()).join('') in wordMap.value) {
+        solve();
+    }
 }
 
 function solve() {
@@ -97,46 +109,18 @@ function solve() {
         </ul>
       </div>
       <div class="container">
-        <form @submit.prevent="solve">
-          <label
-            for="word"
-            class="block text-sm font-medium text-gray-700"
-          > Word </label>
-          <div class="mt-1 flex rounded-md shadow-sm">
-            <input
-              id="word"
-              :value="Array.from(form.word.values()).join('')"
-              type="text"
-              disabled
-              name="word"
-              class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-            >
-          </div>
-          <div
-            v-if="form.errors.word"
-            class="text-red-500"
-          >
-            {{ form.errors.word }}
-          </div>
-          <input
-            v-model="form.coordinates"
-            disabled
-            type="hidden"
-          >
-          <div
-            v-if="form.errors.coordinates"
-            class="text-red-500"
-          >
-            {{ form.errors.coordinates }}
-          </div>
-          <button
-            type="submit"
-            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            :disabled="form.processing"
-          >
-            Solve
-          </button>
-        </form>
+        <div
+          v-if="form.errors.word"
+          class="text-red-500"
+        >
+          {{ form.errors.word }}
+        </div>
+        <div
+          v-if="form.errors.coordinates"
+          class="text-red-500"
+        >
+          {{ form.errors.coordinates }}
+        </div>
       </div>
     </div>
   </div>

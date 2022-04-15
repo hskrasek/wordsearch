@@ -13,9 +13,9 @@ function selectCell() {
 </script>
 
 <template>
-  <div class="w-8 h-8 table-cell text-center hover:bg-sky-300">
+  <div class="w-8 h-8 table-cell text-center">
     <button
-      class="w-full h-full text-base font-semibold align-middle p-0 outline-0 border-none transition-colors duration-500 ease-in-out bg-white"
+      class="w-full h-full text-base font-semibold align-middle p-0 outline-0 border-none hover:bg-sky-300 transition-colors duration-300 ease-in-out bg-white"
       :class="{'bg-green-300': cell.selected, 'bg-green-400': cell.found, 'bg-red-500': !cell.found && cell.wrong}"
       @click="selectCell"
     >
