@@ -12,7 +12,7 @@ declare global {
     declare function route(
         name: string,
         params?: RouteParamsWithQueryOverload,
-        absolute: ?boolean,
+        absolute?: boolean,
         customZiggy?: Config
     ): string;
 }
