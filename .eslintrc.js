@@ -1,6 +1,10 @@
 module.exports = {
-    plugins: ["@typescript-eslint", "vue"],
-    ignorePatterns: ["**/vendor/**/*.js", "ziggy.js"],
+    plugins: ["@typescript-eslint", "vue", "prettier"],
+    ignorePatterns: [
+        "**/vendor/**/*.js",
+        "ziggy.js",
+        "resources/js/ziggy.generated.js",
+    ],
     extends: [
         // add more generic rulesets here, such as:
         "eslint:recommended",
@@ -8,9 +12,13 @@ module.exports = {
         "plugin:vue/base",
         "plugin:vue/vue3-essential",
         "plugin:vue/vue3-recommended",
-        // "prettier",
+        "plugin:prettier/recommended",
     ],
-    parser: "@typescript-eslint/parser",
+    parser: "vue-eslint-parser",
+    parserOptions: {
+        parser: "@typescript-eslint/parser",
+        sourceType: "module",
+    },
     env: {
         browser: true,
         node: true,

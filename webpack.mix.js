@@ -45,6 +45,10 @@ mix.extend(
 );
 
 mix.ts("resources/js/app.ts", "public/js")
+    .eslint({
+        fix: true,
+        extensions: ["js", "ts", "vue"],
+    })
     .vue({ version: 3 })
     .sourceMaps()
     .postCss("resources/css/app.css", "public/css", [

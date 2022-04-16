@@ -1,38 +1,33 @@
 <script setup lang="ts">
-import Cell from './Cell.vue';
-import {Cell as CellType} from '@/Types/Game';
+import Cell from "./Cell.vue";
+import { Cell as CellType } from "@/Types/Game";
 
 defineProps<{
-    grid: Array<Array<CellType>>
+    grid: Array<Array<CellType>>;
 }>();
 
 const emit = defineEmits<{
-    (e: 'selectCell', x: number, y: number): void
-}>()
+    (e: "selectCell", x: number, y: number): void;
+}>();
 
 function selectedCell(x: number, y: number): void {
-    emit('selectCell', x, y);
+    emit("selectCell", x, y);
 }
 </script>
 
 <template>
-  <div class="bg-white border-2 border-gray-800 table">
-    <div
-      v-for="(row, x) in grid"
-      :key="x"
-      class="table-row"
-    >
-      <Cell
-        v-for="(cell, y) in row"
-        :key="y"
-        :cell="cell"
-        :x="x"
-        :y="y"
-        @select-cell="selectedCell"
-      />
+    <div class="table border-2 border-gray-800 bg-white">
+        <div v-for="(row, x) in grid" :key="x" class="table-row">
+            <Cell
+                v-for="(cell, y) in row"
+                :key="y"
+                :cell="cell"
+                :x="x"
+                :y="y"
+                @select-cell="selectedCell"
+            />
+        </div>
     </div>
-  </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
