@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "es2022",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "strict": true,
+        "strictNullChecks": false,
+        "noImplicitReturns": true,
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": false,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "paths": {
+            "@/*": ["./resources/js/*"],
+            "ziggy/*": ["vendor/tightenco/ziggy/dist/*"]
+        },
+        "typeRoots": [
+            "node_modules/@types",
+        ]
+    },
+    "include": [
+        "resources/js/**/*",
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "files": [
+        "resources/js/vue-shims.d.ts",
+        "resources/js/inertia-shims.d.ts",
+        "resources/js/window-shims.d.ts",
+    ]
+}
