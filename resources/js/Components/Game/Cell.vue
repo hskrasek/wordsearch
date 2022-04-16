@@ -1,13 +1,17 @@
-<script setup>
-const props = defineProps({
-    x: Number,
-    y: Number,
-    cell: Object,
-});
+<script setup lang="ts">
+import { Cell } from "@/Types/Game";
 
-const emit = defineEmits(['selectCell']);
+const props = defineProps<{
+    x: number,
+    y: number,
+    cell: Cell
+}>();
 
-function selectCell() {
+const emit = defineEmits<{
+    (e: 'selectCell', x: number, y: number): void
+}>();
+
+function selectCell(): void {
     emit('selectCell', props.x, props.y);
 }
 </script>

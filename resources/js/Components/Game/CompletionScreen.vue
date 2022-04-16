@@ -1,30 +1,37 @@
-<script setup>
+<script setup lang="ts">
 import {onMounted, reactive} from "vue";
 import { Link } from '@inertiajs/inertia-vue3';
 import axios from 'axios';
-import dayjs from 'dayjs';
-import calendar from 'dayjs/plugin/calendar';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import ObjectSupport from 'dayjs/plugin/objectSupport';
+import * as dayjs from 'dayjs';
+import * as calendar from 'dayjs/plugin/calendar';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
+import * as ObjectSupport from 'dayjs/plugin/objectSupport';
 
 dayjs.extend(calendar)
 dayjs.extend(relativeTime);
 dayjs.extend(ObjectSupport);
 
-const props = defineProps({
-    gameId: String
-});
+interface Stats {
+    took?: number | string,
+    started_at?: string,
+    first_word_found_at?: string,
+    finished_at?: string,
+}
 
-const stats = reactive({});
+const props = defineProps<{
+    gameId: string
+}>();
+
+const stats: Stats = reactive({});
 
 onMounted(async () => {
     axios.get(`/api/games/${props.gameId}/stats`)
         .then((response) => {
             Object.assign(stats, response.data);
 
-            let hours = Math.floor(stats.took / 3600);
-            let minutes = Math.floor(stats.took / 60);
-            let seconds = stats.took - minutes * 60;
+            let hours = Math.floor((stats.took as number) / 3600);
+            let minutes = Math.floor((stats.took as number) / 60);
+            let seconds = (stats.took as number) - minutes * 60;
 
             stats.took = `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
             stats.started_at = dayjs(response.data.started_at).calendar();

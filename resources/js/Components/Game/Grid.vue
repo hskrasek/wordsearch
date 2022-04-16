@@ -1,16 +1,16 @@
-<script setup>
-import Cell from './Cell';
+<script setup lang="ts">
+import Cell from './Cell.vue';
+import {Cell as CellType} from '@/Types/Game';
 
-defineProps({
-    grid: {
-        type: Array,
-        default: () => []
-    }
-});
+defineProps<{
+    grid: Array<Array<CellType>>
+}>();
 
-const emit = defineEmits(['selectCell']);
+const emit = defineEmits<{
+    (e: 'selectCell', x: number, y: number): void
+}>()
 
-function selectedCell(x, y) {
+function selectedCell(x: number, y: number): void {
     emit('selectCell', x, y);
 }
 </script>

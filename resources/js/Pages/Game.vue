@@ -1,20 +1,20 @@
-<script setup>
-import Grid from '../Components/Game/Grid';
-import CompletionScreen from '../Components/Game/CompletionScreen';
+<script setup lang="ts">
+import Grid from '../Components/Game/Grid.vue';
+import CompletionScreen from '../Components/Game/CompletionScreen.vue';
 import {Head, useForm} from '@inertiajs/inertia-vue3';
 import {computed} from "vue";
+import {Cell, Word} from "@/Types/Game";
 
-const props = defineProps({
-    difficulty: String,
-    words: Array,
-    grid: Array,
-    uuid: String,
-    id: Number,
-    is_completed: Boolean
-});
+const props = defineProps<{
+    uuid: string,
+    difficulty: string,
+    is_completed: boolean,
+    words: Array<Word>,
+    grid: Array<Array<Cell>>,
+}>();
 
-const wordMap = computed(() => {
-    return Array.from(props.words).reduce((carry, word) => {
+const wordMap = computed<object>((): object => {
+    return Array.from(props.words).reduce((carry: object, word: Word): object => {
         carry[word.text] = word.found;
 
         return carry;
@@ -31,7 +31,7 @@ const form = useForm({
     coordinates: new Map
 });
 
-function selectLetter(x, y) {
+function selectLetter(x: number, y: number): void {
     trackingGrid.value[x][y].selected = !trackingGrid.value[x][y].selected;
 
     const key = `${x},${y}`;
