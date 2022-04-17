@@ -2,7 +2,7 @@
 import Grid from "../Components/Game/Grid.vue";
 import CompletionScreen from "../Components/Game/CompletionScreen.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
-import { computed } from "vue";
+import { computed, ref, onMounted, onUnmounted, reactive } from "vue";
 import { Cell, Word } from "@/Types/Game";
 
 const props = defineProps<{
@@ -27,8 +27,8 @@ const wordMap = computed<{ [key: string]: boolean }>(() => {
 
 // Need a better name for this
 const trackingGrid = computed(() => {
-    return props.grid.map((row) =>
-        row.map((cell) =>
+    return props.grid.map((row: Array<Cell>) =>
+        row.map((cell: Cell) =>
             Object.assign(cell, { selected: false, wrong: false })
         )
     );
@@ -39,8 +39,48 @@ const form = useForm({
     coordinates: new Map(),
 });
 
+// New selection mechanism:
+// Click to select start of the word, start mouse move listener
+// Use mouse pointer to select end of word
+// Calculate pointer location path
+// Select cells along path
+const coordinateTracker = reactive<{
+    start?: {
+        x: number;
+        y: number;
+    };
+    end?: {
+        x: number;
+        y: number;
+    };
+}>({});
+
+const x = ref<number>(0);
+const y = ref<number>(0);
+
+function update(event: MouseEvent) {
+    x.value = event.pageX;
+    y.value = event.pageY;
+}
+
+onMounted(() => window.addEventListener("mousemove", update));
+onUnmounted(() => window.removeEventListener("mousemove", update));
+
 function selectLetter(x: number, y: number): void {
     trackingGrid.value[x][y].selected = !trackingGrid.value[x][y].selected;
+
+    if (
+        coordinateTracker.start !== undefined &&
+        coordinateTracker.end === undefined
+    ) {
+        coordinateTracker.end = { x, y };
+
+        console.log(coordinateTracker);
+    }
+
+    if (coordinateTracker.start === undefined) {
+        coordinateTracker.start = { x, y };
+    }
 
     const key = `${x},${y}`;
 
@@ -70,13 +110,13 @@ function solve() {
         },
         onError() {
             form.reset("word");
-            form.coordinates.forEach((coordinate) => {
+            form.coordinates.forEach((coordinate: Array<number>): void => {
                 const [x, y] = coordinate;
 
                 trackingGrid.value[x][y].wrong = true;
             });
             setTimeout(() => {
-                form.coordinates.forEach((coordinate) => {
+                form.coordinates.forEach((coordinate: Array<number>): void => {
                     const [x, y] = coordinate;
                     trackingGrid.value[x][y].wrong = false;
                 });
@@ -114,6 +154,7 @@ function solve() {
                 </ul>
             </div>
             <div class="container">
+                <p>Mouse position is at: {{ x }}, {{ y }}</p>
                 <div v-if="form.errors.word" class="text-red-500">
                     {{ form.errors.word }}
                 </div>
