@@ -4,6 +4,7 @@ import CompletionScreen from "../Components/Game/CompletionScreen.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import { computed, ref, onMounted, onUnmounted, reactive } from "vue";
 import { Cell, Word } from "@/Types/Game";
+import { bresenham } from "@/utils";
 
 const props = defineProps<{
     uuid: string;
@@ -13,17 +14,6 @@ const props = defineProps<{
     words: Array<Word>;
     grid: Array<Array<Cell>>;
 }>();
-
-const wordMap = computed<{ [key: string]: boolean }>(() => {
-    return Array.from(props.words).reduce(
-        (carry: object, word: Word): object => {
-            carry[word.text] = word.found;
-
-            return carry;
-        },
-        {}
-    );
-});
 
 // Need a better name for this
 const trackingGrid = computed(() => {
@@ -66,25 +56,40 @@ function update(event: MouseEvent) {
 onMounted(() => window.addEventListener("mousemove", update));
 onUnmounted(() => window.removeEventListener("mousemove", update));
 
-function selectLetter(x: number, y: number): void {
-    trackingGrid.value[x][y].selected = !trackingGrid.value[x][y].selected;
-
+function letterSelector(x: number, y: number): void {
     if (
         coordinateTracker.start !== undefined &&
         coordinateTracker.end === undefined
     ) {
         coordinateTracker.end = { x, y };
 
-        console.log(coordinateTracker);
+        for (let point of bresenham(
+            coordinateTracker.start.x,
+            coordinateTracker.start.y,
+            coordinateTracker.end.x,
+            coordinateTracker.end.y
+        )) {
+            selectLetter(point.x, point.y, true);
+        }
+
+        selectLetter(x, y);
+
+        solve();
+
+        return;
     }
 
-    if (coordinateTracker.start === undefined) {
-        coordinateTracker.start = { x, y };
-    }
+    coordinateTracker.start = { x, y };
+    selectLetter(x, y);
+}
+
+function selectLetter(x: number, y: number, state?: boolean): void {
+    trackingGrid.value[x][y].selected =
+        state || !trackingGrid.value[x][y].selected;
 
     const key = `${x},${y}`;
 
-    if (form.word.has(key) && form.coordinates.has(key)) {
+    if (form.word.has(key) && form.coordinates.has(key) && !state) {
         form.word.delete(key);
         form.coordinates.delete(key);
 
@@ -93,10 +98,6 @@ function selectLetter(x: number, y: number): void {
 
     form.word.set(key, props.grid[x][y].letter);
     form.coordinates.set(key, [x, y]);
-
-    if (Array.from(form.word.values()).join("") in wordMap.value) {
-        solve();
-    }
 }
 
 function solve() {
@@ -109,6 +110,8 @@ function solve() {
             form.reset();
         },
         onError() {
+            coordinateTracker.start = undefined;
+            coordinateTracker.end = undefined;
             form.reset("word");
             form.coordinates.forEach((coordinate: Array<number>): void => {
                 const [x, y] = coordinate;
@@ -121,7 +124,7 @@ function solve() {
                     trackingGrid.value[x][y].wrong = false;
                 });
                 form.reset();
-            }, 1000);
+            }, 500);
         },
     });
 }
@@ -134,7 +137,7 @@ function solve() {
         <Grid
             :grid="trackingGrid"
             class="col-span-1"
-            @select-cell="selectLetter"
+            @select-cell="letterSelector"
         />
         <div class="col-span-1 border-2 border-gray-800 p-1.5">
             <h1 class="text-lg font-bold">
