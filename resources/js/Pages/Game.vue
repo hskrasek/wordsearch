@@ -24,6 +24,10 @@ const trackingGrid = computed(() => {
     );
 });
 
+const totalWordsToFind = computed<number>(() => {
+    return props.words.filter((word: Word) => !word.found).length;
+});
+
 const form = useForm({
     word: new Map(),
     coordinates: new Map(),
@@ -108,6 +112,8 @@ function solve() {
         preserveScroll: true,
         onSuccess() {
             form.reset();
+            coordinateTracker.start = undefined;
+            coordinateTracker.end = undefined;
         },
         onError() {
             coordinateTracker.start = undefined;
@@ -140,11 +146,11 @@ function solve() {
             @select-cell="letterSelector"
         />
         <div class="col-span-1 border-2 border-gray-800 p-1.5">
-            <h1 class="text-lg font-bold">
+            <h2 class="text-lg font-bold">
                 Difficulty: <span class="font-medium">{{ difficulty }}</span>
-            </h1>
+            </h2>
             <hr />
-            <h1 class="text-lg font-bold">Words:</h1>
+            <h2 class="text-lg font-bold">Words ({{ totalWordsToFind }}):</h2>
             <div class="columns-2">
                 <ul>
                     <li
@@ -156,8 +162,27 @@ function solve() {
                     </li>
                 </ul>
             </div>
+            <hr />
             <div class="container">
-                <p>Mouse position is at: {{ x }}, {{ y }}</p>
+                <h2 class="text-lg font-bold">Instructions:</h2>
+                <ol class="list-inside list-decimal">
+                    <li>
+                        Locate the given words in the gird.
+                        <!--                        <ul class="list-disc">-->
+                        <!--                            <li class="indent-0.5">-->
+                        <!--                                Words can be found in one of eight possible-->
+                        <!--                                directions:-->
+                        <!--                            </li>-->
+                        <!--                        </ul>-->
+                    </li>
+                    <li>
+                        To mark a word as found, click the first letter of the
+                        word.<br />
+                        Then click the last letter of the word.
+                    </li>
+                    <li>TODO: Make these instructions better</li>
+                </ol>
+                <!-- <p>Mouse position is at: {{ x }}, {{ y }}</p>-->
                 <div v-if="form.errors.word" class="text-red-500">
                     {{ form.errors.word }}
                 </div>

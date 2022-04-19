@@ -42,6 +42,7 @@
     "dependencies": {
         "@types/lodash": "^4.14.181",
         "@types/ziggy-js": "^1.3.1",
-        "dayjs": "^1.11.1"
+        "dayjs": "^1.11.1",
+        "vue-plausible": "^1.3.1"
     }
 }

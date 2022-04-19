@@ -11,6 +11,7 @@ module.exports = {
         },
         fallback: {
             fs: false,
+            path: false,
         },
     },
     devServer: {

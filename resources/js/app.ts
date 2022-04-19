@@ -4,6 +4,7 @@ import { InertiaProgress } from "@inertiajs/progress";
 import route from "@/ziggy";
 import { ZiggyVue } from "ziggy/vue.es";
 import Guest from "@/Layouts/Guest.vue";
+// import { VuePlausible } from "vue-plausible";
 
 require("./bootstrap");
 
@@ -22,6 +23,7 @@ createInertiaApp({
         createApp({ render: () => h(app, props) })
             .use(plugin)
             .use(ZiggyVue)
+            // .use(VuePlausible)
             .mixin({ methods: { route } })
             .mount(el);
     },
