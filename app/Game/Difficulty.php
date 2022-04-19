@@ -15,6 +15,17 @@ enum Difficulty: int
     case Hard = 2;
     case Insane = 3;
 
+    public static function fromName(string $name): ?Difficulty
+    {
+        return match (true) {
+            self::Easy->name === $name => self::Easy,
+            self::Medium->name === $name => self::Medium,
+            self::Hard->name === $name => self::Hard,
+            self::Insane->name === $name => self::Insane,
+            default => null
+        };
+    }
+
     public function wordCount(): int
     {
         return match ($this) {

@@ -30,7 +30,7 @@ Route::get('games/{game}', function (Request $request, Game $game) {
 
 Route::get('games/{game}/stats', function (Request $request, Game $game) {
     /** @var Collection<Carbon> $timings */
-    $timings = $game->words->map(fn(Word $word) => Carbon::parse($word->session->found_at));
+    $timings = $game->words->map(fn(Word $word) => Carbon::parse($word->session->found_at))->sort();
     $took    = $timings->last()->diffInSeconds($game->created_at);
 
     return [
