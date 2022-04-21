@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Game\Difficulty;
+use App\Http\Requests\CreateGame as CreateGameRequest;
 use App\Models\Game;
 use App\Models\Word;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class CreateGame extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(CreateGameRequest $request): RedirectResponse
     {
-        $difficulty = Difficulty::fromName($request->input('difficulty')) ?? Difficulty::tryFrom((int)$request->input('difficulty'));
+        $difficulty = $request->difficulty();
 
         $words = Word::query()
             ->whereBetween('length', [4, $difficulty->gridSize()])
