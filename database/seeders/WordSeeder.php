@@ -21,103 +21,187 @@ class WordSeeder extends Seeder
         // $words->keys()->each(fn(string $word) => Word::create(['text' => Str::upper($word)]));
         Word::create(
             [
-                'text' => 'APPLE'
+                'text' => 'DESTINY',
             ]
         );
 
         Word::create(
             [
-                'text' => 'HALO'
+                'text' => 'DARKNESS',
             ]
         );
 
         Word::create(
             [
-                'text' => 'DESTINY'
+                'text' => 'SCORN',
             ]
         );
 
         Word::create(
             [
-                'text' => 'GUARDIAN'
+                'text' => 'HIVE',
             ]
         );
 
         Word::create(
             [
-                'text' => 'WITNESS'
+                'text' => 'WITNESS',
             ]
         );
 
         Word::create(
             [
-                'text' => 'LIGHT'
+                'text' => 'GUARDIAN',
             ]
         );
 
         Word::create(
             [
-                'text' => 'DARKNESS'
+                'text' => 'SAVATHUN'
             ]
         );
 
         Word::create(
             [
-                'text' => 'SCORN'
+                'text' => 'BLACK'
             ]
         );
 
         Word::create(
             [
-                'text' => 'HIVE'
+                'text' => 'GARDEN'
             ]
         );
 
         Word::create(
             [
-                'text' => 'LOVE'
+                'text' => 'TOWER'
             ]
         );
 
         Word::create(
             [
-                'text' => 'ENTER'
+                'text' => 'EARTH'
             ]
         );
 
         Word::create(
             [
-                'text' => 'GIVE'
+                'text' => 'ASCENDANT',
             ]
         );
 
         Word::create(
             [
-                'text' => 'COMMUNE'
+                'text' => 'PLANE',
             ]
         );
 
         Word::create(
             [
-                'text' => 'KILL'
+                'text' => 'FLEET',
             ]
         );
 
         Word::create(
             [
-                'text' => 'TRAVELLER'
+                'text' => 'PYRAMID',
+            ]
+        );
+
+
+        Word::create(
+            [
+                'text' => 'TRAVELLER',
+            ]
+        );
+
+
+        Word::create(
+            [
+                'text' => 'WORM',
+            ]
+        );
+
+
+        Word::create(
+            [
+                'text' => 'HEART',
             ]
         );
 
         Word::create(
             [
-                'text' => 'PYRAMID'
+                'text' => 'LIGHT',
+            ]
+        );
+
+
+        Word::create(
+            [
+                'text' => 'BLANK',
+            ]
+        );
+
+
+        Word::create(
+            [
+                'text' => 'WORSHIP',
+            ]
+        );
+
+
+        Word::create(
+            [
+                'text' => 'DRINK',
             ]
         );
 
         Word::create(
             [
-                'text' => 'ASCENDANT'
+                'text' => 'STOP',
+            ]
+        );
+
+        Word::create(
+            [
+                'text' => 'COMMUNE',
+            ]
+        );
+
+        Word::create(
+            [
+                'text' => 'LOVE',
+            ]
+        );
+
+        Word::create(
+            [
+                'text' => 'GRIEVE',
+            ]
+        );
+
+        Word::create(
+            [
+                'text' => 'REMEMBER',
+            ]
+        );
+
+        Word::create(
+            [
+                'text' => 'KILL',
+            ]
+        );
+
+        Word::create(
+            [
+                'text' => 'GIVE',
+            ]
+        );
+
+        Word::create(
+            [
+                'text' => 'ENTER',
             ]
         );
     }

@@ -26,3 +26,14 @@ export function* bresenham(x0: number, y0: number, x1: number, y1: number) {
         }
     }
 }
+
+export function getCoords(element: HTMLElement) {
+    const box = element.getBoundingClientRect();
+
+    return {
+        top: box.top + window.scrollY,
+        right: box.right + window.scrollX,
+        bottom: box.bottom + window.scrollY,
+        left: box.left + window.scrollX,
+    };
+}

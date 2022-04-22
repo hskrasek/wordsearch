@@ -49,16 +49,47 @@ const coordinateTracker = reactive<{
     };
 }>({});
 
+const cursorPositions = reactive<{
+    start?: {
+        x: number;
+        y: number;
+    };
+    end?: {
+        x: number;
+        y: number;
+    };
+}>({});
+
 const x = ref<number>(0);
 const y = ref<number>(0);
 
 function update(event: MouseEvent) {
-    x.value = event.pageX;
-    y.value = event.pageY;
+    if (
+        cursorPositions.start !== undefined &&
+        cursorPositions.end === undefined
+    ) {
+        cursorPositions.end = { x: event.pageX, y: event.pageY };
+
+        console.log(cursorPositions);
+        console.log(
+            Array.from(
+                bresenham(
+                    cursorPositions.start.x,
+                    cursorPositions.start.y,
+                    cursorPositions.end.x,
+                    cursorPositions.end.y
+                )
+            )
+        );
+
+        return;
+    }
+
+    cursorPositions.start = { x: event.pageX, y: event.pageY };
 }
 
-onMounted(() => window.addEventListener("mousemove", update));
-onUnmounted(() => window.removeEventListener("mousemove", update));
+onMounted(() => window.addEventListener("click", update));
+onUnmounted(() => window.removeEventListener("click", update));
 
 function letterSelector(x: number, y: number): void {
     if (
