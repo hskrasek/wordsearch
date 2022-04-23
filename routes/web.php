@@ -20,7 +20,7 @@ use Inertia\Inertia;
 
 Route::get('/', Home::class)->name('home');
 
-Route::post('/game', CreateGame::class)->name('game');
+Route::post('/game', CreateGame::class)->name('game.create');
 Route::get('/game/{game}', Game::class)->name('game.play');
 Route::post('/game/{game}/solve', SolveGame::class)->name('game.solve');
 
