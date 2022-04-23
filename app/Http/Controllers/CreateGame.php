@@ -13,10 +13,8 @@ class CreateGame extends Controller
     {
         $difficulty = $request->difficulty();
 
-        $words = Word::query()
-            ->whereBetween('length', [4, $difficulty->gridSize()])
+        $words = Word::difficulty($difficulty)
             ->inRandomOrder()
-            ->limit($difficulty->wordCount())
             ->get();
 
         $game = Game::start($difficulty, $words);

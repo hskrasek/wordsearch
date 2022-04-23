@@ -26,23 +26,28 @@ enum Difficulty: int
         };
     }
 
+    public function minimumWordLength(): int
+    {
+        return match ($this) {
+            self::Easy => 6,
+            self::Medium => 5,
+            self::Hard => 4,
+            self::Insane => 2,
+        };
+    }
+
     public function wordCount(): int
     {
         return match ($this) {
-            self::Easy => 4,
-            self::Medium => 9,
+            self::Easy => 6,
+            self::Medium => 10,
             self::Hard => 16,
-            self::Insane => 25,
+            self::Insane => 24,
         };
     }
 
     public function gridSize(): int
     {
-        return match ($this) {
-            self::Easy => 10,
-            self::Medium => 16,
-            self::Hard => 26,
-            self::Insane => 34,
-        };
+        return 16;
     }
 }
