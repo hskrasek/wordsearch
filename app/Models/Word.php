@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $frequency
+ * @method static \Illuminate\Database\Eloquent\Builder|Word whereFrequency($value)
  */
 class Word extends Model
 {
