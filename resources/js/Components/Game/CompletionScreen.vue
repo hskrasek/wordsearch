@@ -57,7 +57,7 @@ onMounted(async () => {
                 class="mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 text-lg font-semibold uppercase leading-tight text-white hover:bg-green-400"
                 as="button"
                 method="post"
-                :href="route('game')"
+                :href="route('game.create')"
                 :data="{ difficulty: stats.difficulty }"
             >
                 Quick Play

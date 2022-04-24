@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Word;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\LazyCollection;
 
 class WordSeeder extends Seeder
 {
@@ -17,192 +18,45 @@ class WordSeeder extends Seeder
      */
     public function run()
     {
-        // $words = LazyCollection::make($this->container->make('words'));
-        // $words->keys()->each(fn(string $word) => Word::create(['text' => Str::upper($word)]));
-        Word::create(
-            [
-                'text' => 'DESTINY',
-            ]
-        );
+        if (Word::count() > 0) {
+            $this->command->alert('Words table has data, please truncate table before proceeding');
 
-        Word::create(
-            [
-                'text' => 'DARKNESS',
-            ]
-        );
+            return;
+        }
 
-        Word::create(
-            [
-                'text' => 'SCORN',
-            ]
-        );
+        $now = now();
 
-        Word::create(
-            [
-                'text' => 'HIVE',
-            ]
-        );
+        LazyCollection::make(function () {
+            $handle = fopen(\Storage::disk('local')->path('unigram_freq.csv'), 'rb');
 
-        Word::create(
-            [
-                'text' => 'WITNESS',
-            ]
-        );
+            while ($line = fgetcsv($handle)) {
+                yield $line;
+            }
+        })->chunk(10_000)->each(function (LazyCollection $lines, int $chunkNumber) use ($now) {
+            $chunkNumber++;
+            $words = [];
+            foreach ($lines as $line) {
+                if ($line[1] === 'count') {
+                    continue;
+                }
 
-        Word::create(
-            [
-                'text' => 'GUARDIAN',
-            ]
-        );
+                $words[] = [
+                    'text'       => \Str::upper($line[0]),
+                    'frequency'  => $line[1],
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            }
 
-        Word::create(
-            [
-                'text' => 'SAVATHUN'
-            ]
-        );
+            Word::insert($words);
+            $this->command->info(
+                "Memory usage after {$lines->count()} words in chunk #$chunkNumber: " . number_format(
+                    memory_get_peak_usage() / 1048576,
+                    2
+                ) . ' MB'
+            );
+        });
 
-        Word::create(
-            [
-                'text' => 'BLACK'
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'GARDEN'
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'TOWER'
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'EARTH'
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'ASCENDANT',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'PLANE',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'FLEET',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'PYRAMID',
-            ]
-        );
-
-
-        Word::create(
-            [
-                'text' => 'TRAVELLER',
-            ]
-        );
-
-
-        Word::create(
-            [
-                'text' => 'WORM',
-            ]
-        );
-
-
-        Word::create(
-            [
-                'text' => 'HEART',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'LIGHT',
-            ]
-        );
-
-
-        Word::create(
-            [
-                'text' => 'BLANK',
-            ]
-        );
-
-
-        Word::create(
-            [
-                'text' => 'WORSHIP',
-            ]
-        );
-
-
-        Word::create(
-            [
-                'text' => 'DRINK',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'STOP',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'COMMUNE',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'LOVE',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'GRIEVE',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'REMEMBER',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'KILL',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'GIVE',
-            ]
-        );
-
-        Word::create(
-            [
-                'text' => 'ENTER',
-            ]
-        );
+        $this->command->info('Final memory usage: ' . number_format(memory_get_peak_usage() / 1048576, 2) . ' MB');
     }
 }

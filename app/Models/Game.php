@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Grid as GridCast;
+use App\Exceptions\Game\GridException;
 use App\Game\Difficulty;
 use App\Game\Direction;
 use App\Game\Grid;
@@ -52,26 +53,44 @@ class Game extends Model
 
     /**
      * @param Difficulty $difficulty
-     * @param Collection<Word> $words
+     * @param Collection<Word>|\Illuminate\Database\Eloquent\Collection<Word> $words
      *
      * @return Game
      */
-    public static function start(Difficulty $difficulty, Collection $words): Game
+    public static function start(Difficulty $difficulty, \Illuminate\Database\Eloquent\Collection|Collection $words): Game
     {
         $game = new self();
         $game->difficulty = $difficulty;
         $game->uuid = Str::uuid();
 
-        $grid = new Grid($difficulty->gridSize());
+        $game->grid = new Grid($difficulty->gridSize());
 
-        $words->each(fn(Word $word) => $grid->insertWord($word->text, Direction::random()));
+        $successfulWords = \Illuminate\Database\Eloquent\Collection::make();
 
-        $grid->finalize();
+        /** @var Word $word */
+        while (!($word = $words->pop()) instanceof Collection && $word !== null) {
+            try {
+                $game->grid->insertWord($word->text, Direction::random());
+                $successfulWords->push($word);
+            } catch (GridException $exception) {
+                $words = Word::excludeWords(
+                    ...[
+                           ...$words,
+                           ...$successfulWords,
+                        $word
+                       ]
+                )
+                    ->difficulty($difficulty)
+                    ->inRandomOrder()
+                    ->limit($difficulty->wordCount() - $successfulWords->count())
+                    ->get();
+            }
+        }
 
-        $game->grid = $grid;
+        $game->grid->finalize();
 
         $game->save();
-        $game->words()->attach($words);
+        $game->words()->sync($successfulWords);
 
         return $game;
     }
