@@ -72,21 +72,28 @@ onMounted(async () => {
             </table>
             <Link
                 type="submit"
-                class="mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 text-lg font-semibold uppercase leading-tight text-white hover:bg-green-400"
+                class="mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 hover:bg-green-400"
                 as="button"
                 :href="route('home')"
             >
-                New Game
+                <span
+                    class="text-lg font-semibold uppercase leading-tight text-white"
+                    >New Game</span
+                >
             </Link>
             <Link
                 type="submit"
-                class="mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 text-lg font-semibold uppercase leading-tight text-white hover:bg-green-400"
+                class="mt-1.5 inline-block justify-center bg-green-300 px-4 py-2.5 hover:bg-green-400"
                 as="button"
                 method="post"
                 :href="route('game.create')"
                 :data="{ difficulty: stats.difficulty }"
             >
-                Quick Play
+                <span
+                    class="text-lg font-semibold uppercase leading-none text-white"
+                >
+                    Quick Play
+                </span>
             </Link>
         </div>
     </div>
