@@ -21,14 +21,11 @@ Route::middleware('auth:sanctum')->name('user.info')->get('/user', function (Req
     return $request->user();
 });
 
-Route::controller(Game::class)
-    ->name('games.info')
-    ->get('games/{game}');
+Route::name('games.info')
+    ->get('games/{game}', Game::class);
 
-Route::controller(GameStats::class)
-    ->name('game.stats')
-    ->get('games/{game}/stats');
+Route::name('game.stats')
+    ->get('games/{game}/stats', GameStats::class);
 
-Route::controller(CreateGame::class)
-    ->name('game.create')
-    ->post('games');
+Route::name('game.create')
+    ->post('games', CreateGame::class);
