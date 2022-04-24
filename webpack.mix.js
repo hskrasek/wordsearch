@@ -50,7 +50,6 @@ mix.ts("resources/js/app.ts", "public/js")
         extensions: ["js", "ts", "vue"],
     })
     .vue({ version: 3 })
-    .sourceMaps()
     .postCss("resources/css/app.css", "public/css", [
         require("postcss-import"),
         require("tailwindcss"),
@@ -63,5 +62,5 @@ mix.ts("resources/js/app.ts", "public/js")
     });
 
 if (mix.inProduction()) {
-    mix.version();
+    mix.version().sourceMaps();
 }

@@ -725,15 +725,6 @@ select {
 .mb-4 {
   margin-bottom: 1rem;
 }
-.-mt-1 {
-  margin-top: -0.25rem;
-}
-.-mt-2 {
-  margin-top: -0.5rem;
-}
-.-mt-1\.5 {
-  margin-top: -0.375rem;
-}
 .block {
   display: block;
 }
@@ -826,9 +817,6 @@ select {
 }
 .max-w-lg {
   max-width: 32rem;
-}
-.max-w-md {
-  max-width: 28rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1096,41 +1084,13 @@ select {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
-.py-2\.5 {
-  padding-top: 0.625rem;
-  padding-bottom: 0.625rem;
-}
-.py-1\.5 {
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
-}
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-.px-7 {
-  padding-left: 1.75rem;
-  padding-right: 1.75rem;
-}
-.px-\[1\.625rem\] {
-  padding-left: 1.625rem;
-  padding-right: 1.625rem;
-}
-.px-\[1\.635rem\] {
-  padding-left: 1.635rem;
-  padding-right: 1.635rem;
-}
-.px-\[1\.650rem\] {
-  padding-left: 1.650rem;
-  padding-right: 1.650rem;
-}
-.px-\[1\.645rem\] {
-  padding-left: 1.645rem;
-  padding-right: 1.645rem;
-}
 .px-\[1\.640rem\] {
   padding-left: 1.640rem;
   padding-right: 1.640rem;
+}
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
 }
 .pt-8 {
   padding-top: 2rem;
@@ -1159,26 +1119,11 @@ select {
 .pt-6 {
   padding-top: 1.5rem;
 }
-.pt-2\.5 {
-  padding-top: 0.625rem;
-}
-.pb-2\.5 {
-  padding-bottom: 0.625rem;
-}
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
 .text-left {
   text-align: left;
 }
 .text-center {
   text-align: center;
-}
-.indent-0\.5 {
-  text-indent: 0.125rem;
-}
-.indent-0 {
-  text-indent: 0px;
 }
 .align-middle {
   vertical-align: middle;
@@ -1223,11 +1168,11 @@ select {
 .font-bold {
   font-weight: 700;
 }
-.font-thin {
-  font-weight: 100;
-}
 .font-normal {
   font-weight: 400;
+}
+.font-thin {
+  font-weight: 100;
 }
 .uppercase {
   text-transform: uppercase;
