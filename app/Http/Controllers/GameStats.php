@@ -18,15 +18,29 @@ class GameStats extends Controller
         $timings = $game->words->map(fn(Word $word) => Carbon::parse($word->session->found_at))->sort();
         $took    = $timings->last()->diffInSeconds($game->created_at);
 
+        $averageSecondsBetweenWords = round($timings->prepend($game->created_at)->pipe(function (Collection $timings) {
+            return $timings->map(function (Carbon $timestamp, int $key) use ($timings) {
+                /** @var Carbon|null $nextTimestamp */
+                $nextTimestamp = $timings->get(($key + 1));
+
+                if ($nextTimestamp === null) {
+                    return 0; //TODO: Refactor out magic number
+                }
+
+                return $nextTimestamp->diffInSeconds($timestamp);
+            });
+        })->avg());
+
         return \response()->json(
             [
-                'difficulty'          => $game->difficulty->name,
-                'total_words'         => $game->words->count(),
-                'completed'           => true,
-                'took'                => $took,
-                'started_at'          => $game->created_at,
-                'first_word_found_at' => $timings->first(),
-                'finished_at'         => $timings->last(),
+                'difficulty'            => $game->difficulty->name,
+                'total_words'           => $game->words->count(),
+                'completed'             => true,
+                'took'                  => $took,
+                'average_between_words' => $averageSecondsBetweenWords,
+                'started_at'            => $game->created_at,
+                'first_word_found_at'   => $timings->first(),
+                'finished_at'           => $timings->last(),
             ]
         );
     }

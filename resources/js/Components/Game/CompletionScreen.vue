@@ -11,13 +11,15 @@ interface Stats {
     first_word_found_at?: string;
     finished_at?: string;
     difficulty?: string;
+    total_words?: number;
+    average_between_words?: number;
 }
 
 const props = defineProps<{
     gameId: string;
 }>();
 
-const stats: Stats = reactive({});
+const stats = reactive<Stats>({});
 
 onMounted(async () => {
     api.gameStats(props.gameId).then((gameStats) =>
@@ -35,13 +37,37 @@ onMounted(async () => {
         >
             <h2 class="text-3xl font-bold">Completed!</h2>
             <table class="mx-auto table-fixed border-2 border-gray-800">
-                <tr
-                    v-for="(value, key) in stats"
-                    :key="key"
-                    class="border border-black odd:bg-slate-200 even:bg-white"
-                >
-                    <th class="border-r border-black text-left">{{ key }}:</th>
-                    <td>{{ value }}</td>
+                <tr class="border border-black odd:bg-slate-200 even:bg-white">
+                    <th class="border-r border-black text-left">Difficulty:</th>
+                    <td>{{ stats.difficulty }}</td>
+                </tr>
+                <tr class="border border-black odd:bg-slate-200 even:bg-white">
+                    <th class="border-r border-black text-left">
+                        Total Words:
+                    </th>
+                    <td>{{ stats.total_words }}</td>
+                </tr>
+                <tr class="border border-black odd:bg-slate-200 even:bg-white">
+                    <th class="border-r border-black text-left">
+                        Avg. Time Finding a Word:
+                    </th>
+                    <td>{{ stats.average_between_words }} seconds</td>
+                </tr>
+                <tr class="border border-black odd:bg-slate-200 even:bg-white">
+                    <th class="border-r border-black text-left">
+                        Time to Complete:
+                    </th>
+                    <td>{{ stats.took }}</td>
+                </tr>
+                <tr class="border border-black odd:bg-slate-200 even:bg-white">
+                    <th class="border-r border-black text-left">Started At:</th>
+                    <td>{{ stats.started_at }}</td>
+                </tr>
+                <tr class="border border-black odd:bg-slate-200 even:bg-white">
+                    <th class="border-r border-black text-left">
+                        Finished At:
+                    </th>
+                    <td>{{ stats.finished_at }}</td>
                 </tr>
             </table>
             <Link
