@@ -4,6 +4,7 @@ import { InertiaProgress } from "@inertiajs/progress";
 import route from "@/ziggy";
 import { ZiggyVue } from "ziggy/vue.es";
 import Guest from "@/Layouts/Guest.vue";
+import * as Sentry from "@sentry/vue";
 // import { VuePlausible } from "vue-plausible";
 
 require("./bootstrap");
@@ -20,12 +21,36 @@ createInertiaApp({
         return page;
     },
     setup({ el, app, props, plugin }) {
-        createApp({ render: () => h(app, props) })
+        const vueApp = createApp({ render: () => h(app, props) });
+        vueApp
             .use(plugin)
             .use(ZiggyVue)
             // .use(VuePlausible)
             .mixin({ methods: { route } })
             .mount(el);
+
+        Sentry.init({
+            app: vueApp,
+            logErrors: true,
+            dsn: process.env.MIX_SENTRY_DSN,
+            environment: process.env.MIX_APP_ENV,
+        });
+
+        Sentry.attachErrorHandler(vueApp, {
+            attachProps: true,
+            hooks: ["activate", "mount", "update"],
+            timeout: 2000,
+            trackComponents: true,
+            logErrors: true,
+        });
+
+        vueApp.mixin(
+            Sentry.createTracingMixins({
+                hooks: ["activate", "mount", "update"],
+                timeout: 2000,
+                trackComponents: true,
+            })
+        );
     },
 });
 

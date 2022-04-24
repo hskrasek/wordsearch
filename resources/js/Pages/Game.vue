@@ -198,20 +198,22 @@ function solve() {
                 <h2 class="text-lg font-bold">Instructions:</h2>
                 <ol class="list-inside list-decimal">
                     <li>
-                        Locate the given words in the gird.
-                        <!--                        <ul class="list-disc">-->
-                        <!--                            <li class="indent-0.5">-->
-                        <!--                                Words can be found in one of eight possible-->
-                        <!--                                directions:-->
-                        <!--                            </li>-->
-                        <!--                        </ul>-->
+                        Locate the given words in the grid, running in one of
+                        <br />
+                        eight possible directions horizontally, vertically, or
+                        diagonally.
                     </li>
                     <li>
                         To mark a word as found, click the first letter of the
-                        word.<br />
-                        Then click the last letter of the word.
+                        word, <br />
+                        then click the last letter of the word.
                     </li>
-                    <li>TODO: Make these instructions better</li>
+                    <li>
+                        When the correct word is selected and found, it will
+                        <br />
+                        stay highlighted a dark green color. If the selection is
+                        <br />incorrect, it will flash red for a moment.
+                    </li>
                 </ol>
                 <!-- <p>Mouse position is at: {{ x }}, {{ y }}</p>-->
                 <div v-if="form.errors.word" class="text-red-500">
