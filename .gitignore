@@ -14,3 +14,7 @@ yarn-error.log
 /.idea
 /.vscode
 _ide_helper.php
+.vapor/
+.env.production
+.env.staging
+unigram_freq.csv
