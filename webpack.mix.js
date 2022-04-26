@@ -53,7 +53,7 @@ mix.extend(
 mix.ziggy({
     path: "./resources/js/ziggy.generated.js",
     env: mix.inProduction() ? "APP_URL=https://wordsearch.games" : "",
-    enabled: false,
+    enabled: !mix.inProduction(),
 })
     .ts("resources/js/app.ts", "public/js")
     // .eslint({

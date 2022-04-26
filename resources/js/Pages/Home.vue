@@ -15,7 +15,9 @@ function startGame() {
 </script>
 
 <template>
-    <Head title="Start Game" />
+    <Head>
+        <title>title="Start Game"</title>
+    </Head>
 
     <div class="grid grid-cols-1 items-center">
         <div class="max-w-lg sm:px-6 lg:px-8">
@@ -30,7 +32,7 @@ function startGame() {
                         :key="i"
                         type="button"
                         :value="difficulty.name"
-                        class="inline-block bg-blue-500 px-[1.640rem] py-2.5 text-lg font-semibold uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800"
+                        class="inline-block bg-blue-500 px-[0.813rem] py-2.5 text-lg font-semibold uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 md:px-[1.640rem] md:py-2.5 lg:px-[1.640rem] lg:py-2.5"
                         :class="{
                             'rounded-l': i === 0,
                             'rounded-r': i === difficulties.length - 1,
