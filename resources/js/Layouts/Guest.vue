@@ -5,7 +5,7 @@ import { Link } from "@inertiajs/inertia-vue3";
 
 <template>
     <div
-        class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0"
+        class="flex min-h-screen flex-col items-center justify-center bg-gray-100 pt-6 sm:pt-0 md:min-h-fit lg:min-h-screen"
     >
         <div>
             <Link href="/">
@@ -16,7 +16,7 @@ import { Link } from "@inertiajs/inertia-vue3";
         </div>
 
         <div
-            class="mt-6 flex overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-max sm:rounded-lg"
+            class="mt-6 flex max-w-max rounded-lg bg-white px-6 py-4 shadow-md"
         >
             <slot />
         </div>
