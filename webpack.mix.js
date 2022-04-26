@@ -18,6 +18,7 @@ mix.extend(
     "ziggy",
     new (class {
         register(config = {}) {
+            this.env = config.env ?? "";
             this.watch = config.watch ?? ["routes/**/*.php"];
             this.path = config.path ?? "";
             this.enabled = config.enabled ?? !mix.inProduction();
@@ -26,11 +27,16 @@ mix.extend(
         boot() {
             if (!this.enabled) return;
 
-            const command = () =>
+            const command = () => {
+                console.log(process.env.NODE_ENV);
+                console.log(
+                    `${this.env} php artisan ziggy:generate ${this.path}`
+                );
                 exec(
-                    `php artisan ziggy:generate ${this.path}`,
+                    `${this.env} php artisan ziggy:generate ${this.path}`,
                     (error, stdout, stderr) => console.log(stdout)
                 );
+            };
 
             command();
 
@@ -44,22 +50,23 @@ mix.extend(
     })()
 );
 
-mix.ts("resources/js/app.ts", "public/js")
-    .eslint({
-        fix: true,
-        extensions: ["js", "ts", "vue"],
-    })
+mix.ziggy({
+    path: "./resources/js/ziggy.generated.js",
+    env: mix.inProduction() ? "APP_URL=https://wordsearch.games" : "",
+    enabled: false,
+})
+    .ts("resources/js/app.ts", "public/js")
+    // .eslint({
+    //     fix: true,
+    //     extensions: ["js", "ts", "vue"],
+    // })
     .vue({ version: 3 })
     .postCss("resources/css/app.css", "public/css", [
         require("postcss-import"),
         require("tailwindcss"),
         require("autoprefixer"),
     ])
-    .webpackConfig(() => require("./webpack.config"))
-    .ziggy({
-        path: "./resources/js/ziggy.generated.js",
-        enabled: true,
-    });
+    .webpackConfig(() => require("./webpack.config"));
 
 if (mix.inProduction()) {
     mix.version().sourceMaps();

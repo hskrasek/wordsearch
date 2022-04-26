@@ -168,9 +168,9 @@ function solve() {
 </script>
 
 <template>
-    <Head :title="'Game ' + uuid" />
+    <Head :title="'A ' + difficulty.toLowerCase() + ' word search puzzle'" />
 
-    <div class="grid w-full grid-cols-2 gap-4">
+    <div class="grid w-full gap-4 md:grid-cols-2">
         <Grid
             :grid="trackingGrid"
             class="col-span-1"

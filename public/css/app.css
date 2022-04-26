@@ -818,6 +818,11 @@ select {
 .max-w-lg {
   max-width: 32rem;
 }
+.max-w-max {
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+}
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1578,6 +1583,10 @@ select {
     height: 5rem;
   }
 
+  .sm\:min-h-screen {
+    min-height: 100vh;
+  }
+
   .sm\:max-w-max {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
@@ -1627,6 +1636,26 @@ select {
 }
 @media (min-width: 768px) {
 
+  .md\:min-h-screen {
+    min-height: 100vh;
+  }
+
+  .md\:min-h-full {
+    min-height: 100%;
+  }
+
+  .md\:min-h-fit {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
+
+  .md\:min-h-max {
+    min-height: -webkit-max-content;
+    min-height: -moz-max-content;
+    min-height: max-content;
+  }
+
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1640,6 +1669,14 @@ select {
   }
 }
 @media (min-width: 1024px) {
+
+  .lg\:min-h-screen {
+    min-height: 100vh;
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
   .lg\:px-8 {
     padding-left: 2rem;

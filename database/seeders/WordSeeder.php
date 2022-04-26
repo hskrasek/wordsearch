@@ -27,7 +27,7 @@ class WordSeeder extends Seeder
         $now = now();
 
         LazyCollection::make(function () {
-            $handle = fopen(\Storage::disk('local')->path('unigram_freq.csv'), 'rb');
+            $handle = fopen(base_path('unigram_freq.csv'), 'rb');
 
             while ($line = fgetcsv($handle)) {
                 yield $line;
@@ -42,6 +42,7 @@ class WordSeeder extends Seeder
 
                 $words[] = [
                     'text'       => \Str::upper($line[0]),
+                    'length'     => \Str::length($line[0]),
                     'frequency'  => $line[1],
                     'created_at' => $now,
                     'updated_at' => $now,

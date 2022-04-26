@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('words', function (Blueprint $table) {
             $table->id();
             $table->string('text');
-            $table->unsignedInteger('length')->storedAs('LENGTH(text)');
+            $table->unsignedInteger('length');
             $table->timestamps();
         });
 
