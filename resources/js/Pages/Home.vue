@@ -16,7 +16,7 @@ function startGame() {
 
 <template>
     <Head>
-        <title>title="Start Game"</title>
+        <title>Start Game</title>
     </Head>
 
     <div class="grid grid-cols-1 items-center">
