@@ -47,6 +47,7 @@ jobs:
             echo "::set-output name=environment::production"
           else
             echo "::set-output name=environment::beta"
+          fi
         env:
           REF: ${{ github.ref }}
       - name: Create Sentry release
