@@ -35,15 +35,31 @@ jobs:
         run: composer dump-autoload --optimize
       - name: Install NPM Dependencies
         run: npm ci
+      - name: Build Application
+        run: npm run prod
       - name: Require Vapor CLI
         run: composer global require laravel/vapor-cli
-      - name: Deploy Environment
-        if: github.ref == 'refs/heads/main'
-        run: vapor deploy production --without-waiting
+      - name: Determine Environment
+        id: determine_environment
+        run: |
+          if [$REF == "refs/heads/main"]
+          then
+            echo "::set-output name=environment::production"
+          else
+            echo "::set-output name=environment::beta"
+          fi
         env:
-          VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
+          REF: ${{ github.ref }}
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: ${{ format(steps.determine_environment.outputs.environment) }}
+          sourcemaps: /var/task/public/js/app.js.map
       - name: Deploy Environment
-        if: github.ref == 'refs/heads/beta'
-        run: vapor deploy beta --without-waiting
+        run: vapor deploy ${{ steps.determine_environment.outputs.environment }} --without-waiting
         env:
           VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
