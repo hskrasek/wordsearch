@@ -8,7 +8,8 @@ environments:
         database: wordsearch
         runtime: 'php-8.1:al2'
         build:
-            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
+            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --prefer-dist --no-interaction --no-dev --no-autoloader'
+            - 'composer dump-autoload --optimize'
             - 'php artisan event:cache'
             - 'php artisan config:cache'
             - 'npm ci && npm run prod && rm -rf node_modules'
@@ -21,7 +22,8 @@ environments:
         database: wordsearch
         runtime: 'php-8.1:al2'
         build:
-            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
+            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --prefer-dist --no-interaction --no-dev --no-autoloader'
+            - 'composer dump-autoload --optimize'
             - 'php artisan event:cache'
             - 'php artisan config:cache'
             - 'npm ci && npm run prod && rm -rf node_modules'
