@@ -43,12 +43,21 @@ jobs:
         id: determine_environment
         run: |
           echo "::set-output name=environment::${{ github.ref == 'refs/heads/main' && 'main' ||  'beta' }}"
-      - name: Create Sentry release
+      - name: Create Backend Sentry release
         uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: ${{ format(steps.determine_environment.outputs.environment) }}
+          sourcemaps: ./public/js/app.js.map
+      - name: Create Frontend Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_VUE }}
         with:
           environment: ${{ format(steps.determine_environment.outputs.environment) }}
           sourcemaps: ./public/js/app.js.map
