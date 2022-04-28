@@ -51,7 +51,7 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: ${{ format(steps.determine_environment.outputs.environment) }}
-          sourcemaps: /var/task/public/js/app.js.map
+          sourcemaps: ./public/js/app.js.map
       - name: Deploy Environment
         run: vapor deploy ${{ steps.determine_environment.outputs.environment }} --without-waiting
         env:
