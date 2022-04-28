@@ -42,23 +42,25 @@ jobs:
       - name: Determine Environment
         id: determine_environment
         run: |
-          if [$REF == 'refs/heads/main']
-          then
-            echo "::set-output name=environment::production"
-          else
-            echo "::set-output name=environment::beta"
-          fi
-        env:
-          REF: ${{ github.ref }}
-      - name: Create Sentry release
+          echo "::set-output name=environment::${{ github.ref == 'refs/heads/main' && 'main' ||  'beta' }}"
+      - name: Create Backend Sentry release
         uses: getsentry/action-release@v1
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          environment: ${{ steps.determine_environment.outputs.environment }}
-          sourcemaps: /var/task/public/js/app.js.map
+          environment: ${{ format(steps.determine_environment.outputs.environment) }}
+          sourcemaps: ./public/js/app.js.map
+      - name: Create Frontend Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_VUE }}
+        with:
+          environment: ${{ format(steps.determine_environment.outputs.environment) }}
+          sourcemaps: ./public/js/app.js.map
       - name: Deploy Environment
         run: vapor deploy ${{ steps.determine_environment.outputs.environment }} --without-waiting
         env:
