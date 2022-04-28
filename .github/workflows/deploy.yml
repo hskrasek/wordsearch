@@ -42,7 +42,7 @@ jobs:
       - name: Determine Environment
         id: determine_environment
         run: |
-          if [$REF == "refs/heads/main"]
+          if ["$REF" == "refs/heads/main"]
           then
             echo "::set-output name=environment::production"
           else
