@@ -42,7 +42,7 @@ jobs:
       - name: Determine Environment
         id: determine_environment
         run: |
-          echo "::set-output name=environment::${{ github.ref == 'refs/heads/main' && 'main' ||  'beta' }}"
+          echo "::set-output name=environment::${{ github.ref == 'refs/heads/main' && 'production' ||  'beta' }}"
       - name: Create Backend Sentry release
         uses: getsentry/action-release@v1
         env:
