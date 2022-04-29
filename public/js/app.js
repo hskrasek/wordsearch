@@ -32794,7 +32794,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               trackingGrid.value[x][y].wrong = false;
             });
             form.reset();
-          }, 500);
+          }, 650);
         }
       });
     }
@@ -32892,10 +32892,10 @@ var _hoisted_1 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["h-full w-full border-none bg-white p-0 align-middle text-base font-semibold outline-0 transition-colors duration-300 ease-in-out hover:bg-sky-300", {
-      'bg-green-300': $props.cell.selected,
-      'bg-green-400': $props.cell.found,
-      'bg-red-500': !$props.cell.found && $props.cell.wrong
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["bg-te h-full w-full border-none bg-white p-0 align-middle text-base font-semibold outline-0 transition-colors duration-300 ease-in-out hover:bg-green-300 dark:bg-slate-800 dark:text-white dark:hover:bg-teal-300", {
+      'bg-green-300 dark:bg-teal-300': $props.cell.selected,
+      'bg-green-400 dark:bg-teal-400': $props.cell.found,
+      'bg-red-500 dark:bg-rose-500': !$props.cell.found && $props.cell.wrong
     }]),
     onClick: $setup.selectCell
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.cell.letter), 3
@@ -32922,111 +32922,130 @@ var _hoisted_1 = {
   "class": "fixed inset-0 flex h-screen w-full items-center justify-center bg-semi-75"
 };
 var _hoisted_2 = {
-  "class": "w-full max-w-xl rounded-lg bg-white p-8 text-center shadow-lg"
+  "class": "w-full max-w-xl rounded-lg bg-white p-8 text-center shadow-lg dark:bg-slate-800"
 };
 
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "text-3xl font-bold"
+  "class": "text-3xl font-bold dark:text-white"
 }, "Completed!", -1
 /* HOISTED */
 );
 
 var _hoisted_4 = {
-  "class": "mx-auto table-fixed border-2 border-gray-800"
+  "class": "mx-auto table-fixed border-2 border-gray-800 dark:border-gray-200"
 };
 var _hoisted_5 = {
-  "class": "border border-black odd:bg-slate-200 even:bg-white"
+  "class": "border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
 };
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "border-r border-black text-left"
-}, "Difficulty:", -1
+  "class": "border-r border-black text-left dark:text-white"
+}, " Difficulty: ", -1
 /* HOISTED */
 );
 
 var _hoisted_7 = {
-  "class": "border border-black odd:bg-slate-200 even:bg-white"
+  "class": "dark:text-white"
+};
+var _hoisted_8 = {
+  "class": "border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "border-r border-black text-left"
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "border-r border-black text-left dark:text-white"
 }, " Total Words: ", -1
 /* HOISTED */
 );
 
-var _hoisted_9 = {
-  "class": "border border-black odd:bg-slate-200 even:bg-white"
+var _hoisted_10 = {
+  "class": "dark:text-white"
+};
+var _hoisted_11 = {
+  "class": "border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "border-r border-black text-left"
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "border-r border-black text-left dark:text-white"
 }, " Avg. Time Finding a Word: ", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = {
-  "class": "border border-black odd:bg-slate-200 even:bg-white"
+var _hoisted_13 = {
+  "class": "dark:text-white"
+};
+var _hoisted_14 = {
+  "class": "border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "border-r border-black text-left"
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "border-r border-black text-left dark:text-white"
 }, " Time to Complete: ", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = {
-  "class": "border border-black odd:bg-slate-200 even:bg-white"
+var _hoisted_16 = {
+  "class": "dark:text-white"
+};
+var _hoisted_17 = {
+  "class": "border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
 };
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "border-r border-black text-left"
-}, "Started At:", -1
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "border-r border-black text-left dark:text-white"
+}, " Started At: ", -1
 /* HOISTED */
 );
 
-var _hoisted_15 = {
-  "class": "border border-black odd:bg-slate-200 even:bg-white"
+var _hoisted_19 = {
+  "class": "dark:text-white"
+};
+var _hoisted_20 = {
+  "class": "border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
 };
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
-  "class": "border-r border-black text-left"
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "border-r border-black text-left dark:text-white"
 }, " Finished At: ", -1
 /* HOISTED */
 );
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_22 = {
+  "class": "dark:text-white"
+};
+
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text-lg font-semibold uppercase leading-tight text-white"
 }, "New Game", -1
 /* HOISTED */
 );
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text-lg font-semibold uppercase leading-none text-white"
 }, " Quick Play ", -1
 /* HOISTED */
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.difficulty), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.difficulty), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.total_words), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.total_words), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.average_between_words) + " seconds", 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.average_between_words) + " seconds ", 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.took), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.took), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.started_at), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.started_at), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.finished_at), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.stats.finished_at), 1
   /* TEXT */
   )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
     type: "submit",
-    "class": "mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 hover:bg-green-400",
+    "class": "mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 hover:bg-green-400 dark:bg-teal-300 dark:hover:bg-teal-400",
     as: "button",
     href: _ctx.route('home')
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_17];
+      return [_hoisted_23];
     }),
     _: 1
     /* STABLE */
@@ -33035,7 +33054,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
     type: "submit",
-    "class": "mt-1.5 inline-block justify-center bg-green-300 px-4 py-2.5 hover:bg-green-400",
+    "class": "mt-1.5 inline-block justify-center bg-green-300 px-4 py-2.5 hover:bg-green-400 dark:bg-teal-300 dark:hover:bg-teal-400",
     as: "button",
     method: "post",
     href: _ctx.route('game.create'),
@@ -33044,7 +33063,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_18];
+      return [_hoisted_24];
     }),
     _: 1
     /* STABLE */
@@ -33070,7 +33089,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "table border-2 border-gray-800 bg-white"
+  "class": "table border-2 border-gray-800 bg-white dark:bg-slate-800"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.grid, function (row, x) {
@@ -33111,10 +33130,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "flex min-h-screen flex-col items-center justify-center bg-gray-100 pt-6 sm:pt-0 md:min-h-fit lg:min-h-screen"
+  "class": "flex min-h-screen flex-col items-center justify-center bg-gray-100 pt-6 dark:bg-slate-900 sm:pt-0 md:min-h-fit lg:min-h-screen"
 };
 var _hoisted_2 = {
-  "class": "mt-6 flex max-w-max rounded-lg bg-white px-6 py-4 shadow-md"
+  "class": "mt-6 flex max-w-max rounded-lg bg-white px-6 py-4 shadow-md dark:bg-slate-800"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
@@ -33122,7 +33141,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["BreezeApplicationLogo"], {
-        "class": "h-20 w-20 fill-current text-gray-500"
+        "class": "h-20 w-20 fill-current text-gray-500 dark:text-gray-200"
       })];
     }),
     _: 1
@@ -33153,7 +33172,7 @@ var _hoisted_2 = {
   "class": "col-span-1 border-2 border-gray-800 p-1.5"
 };
 var _hoisted_3 = {
-  "class": "text-lg font-bold"
+  "class": "text-lg font-bold dark:text-white"
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Difficulty: ");
@@ -33167,7 +33186,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_7 = {
-  "class": "text-lg font-bold"
+  "class": "text-lg font-bold dark:text-white"
 };
 var _hoisted_8 = {
   "class": "columns-2"
@@ -33182,24 +33201,24 @@ var _hoisted_10 = {
 };
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "text-lg font-bold"
+  "class": "text-lg font-bold dark:text-white"
 }, "Instructions:", -1
 /* HOISTED */
 );
 
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ol", {
-  "class": "list-inside list-decimal"
+  "class": "list-inside list-decimal dark:text-white"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Locate the given words in the grid, running in one of "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" eight possible directions horizontally, vertically, or diagonally. ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" To mark a word as found, click the first letter of the word, "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" then click the last letter of the word. ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" When the correct word is selected and found, it will "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" stay highlighted a dark green color. If the selection is "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("incorrect, it will flash red for a moment. ")])], -1
 /* HOISTED */
 );
 
 var _hoisted_13 = {
   key: 0,
-  "class": "text-red-500"
+  "class": "text-red-500 dark:text-rose-500"
 };
 var _hoisted_14 = {
   key: 1,
-  "class": "text-red-500"
+  "class": "text-red-500 dark:text-rose-500"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
@@ -33214,14 +33233,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["grid"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.difficulty), 1
   /* TEXT */
-  )]), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_7, "Words (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalWordsToFind) + "):", 1
+  )]), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_7, " Words (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalWordsToFind) + "): ", 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.words, function (word, i) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: i,
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-        'line-through decoration-solid': word.found
-      })
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["dark:text-white", {
+        'line-through decoration-solid decoration-2': word.found
+      }])
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(word.text), 3
     /* TEXT, CLASS */
     );
@@ -33257,7 +33276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("title", null, "title=\"Start Game\"", -1
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("title", null, "Start Game", -1
 /* HOISTED */
 );
 
@@ -33269,13 +33288,13 @@ var _hoisted_3 = {
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
-  "class": "text-center text-3xl font-bold"
-}, "New Game", -1
+  "class": "text-center text-3xl font-bold dark:text-white"
+}, " New Game ", -1
 /* HOISTED */
 );
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "mt-3 text-center text-2xl font-bold"
+  "class": "mt-3 text-center text-2xl font-bold dark:text-white"
 }, " Choose Difficulty: ", -1
 /* HOISTED */
 );
@@ -33291,19 +33310,19 @@ var _hoisted_9 = {
 var _hoisted_10 = ["disabled"];
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "mt-6 text-xl font-semibold"
-}, "A word from the author,", -1
+  "class": "mt-6 text-xl font-semibold dark:text-white"
+}, " A word from the author, ", -1
 /* HOISTED */
 );
 
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "break-words font-normal"
+  "class": "break-words font-normal dark:text-white"
 }, " I hope you enjoy solving word search puzzles on my little side project. I want to keep this project active and improve it along the way as I learn more. A nicer design, mobile friendliness, and more is on the horizon, but I wanted to get this out in the open as soon as possible. Pardon my dust while I keep making improvements. ", -1
 /* HOISTED */
 );
 
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "font-thin"
+  "class": "font-thin dark:text-white"
 }, "- Hunter Skrasek", -1
 /* HOISTED */
 );
@@ -33323,7 +33342,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: i,
       type: "button",
       value: difficulty.name,
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["inline-block bg-blue-500 px-[0.813rem] py-2.5 text-lg font-semibold uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 md:px-[1.640rem] md:py-2.5 lg:px-[1.640rem] lg:py-2.5", {
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["inline-block bg-blue-500 px-[0.813rem] py-2.5 text-lg font-semibold uppercase leading-tight text-white transition duration-150 ease-in-out hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-800 dark:bg-violet-500 dark:hover:bg-violet-600 dark:focus:bg-violet-600 dark:active:bg-violet-800 md:px-[1.640rem] md:py-2.5 lg:px-[1.640rem] lg:py-2.5", {
         'rounded-l': i === 0,
         'rounded-r': i === $props.difficulties.length - 1
       }]),
@@ -33337,7 +33356,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* KEYED_FRAGMENT */
   ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
-    "class": "mt-1.5 inline-block w-full bg-green-300 px-6 py-2.5 text-lg font-semibold uppercase leading-tight text-white hover:bg-green-400",
+    "class": "mt-1.5 inline-block w-full bg-green-300 px-6 py-2.5 text-lg font-semibold uppercase leading-tight text-white hover:bg-green-400 dark:bg-teal-300 dark:hover:bg-teal-400",
     disabled: $setup.newGame.processing
   }, " Start Game ", 8
   /* PROPS */

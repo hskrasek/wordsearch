@@ -161,7 +161,7 @@ function solve() {
                     trackingGrid.value[x][y].wrong = false;
                 });
                 form.reset();
-            }, 500);
+            }, 650);
         },
     });
 }
@@ -177,17 +177,23 @@ function solve() {
             @select-cell="letterSelector"
         />
         <div class="col-span-1 border-2 border-gray-800 p-1.5">
-            <h2 class="text-lg font-bold">
+            <h2 class="text-lg font-bold dark:text-white">
                 Difficulty: <span class="font-medium">{{ difficulty }}</span>
             </h2>
             <hr />
-            <h2 class="text-lg font-bold">Words ({{ totalWordsToFind }}):</h2>
+            <h2 class="text-lg font-bold dark:text-white">
+                Words ({{ totalWordsToFind }}):
+            </h2>
             <div class="columns-2">
                 <ul>
                     <li
                         v-for="(word, i) in words"
                         :key="i"
-                        :class="{ 'line-through decoration-solid': word.found }"
+                        class="dark:text-white"
+                        :class="{
+                            'line-through decoration-solid decoration-2':
+                                word.found,
+                        }"
                     >
                         {{ word.text }}
                     </li>
@@ -195,8 +201,8 @@ function solve() {
             </div>
             <hr />
             <div class="container">
-                <h2 class="text-lg font-bold">Instructions:</h2>
-                <ol class="list-inside list-decimal">
+                <h2 class="text-lg font-bold dark:text-white">Instructions:</h2>
+                <ol class="list-inside list-decimal dark:text-white">
                     <li>
                         Locate the given words in the grid, running in one of
                         <br />
@@ -216,10 +222,16 @@ function solve() {
                     </li>
                 </ol>
                 <!-- <p>Mouse position is at: {{ x }}, {{ y }}</p>-->
-                <div v-if="form.errors.word" class="text-red-500">
+                <div
+                    v-if="form.errors.word"
+                    class="text-red-500 dark:text-rose-500"
+                >
                     {{ form.errors.word }}
                 </div>
-                <div v-if="form.errors.coordinates" class="text-red-500">
+                <div
+                    v-if="form.errors.coordinates"
+                    class="text-red-500 dark:text-rose-500"
+                >
                     {{ form.errors.coordinates }}
                 </div>
             </div>

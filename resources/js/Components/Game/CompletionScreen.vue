@@ -33,46 +33,66 @@ onMounted(async () => {
         class="fixed inset-0 flex h-screen w-full items-center justify-center bg-semi-75"
     >
         <div
-            class="w-full max-w-xl rounded-lg bg-white p-8 text-center shadow-lg"
+            class="w-full max-w-xl rounded-lg bg-white p-8 text-center shadow-lg dark:bg-slate-800"
         >
-            <h2 class="text-3xl font-bold">Completed!</h2>
-            <table class="mx-auto table-fixed border-2 border-gray-800">
-                <tr class="border border-black odd:bg-slate-200 even:bg-white">
-                    <th class="border-r border-black text-left">Difficulty:</th>
-                    <td>{{ stats.difficulty }}</td>
+            <h2 class="text-3xl font-bold dark:text-white">Completed!</h2>
+            <table
+                class="mx-auto table-fixed border-2 border-gray-800 dark:border-gray-200"
+            >
+                <tr
+                    class="border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
+                >
+                    <th class="border-r border-black text-left dark:text-white">
+                        Difficulty:
+                    </th>
+                    <td class="dark:text-white">{{ stats.difficulty }}</td>
                 </tr>
-                <tr class="border border-black odd:bg-slate-200 even:bg-white">
-                    <th class="border-r border-black text-left">
+                <tr
+                    class="border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
+                >
+                    <th class="border-r border-black text-left dark:text-white">
                         Total Words:
                     </th>
-                    <td>{{ stats.total_words }}</td>
+                    <td class="dark:text-white">{{ stats.total_words }}</td>
                 </tr>
-                <tr class="border border-black odd:bg-slate-200 even:bg-white">
-                    <th class="border-r border-black text-left">
+                <tr
+                    class="border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
+                >
+                    <th class="border-r border-black text-left dark:text-white">
                         Avg. Time Finding a Word:
                     </th>
-                    <td>{{ stats.average_between_words }} seconds</td>
+                    <td class="dark:text-white">
+                        {{ stats.average_between_words }} seconds
+                    </td>
                 </tr>
-                <tr class="border border-black odd:bg-slate-200 even:bg-white">
-                    <th class="border-r border-black text-left">
+                <tr
+                    class="border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
+                >
+                    <th class="border-r border-black text-left dark:text-white">
                         Time to Complete:
                     </th>
-                    <td>{{ stats.took }}</td>
+                    <td class="dark:text-white">{{ stats.took }}</td>
                 </tr>
-                <tr class="border border-black odd:bg-slate-200 even:bg-white">
-                    <th class="border-r border-black text-left">Started At:</th>
-                    <td>{{ stats.started_at }}</td>
+                <tr
+                    class="border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
+                >
+                    <th class="border-r border-black text-left dark:text-white">
+                        Started At:
+                    </th>
+                    <td class="dark:text-white">{{ stats.started_at }}</td>
                 </tr>
-                <tr class="border border-black odd:bg-slate-200 even:bg-white">
-                    <th class="border-r border-black text-left">
+                <tr
+                    class="border border-black odd:bg-slate-200 even:bg-white dark:odd:bg-slate-600 dark:even:bg-slate-800"
+                >
+                    <th class="border-r border-black text-left dark:text-white">
                         Finished At:
                     </th>
-                    <td>{{ stats.finished_at }}</td>
+                    <td class="dark:text-white">{{ stats.finished_at }}</td>
                 </tr>
             </table>
             <Link
                 type="submit"
-                class="mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 hover:bg-green-400"
+                class="mt-1.5 inline-block justify-center bg-green-300 px-6 py-2.5 hover:bg-green-400 dark:bg-teal-300 dark:hover:bg-teal-400"
                 as="button"
                 :href="route('home')"
             >
@@ -83,7 +103,7 @@ onMounted(async () => {
             </Link>
             <Link
                 type="submit"
-                class="mt-1.5 inline-block justify-center bg-green-300 px-4 py-2.5 hover:bg-green-400"
+                class="mt-1.5 inline-block justify-center bg-green-300 px-4 py-2.5 hover:bg-green-400 dark:bg-teal-300 dark:hover:bg-teal-400"
                 as="button"
                 method="post"
                 :href="route('game.create')"
