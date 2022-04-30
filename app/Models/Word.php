@@ -38,6 +38,15 @@ class Word extends Model
     {
         return $query->where('length', '>=', $difficulty->minimumWordLength())
             ->where('length', '<=', $difficulty->gridSize())
+            ->when($difficulty === Difficulty::Easy, fn(Builder $builder) => $builder->orderByDesc('frequency'))
+            ->when($difficulty === Difficulty::Medium)
+            ->when($difficulty === Difficulty::Hard)
+            ->when($difficulty === Difficulty::Insane, function (Builder $builder) {
+                return $builder->whereNot('text', '~', '[A-Z]*[AEIOUY]{2,}[A-Z]*')
+                    ->whereNot('text', '~', 'W{3}.*')
+                    ->whereNot('text', '~', '[B-DF-JH-NP-TV-Z]{2,}')
+                    ->orderBy('frequency');
+            })
             ->limit($difficulty->wordCount());
     }
 
