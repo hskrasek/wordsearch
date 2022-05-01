@@ -78,7 +78,12 @@ class Word extends Model
                     ->whereNot($query->raw('LOWER("text")'), '~', '[a-z]o[a-z]+')
                     ->inRandomOrder()
                     ->orderBy('frequency')
-                    ->limit($difficulty->wordCount() / 2)
+                    ->limit(
+                        match ($difficulty) {
+                            Difficulty::Hard => $difficulty->wordCount() * 0.75,
+                            default => $difficulty->wordCount() / 2
+                        }
+                    )
             );
     }
 
@@ -95,7 +100,12 @@ class Word extends Model
                     ->whereNot($query->raw('LOWER("text")'), '~', '[a-z]o[a-z]+')
                     ->inRandomOrder()
                     ->orderByDesc('frequency')
-                    ->limit($difficulty->wordCount() / 2)
+                    ->limit(
+                        match ($difficulty) {
+                            Difficulty::Hard => $difficulty->wordCount() * 0.25,
+                            default => $difficulty->wordCount() / 2
+                        }
+                    )
             );
     }
 }
