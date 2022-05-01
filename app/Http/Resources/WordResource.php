@@ -17,7 +17,7 @@ class WordResource extends JsonResource
     {
         return [
             'text'  => $this->text,
-            'found' => $this->session->found,
+            'found' => $this->session?->found ?? false,
         ];
     }
 }
