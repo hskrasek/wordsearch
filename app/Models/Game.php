@@ -82,7 +82,6 @@ class Game extends Model
                        ]
                 )
                     ->forDifficulty($difficulty)
-                    ->inRandomOrder()
                     ->limit($difficulty->wordCount() - $successfulWords->count())
                     ->get();
             }
