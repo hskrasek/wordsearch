@@ -16,7 +16,7 @@ class CreateGame extends Controller
     {
         $difficulty = $request->difficulty();
 
-        $words = Word::difficulty($difficulty)
+        $words = Word::forDifficulty($difficulty)
             ->inRandomOrder()
             ->get();
 

@@ -19,23 +19,22 @@ use Staudenmeir\LaravelCte\Query\Builder as CTEBuilder;
  * @property int $length
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $frequency
+ * @method static \Illuminate\Database\Eloquent\Builder|Word excludeWords(\App\Models\Word ...$word)
  * @method static \Database\Factories\WordFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Word forDifficulty(\App\Game\Difficulty $difficulty)
+ * @method static \Illuminate\Database\Eloquent\Builder|Word leastFrequentByDifficulty(\App\Game\Difficulty $difficulty)
+ * @method static \Illuminate\Database\Eloquent\Builder|Word mostFrequentByDifficulty(\App\Game\Difficulty $difficulty)
  * @method static \Illuminate\Database\Eloquent\Builder|Word newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Word newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Word query()
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Word whereFrequency($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereLength($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property int|null $frequency
- * @method static \Illuminate\Database\Eloquent\Builder|Word whereFrequency($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Word difficulty(\App\Game\Difficulty $difficulty)
- * @method static \Illuminate\Database\Eloquent\Builder|Word excludeWords(\App\Models\Word ...$word)
- * @method static \Illuminate\Database\Eloquent\Builder|Word leastFrequentByDifficulty(\App\Game\Difficulty $difficulty)
- * @method static \Illuminate\Database\Eloquent\Builder|Word mostFrequentByDifficulty(\App\Game\Difficulty $difficulty)
- * @method static \Illuminate\Database\Eloquent\Builder|Word forDifficulty(\App\Game\Difficulty $difficulty)
  */
 class Word extends Model
 {
