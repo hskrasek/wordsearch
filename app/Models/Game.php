@@ -8,6 +8,7 @@ use App\Game\Difficulty;
 use App\Game\Direction;
 use App\Game\Grid;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -22,7 +23,7 @@ use Illuminate\Support\Str;
  * @property Grid $grid
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Word[] $words
+ * @property-read EloquentCollection|\App\Models\Word[] $words
  * @property-read int|null $words_count
  * @method static \Database\Factories\GameFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
@@ -53,19 +54,19 @@ class Game extends Model
 
     /**
      * @param Difficulty $difficulty
-     * @param Collection<Word>|\Illuminate\Database\Eloquent\Collection<Word> $words
+     * @param Collection<Word>|EloquentCollection $words
      *
      * @return Game
      */
-    public static function start(Difficulty $difficulty, \Illuminate\Database\Eloquent\Collection|Collection $words): Game
+    public static function start(Difficulty $difficulty, EloquentCollection|Collection $words): Game
     {
-        $game = new self();
+        $game             = new self();
         $game->difficulty = $difficulty;
-        $game->uuid = Str::uuid();
+        $game->uuid       = Str::uuid();
 
         $game->grid = new Grid($difficulty->gridSize());
 
-        $successfulWords = \Illuminate\Database\Eloquent\Collection::make();
+        $successfulWords = EloquentCollection::make();
 
         /** @var Word $word */
         while (!($word = $words->pop()) instanceof Collection && $word !== null) {
@@ -77,11 +78,10 @@ class Game extends Model
                     ...[
                            ...$words,
                            ...$successfulWords,
-                        $word
+                           $word,
                        ]
                 )
-                    ->difficulty($difficulty)
-                    ->inRandomOrder()
+                    ->forDifficulty($difficulty)
                     ->limit($difficulty->wordCount() - $successfulWords->count())
                     ->get();
             }
