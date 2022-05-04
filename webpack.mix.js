@@ -28,14 +28,7 @@ mix.extend(
             if (!this.enabled) return;
 
             const command = () => {
-                console.log(process.env.NODE_ENV);
-                console.log(
-                    `${this.env} php artisan ziggy:generate ${this.path}`
-                );
-                exec(
-                    `${this.env} php artisan ziggy:generate ${this.path}`,
-                    (error, stdout, stderr) => console.log(stdout)
-                );
+                exec(`${this.env} php artisan ziggy:generate ${this.path}`);
             };
 
             command();
@@ -65,6 +58,7 @@ mix.ziggy({
         require("postcss-import"),
         require("tailwindcss"),
         require("autoprefixer"),
+        mix.inProduction() ? require("cssnano") : {},
     ])
     .webpackConfig(() => require("./webpack.config"));
 
