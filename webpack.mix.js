@@ -54,12 +54,16 @@ mix.ziggy({
     //     extensions: ["js", "ts", "vue"],
     // })
     .vue({ version: 3 })
-    .postCss("resources/css/app.css", "public/css", [
-        require("postcss-import"),
-        require("tailwindcss"),
-        require("autoprefixer"),
-        mix.inProduction() ? require("cssnano") : {},
-    ])
+    .postCss(
+        "resources/css/app.css",
+        "public/css",
+        [
+            require("postcss-import"),
+            require("tailwindcss"),
+            require("autoprefixer"),
+            mix.inProduction() ? require("cssnano") : undefined,
+        ].filter((plugin) => plugin !== undefined)
+    )
     .webpackConfig(() => require("./webpack.config"));
 
 if (mix.inProduction()) {
