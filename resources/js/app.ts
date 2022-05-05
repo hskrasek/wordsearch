@@ -34,6 +34,7 @@ createInertiaApp({
             logErrors: true,
             dsn: process.env.MIX_SENTRY_DSN,
             environment: process.env.MIX_APP_ENV,
+            tracesSampleRate: 1.0,
         });
 
         Sentry.attachErrorHandler(vueApp, {
