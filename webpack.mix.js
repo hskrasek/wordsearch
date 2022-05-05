@@ -28,14 +28,7 @@ mix.extend(
             if (!this.enabled) return;
 
             const command = () => {
-                console.log(process.env.NODE_ENV);
-                console.log(
-                    `${this.env} php artisan ziggy:generate ${this.path}`
-                );
-                exec(
-                    `${this.env} php artisan ziggy:generate ${this.path}`,
-                    (error, stdout, stderr) => console.log(stdout)
-                );
+                exec(`${this.env} php artisan ziggy:generate ${this.path}`);
             };
 
             command();
@@ -61,11 +54,16 @@ mix.ziggy({
     //     extensions: ["js", "ts", "vue"],
     // })
     .vue({ version: 3 })
-    .postCss("resources/css/app.css", "public/css", [
-        require("postcss-import"),
-        require("tailwindcss"),
-        require("autoprefixer"),
-    ])
+    .postCss(
+        "resources/css/app.css",
+        "public/css",
+        [
+            require("postcss-import"),
+            require("tailwindcss"),
+            require("autoprefixer"),
+            mix.inProduction() ? require("cssnano") : undefined,
+        ].filter((plugin) => plugin !== undefined)
+    )
     .webpackConfig(() => require("./webpack.config"));
 
 if (mix.inProduction()) {

@@ -15,7 +15,7 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <script defer data-domain="wordsearch.games" src="https://plausible.io/js/plausible.js"></script>
+        <script defer data-domain="{{ config('app.url') }}" data-exclude="/api/*" src="https://plausible.io/js/plausible.js"></script>
     </head>
     <body class="font-sans antialiased">
         @inertia
