@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,8 @@ use Illuminate\Support\Str;
  * @property Grid $grid
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $user_id
+ * @property-read \App\Models\User|null $player
  * @property-read EloquentCollection|\App\Models\Word[] $words
  * @property-read int|null $words_count
  * @method static \Database\Factories\GameFactory factory(...$parameters)
@@ -34,14 +37,13 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereGrid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Game whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUuid($value)
  * @mixin \Eloquent
  */
 class Game extends Model
 {
     use HasFactory;
-
-    public $touches = ['words'];
 
     protected $fillable = [
         'difficulty',
@@ -54,11 +56,11 @@ class Game extends Model
 
     /**
      * @param Difficulty $difficulty
-     * @param Collection<Word>|EloquentCollection $words
+     * @param Collection<Word>|EloquentCollection<Word> $words
      *
      * @return Game
      */
-    public static function start(Difficulty $difficulty, EloquentCollection|Collection $words): Game
+    public static function start(User $player, Difficulty $difficulty, EloquentCollection|Collection $words): Game
     {
         $game             = new self();
         $game->difficulty = $difficulty;
@@ -74,6 +76,7 @@ class Game extends Model
                 $game->grid->insertWord($word->text, Direction::random());
                 $successfulWords->push($word);
             } catch (GridException $exception) {
+                /** @noinspection CallableParameterUseCaseInTypeContextInspection */
                 $words = Word::excludeWords(
                     ...[
                            ...$words,
@@ -89,7 +92,8 @@ class Game extends Model
 
         $game->grid->finalize();
 
-        $game->save();
+        $player->games()->save($game);
+
         $game->words()->sync($successfulWords);
 
         return $game;
@@ -101,6 +105,11 @@ class Game extends Model
             get: fn() => $this->words
                     ->filter(fn(Word $word) => $word->session->found)->count() === $this->words->count()
         );
+    }
+
+    public function player(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function words(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -19,7 +19,7 @@ class CreateGame extends Controller
         $words = Word::forDifficulty($difficulty)
             ->get();
 
-        $game = Game::start($difficulty, $words);
+        $game = Game::start($request->user(), $difficulty, $words);
 
         if ($request->wantsJson()) {
             return new GameResource($game);

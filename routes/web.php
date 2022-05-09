@@ -20,9 +20,17 @@ use Inertia\Inertia;
 
 Route::get('/', Home::class)->name('home');
 
-Route::post('/game', CreateGame::class)->name('game.create');
-Route::get('/game/{game}', Game::class)->name('game.play');
-Route::post('/game/{game}/solve', SolveGame::class)->name('game.solve');
+Route::post('/game', CreateGame::class)
+    ->middleware('auth:sanctum')
+    ->name('game.create');
+
+Route::get('/game/{game}', Game::class)
+    ->middleware('auth:sanctum')
+    ->name('game.play');
+
+Route::post('/game/{game}/solve', SolveGame::class)
+    ->middleware('auth:sanctum')
+    ->name('game.solve');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
