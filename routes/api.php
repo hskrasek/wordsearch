@@ -22,10 +22,13 @@ Route::middleware('auth:sanctum')->name('user.info')->get('/user', function (Req
 });
 
 Route::name('games.info')
+    ->middleware('auth:sanctum')
     ->get('games/{game}', Game::class);
 
 Route::name('game.stats')
+    ->middleware('auth:sanctum')
     ->get('games/{game}/stats', GameStats::class);
 
 Route::name('game.create')
+    ->middleware('auth:sanctum')
     ->post('games', CreateGame::class);
