@@ -16,6 +16,8 @@ yarn-error.log
 _ide_helper.php
 .vapor/
 .env.production
-.env.staging
 unigram_freq.csv
 .env.beta
+/public/css
+/public/js
+/public/mix-manifest.json
