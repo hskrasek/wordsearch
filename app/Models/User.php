@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,6 +56,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $appends = [
+        'is_anonymous'
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -73,6 +78,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAnonymous(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => empty($this->email) && empty($this->email_verified_at),
+        );
+    }
 
     public function games(): HasMany
     {
