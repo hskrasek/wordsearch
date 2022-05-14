@@ -48,4 +48,11 @@ export default class Api {
                 return Promise.resolve(stats);
             });
     }
+
+    public userExists(username: string): Promise<boolean> {
+        return this.axios
+            .head("/users/" + username)
+            .then(() => Promise.resolve(true))
+            .catch(() => Promise.resolve(false));
+    }
 }
