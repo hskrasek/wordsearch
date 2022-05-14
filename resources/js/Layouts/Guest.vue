@@ -19,7 +19,7 @@ const user = computed(() => usePage().props.value.auth.user);
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex shrink-0 items-center">
-                        <Link :href="route('dashboard')">
+                        <Link :href="route('home')">
                             <BreezeApplicationLogo class="block h-9 w-auto" />
                         </Link>
                     </div>
@@ -27,6 +27,7 @@ const user = computed(() => usePage().props.value.auth.user);
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <BreezeNavLink
+                            v-if="!user.is_anonymous"
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
@@ -45,9 +46,12 @@ const user = computed(() => usePage().props.value.auth.user);
                                         type="button"
                                         class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                                     >
-                                        <!--                        {{ $page.props.auth.user.name }}-->
+                                        <Link :href="route('register')">
+                                            Register
+                                        </Link>
 
                                         <svg
+                                            v-if="!user.is_anonymous"
                                             class="ml-2 -mr-0.5 h-4 w-4"
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20"
@@ -65,7 +69,7 @@ const user = computed(() => usePage().props.value.auth.user);
 
                             <template #content>
                                 <BreezeDropdownLink
-                                    v-if="user.is_anonymous"
+                                    v-if="false"
                                     :href="route('register')"
                                     method="post"
                                     as="button"

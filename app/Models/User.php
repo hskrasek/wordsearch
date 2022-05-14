@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,12 +18,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $name
  * @property string|null $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property string $password
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $username
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Game[] $games
  * @property-read int|null $games_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LoginToken[] $loginTokens
+ * @property-read int|null $login_tokens_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
@@ -36,9 +39,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -53,11 +56,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'username',
     ];
 
     protected $appends = [
-        'is_anonymous'
+        'is_anonymous',
     ];
 
     /**
@@ -66,7 +69,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -82,12 +84,17 @@ class User extends Authenticatable
     public function isAnonymous(): Attribute
     {
         return Attribute::make(
-            get: fn() => empty($this->email) && empty($this->email_verified_at),
+            get: fn() => empty($this->email) || empty($this->email_verified_at),
         );
     }
 
     public function games(): HasMany
     {
         return $this->hasMany(Game::class);
+    }
+
+    public function loginTokens(): HasMany
+    {
+        return $this->hasMany(LoginToken::class);
     }
 }
