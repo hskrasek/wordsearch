@@ -19,6 +19,8 @@ class VerifyLoginToken extends Controller
 
         auth()->login($token->user, true);
 
+        $request->session()->regenerate(true);
+
         return redirect('/');
     }
 }
