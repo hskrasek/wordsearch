@@ -34,6 +34,14 @@ const user = computed(() => usePage().props.value.auth.user);
                             Dashboard
                         </BreezeNavLink>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <BreezeNavLink
+                            v-if="user.is_anonymous"
+                            :href="route('login')"
+                        >
+                            Login
+                        </BreezeNavLink>
+                    </div>
                 </div>
 
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
