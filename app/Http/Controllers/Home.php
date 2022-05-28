@@ -17,7 +17,7 @@ class Home extends Controller
             auth()->login(
                 $user = User::create(
                     ['user_agent' => $request->userAgent(),]
-                )
+                )->givePermissionTo('view profile', 'edit profile', 'play games')
             );
 
             event(new Registered($user));

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionsSeeder extends Seeder
@@ -22,5 +23,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'view profile']);
         Permission::create(['name' => 'edit profile']);
         Permission::create(['name' => 'play games']);
+
+        Role::create(['name' => 'Super Admin']);
     }
 }
