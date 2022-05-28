@@ -16,7 +16,7 @@ class Home extends Controller
         if (!auth()->check()) {
             auth()->login(
                 $user = User::create(
-                    ['password' => Str::random(),]
+                    ['user_agent' => $request->userAgent(),]
                 )
             );
 
