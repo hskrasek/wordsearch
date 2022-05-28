@@ -1,5 +1,5 @@
 {
-    "name": "laravel/laravel",
+    "name": "hskrasek/wordsearch",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
@@ -15,6 +15,7 @@
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
         "laravel/vapor-core": "^2.21",
+        "laravel/vapor-ui": "^1.5",
         "sentry/sentry-laravel": "^2.12",
         "spatie/laravel-permission": "^5.5",
         "staudenmeir/laravel-cte": "^1.0",
@@ -52,6 +53,7 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan vapor-ui:publish --ansi",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta"
         ],
