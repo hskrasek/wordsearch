@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26c70e1c07a0477f190d6f8aa4106c12",
+    "content-hash": "f5dc514175ebbe8867567017a4508fb6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4635,6 +4635,60 @@
                 }
             ],
             "time": "2022-05-05T21:50:47+00:00"
+        },
+        {
+            "name": "square/laravel-hyrule",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/square/laravel-hyrule.git",
+                "reference": "7c76a65d703825545415fe8af6af97a67a9334de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/square/laravel-hyrule/zipball/7c76a65d703825545415fe8af6af97a67a9334de",
+                "reference": "7c76a65d703825545415fe8af6af97a67a9334de",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0|^9.0",
+                "illuminate/validation": "^8.0|^9.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/framework": "^9.0",
+                "phpstan/phpstan": "^1.5",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Square\\Hyrule\\HyruleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Square\\Hyrule\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Bez Hermoso",
+                    "email": "bezalel@squareup.com"
+                }
+            ],
+            "description": "Fluent API for building validation rules in Laravel",
+            "support": {
+                "issues": "https://github.com/square/laravel-hyrule/issues",
+                "source": "https://github.com/square/laravel-hyrule/tree/2.2.0"
+            },
+            "time": "2022-05-18T20:03:58+00:00"
         },
         {
             "name": "staudenmeir/laravel-cte",
