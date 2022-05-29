@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -37,24 +38,26 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
+ * @method static Builder|User anonymous()
  * @method static \Database\Factories\UserFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
- * @method static \Illuminate\Database\Eloquent\Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereBirthday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereState($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUserAgent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User permission($permissions)
+ * @method static Builder|User query()
+ * @method static Builder|User registered()
+ * @method static Builder|User role($roles, $guard = null)
+ * @method static Builder|User whereBirthday($value)
+ * @method static Builder|User whereCountry($value)
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereName($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereState($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @method static Builder|User whereUserAgent($value)
+ * @method static Builder|User whereUsername($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -112,6 +115,22 @@ class User extends Authenticatable
     public function loginTokens(): HasMany
     {
         return $this->hasMany(LoginToken::class);
+    }
+
+    public function scopeAnonymous(Builder $query): Builder
+    {
+        return $query->where(function (Builder $query) {
+            $query->whereNull('email')
+                ->orWhereNull('email_verified_at');
+        });
+    }
+
+    public function scopeRegistered(Builder $query): Builder
+    {
+        return $query->where(function (Builder $query) {
+            $query->whereNotNull('email')
+                ->whereNotNull('email_verified_at');
+        });
     }
 
     public function getRouteKeyName()
