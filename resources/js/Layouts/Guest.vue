@@ -12,7 +12,9 @@ const user = computed(() => usePage().props.value.auth.user);
 </script>
 
 <template>
-    <nav class="border-b border-gray-100 bg-white">
+    <nav
+        class="border-b border-gray-100 bg-white dark:border-white dark:bg-slate-900"
+    >
         <!-- Primary Navigation Menu -->
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 justify-between">
@@ -20,26 +22,25 @@ const user = computed(() => usePage().props.value.auth.user);
                     <!-- Logo -->
                     <div class="flex shrink-0 items-center">
                         <Link :href="route('home')">
-                            <BreezeApplicationLogo class="block h-9 w-auto" />
+                            <BreezeApplicationLogo
+                                class="block h-9 w-auto fill-current text-gray-500 dark:text-gray-200"
+                            />
                         </Link>
                     </div>
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <BreezeNavLink
-                            v-if="!user.is_anonymous"
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
-                        >
-                            Dashboard
-                        </BreezeNavLink>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <BreezeNavLink
                             v-if="user.is_anonymous"
                             :href="route('login')"
                         >
                             Login
+                        </BreezeNavLink>
+                        <BreezeNavLink
+                            v-if="user.is_anonymous"
+                            :href="route('register')"
+                        >
+                            Register
                         </BreezeNavLink>
                     </div>
                 </div>
@@ -54,8 +55,16 @@ const user = computed(() => usePage().props.value.auth.user);
                                         type="button"
                                         class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                                     >
-                                        <Link :href="route('register')">
-                                            Register
+                                        <Link
+                                            v-if="!user.is_anonymous"
+                                            :href="
+                                                route(
+                                                    'user.profile',
+                                                    user.username
+                                                )
+                                            "
+                                        >
+                                            {{ user.username }}
                                         </Link>
 
                                         <svg
@@ -77,12 +86,12 @@ const user = computed(() => usePage().props.value.auth.user);
 
                             <template #content>
                                 <BreezeDropdownLink
-                                    v-if="false"
-                                    :href="route('register')"
+                                    v-if="true"
+                                    :href="route('logout')"
                                     method="post"
                                     as="button"
                                 >
-                                    Register
+                                    Logout
                                 </BreezeDropdownLink>
                             </template>
                         </BreezeDropdown>
