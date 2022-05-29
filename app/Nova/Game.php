@@ -2,30 +2,28 @@
 
 namespace App\Nova;
 
-use App\Nova\Filters\UserType;
-use App\Nova\Metrics\NewUsers;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class User extends Resource
+class Game extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\User::class;
+    public static $model = \App\Models\Game::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'username';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -34,9 +32,7 @@ class User extends Resource
      */
     public static $search = [
         'id',
-        'name',
-        'username',
-        'email',
+        'difficulty',
     ];
 
     /**
@@ -49,30 +45,17 @@ class User extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')
+                ->sortable(),
 
-            Gravatar::make()->maxWidth(50),
+            Text::make('Difficulty', fn() => $this->difficulty->name)
+                ->sortable(),
 
-            Text::make('Name')
+            Boolean::make('Is Completed')
                 ->sortable()
-                ->rules('required', 'max:255'),
+                ->readonly(),
 
-            Text::make('Username')
-                ->nullable()
-                ->sortable()
-                ->rules('required', 'string', 'profane:en,es', 'max:16')
-                ->creationRules('unique:users,username')
-                ->updateRules('unique:users,username,{{resourceId}}'),
-
-            Text::make('Email')
-                ->nullable()
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
-            Date::make('Registered At', 'email_verified_at')
-                ->nullable()
+            DateTime::make('Started At', 'created_at')
                 ->sortable(),
         ];
     }
@@ -86,9 +69,7 @@ class User extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-            new NewUsers()
-        ];
+        return [];
     }
 
     /**
@@ -100,9 +81,7 @@ class User extends Resource
      */
     public function filters(Request $request)
     {
-        return [
-            new UserType()
-        ];
+        return [];
     }
 
     /**
