@@ -109,7 +109,7 @@ class Game extends Model
 
     public function player(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function words(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

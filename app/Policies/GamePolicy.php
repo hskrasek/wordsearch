@@ -21,7 +21,7 @@ class GamePolicy
      */
     public function view(User $user, Game $game): Response|bool
     {
-        return $game->player->is($user);
+        return $game->player()->is($user);
     }
 
     /**
