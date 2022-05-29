@@ -22,15 +22,18 @@ Route::get('/', Home::class)->name('home');
 
 Route::post('/game', CreateGame::class)
     ->middleware('auth:sanctum')
-    ->name('game.create');
+    ->name('game.create')
+    ->can('create');
 
 Route::get('/game/{game}', Game::class)
     ->middleware('auth:sanctum')
-    ->name('game.play');
+    ->name('game.play')
+    ->can('view');
 
 Route::post('/game/{game}/solve', SolveGame::class)
     ->middleware('auth:sanctum')
-    ->name('game.solve');
+    ->name('game.solve')
+    ->can('update');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
