@@ -20,10 +20,10 @@ class PermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'view profile']);
-        Permission::create(['name' => 'edit profile']);
-        Permission::create(['name' => 'play games']);
+        Permission::findOrCreate('view profile');
+        Permission::findOrCreate('edit profile');
+        Permission::findOrCreate('play games');
 
-        Role::create(['name' => 'Super Admin']);
+        Role::findOrCreate('Super Admin');
     }
 }
