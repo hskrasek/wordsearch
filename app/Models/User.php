@@ -76,6 +76,7 @@ class User extends Authenticatable
         'name',
         'email',
         'username',
+        'user_agent'
     ];
 
     protected $appends = [

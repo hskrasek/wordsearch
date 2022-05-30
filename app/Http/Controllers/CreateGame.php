@@ -25,6 +25,6 @@ class CreateGame extends Controller
             return new GameResource($game);
         }
 
-        return redirect()->route('game.play', compact('game'));
+        return to_route('game.play', compact('game'));
     }
 }
