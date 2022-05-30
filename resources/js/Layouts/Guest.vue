@@ -55,17 +55,18 @@ const user = computed(() => usePage().props.value.auth.user);
                                         type="button"
                                         class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                                     >
-                                        <Link
-                                            v-if="!user.is_anonymous"
-                                            :href="
-                                                route(
-                                                    'user.profile',
-                                                    user.username
-                                                )
-                                            "
-                                        >
-                                            {{ user.username }}
-                                        </Link>
+                                        <!--                                        <Link-->
+                                        <!--                                            v-if="!user.is_anonymous"-->
+                                        <!--                                            :href="-->
+                                        <!--                                                route(-->
+                                        <!--                                                    'user.profile',-->
+                                        <!--                                                    user.username-->
+                                        <!--                                                )-->
+                                        <!--                                            "-->
+                                        <!--                                            disabled-->
+                                        <!--                                        >-->
+                                        {{ user.username }}
+                                        <!--                                        </Link>-->
 
                                         <svg
                                             v-if="!user.is_anonymous"
