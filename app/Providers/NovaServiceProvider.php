@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Nova\Dashboards\Main;
 use App\Nova\Metrics\GamesPerDay;
 use App\Nova\Metrics\GamesPerDifficulty;
 use App\Nova\Metrics\NewUsers;
@@ -31,9 +32,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes()
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
@@ -60,7 +61,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             new NewUsers(),
             new GamesPerDay(),
-            new GamesPerDifficulty()
+            new GamesPerDifficulty(),
         ];
     }
 
@@ -71,7 +72,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        return [];
+        return [
+            new Main(),
+        ];
     }
 
     /**
@@ -91,6 +94,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function register()
     {
-        //
+        Nova::report(function (\Throwable $exception) {
+            if (app()->bound('sentry') && !app()->environment('local')) {
+                app('sentry')->capturException($exception);
+            }
+        });
     }
 }

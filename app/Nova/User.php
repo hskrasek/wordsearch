@@ -4,11 +4,14 @@ namespace App\Nova;
 
 use App\Nova\Filters\UserType;
 use App\Nova\Metrics\NewUsers;
+use App\Nova\Metrics\UsersGamesOverTime;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Sparkline;
 use Laravel\Nova\Fields\Text;
 
 class User extends Resource
@@ -71,9 +74,14 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
+            Sparkline::make('Played Games')
+                ->data(new UsersGamesOverTime($this->id)),
+
             Date::make('Registered At', 'email_verified_at')
                 ->nullable()
                 ->sortable(),
+
+            HasMany::make('Games'),
         ];
     }
 

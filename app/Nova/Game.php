@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -35,6 +36,8 @@ class Game extends Resource
         'difficulty',
     ];
 
+    public static $with = ['player'];
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -46,17 +49,26 @@ class Game extends Resource
     {
         return [
             ID::make(__('ID'), 'id')
-                ->sortable(),
+                ->sortable()
+                ->readonly(),
+
+            Text::make('UUID')
+                ->readonly(),
+
+            BelongsTo::make('Player', 'player', \App\Nova\User::class)
+                ->readonly(),
 
             Text::make('Difficulty', fn() => $this->difficulty->name)
-                ->sortable(),
+                ->sortable()
+                ->readonly(),
 
             Boolean::make('Is Completed')
                 ->sortable()
                 ->readonly(),
 
             DateTime::make('Started At', 'created_at')
-                ->sortable(),
+                ->sortable()
+                ->readonly(),
         ];
     }
 
