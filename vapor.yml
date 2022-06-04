@@ -5,7 +5,7 @@ environments:
         domain: beta.wordsearch.games
         memory: 1024
         cli-memory: 512
-        database: wordsearch
+        database: wordsearch-beta
         runtime: 'php-8.1:al2'
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --prefer-dist --no-interaction --no-dev --no-autoloader'
