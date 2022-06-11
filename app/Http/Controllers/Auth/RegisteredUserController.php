@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\SendLoginLink;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -27,28 +28,33 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request, SendLoginLink $sendLoginLink)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $request->validate(
+            [
+                'username' => 'required|string|profane:en,es|max:16|unique:users,username',
+                'email'    => 'required|string|email|max:255|unique:users,email',
+            ]
+        );
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        /** @var User $user */
+        $user = $request->user();
+        $user->update(
+            [
+                'username' => $request->username,
+                'email'    => $request->email,
+            ]
+        );
 
         event(new Registered($user));
 
-        Auth::login($user);
+        $sendLoginLink($user);
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -1,20 +1,32 @@
 {
-    "name": "laravel/laravel",
+    "name": "hskrasek/wordsearch",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
     "require": {
         "php": "^8.1",
+        "arandilopez/laravel-profane": "^0.5.0",
         "davmixcool/laravel-meta-manager": "^1.2",
+        "dougsisk/laravel-country-state": "^4.1",
         "fruitcake/laravel-cors": "^2.0.5",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.5.4",
         "laravel/framework": "^9.0",
+        "laravel/nova": "^4.0",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
         "laravel/vapor-core": "^2.21",
+        "laravel/vapor-ui": "^1.5",
         "sentry/sentry-laravel": "^2.12",
+        "spatie/laravel-permission": "^5.5",
+        "square/laravel-hyrule": "^2.0",
         "staudenmeir/laravel-cte": "^1.0",
         "tightenco/ziggy": "^1.0"
     },
@@ -50,6 +62,7 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan vapor-ui:publish --ansi",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta"
         ],

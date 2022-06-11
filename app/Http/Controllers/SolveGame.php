@@ -29,6 +29,6 @@ class SolveGame extends Controller
 
         $game->words()->updateExistingPivot($word, ['found' => true, 'found_at' => Carbon::now()]);
 
-        return redirect()->route('game.play', compact('game'));
+        return to_route('game.play', compact('game'));
     }
 }
