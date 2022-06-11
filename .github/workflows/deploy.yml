@@ -29,6 +29,8 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+      - name: Authenticate Composer for Nova
+        run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_LICENSE_KEY}
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-dev --no-autoloader
       - name: Generate Optimized Autoloader
