@@ -64,7 +64,7 @@ class Game extends Model
     {
         $game             = new self();
         $game->difficulty = $difficulty;
-        $game->uuid       = Str::uuid();
+        $game->uuid       = Str::orderedUuid();
 
         $game->grid = new Grid($difficulty->gridSize());
 
