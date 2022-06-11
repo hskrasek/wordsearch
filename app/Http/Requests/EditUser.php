@@ -37,12 +37,14 @@ class EditUser extends FormRequest
         $builder->string('country')
             ->sometimes()
             ->requiredWith('state')
-            ->in(array_keys(CountryState::getCountries()));
+            ->in(array_keys(CountryState::getCountries()))
+            ->end();
 
         $builder->string('state')
             ->sometimes()
             ->requiredWith('country')
-            ->in(array_keys(CountryState::getStates($this->country)));
+            ->in(array_keys(CountryState::getStates($this->country)))
+            ->end();
 
         return $builder->build();
     }
