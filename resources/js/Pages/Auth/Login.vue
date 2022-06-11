@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import BreezeButton from "@/Components/Button.vue";
-import BreezeCheckbox from "@/Components/Checkbox.vue";
 import BreezeInput from "@/Components/Input.vue";
 import BreezeLabel from "@/Components/Label.vue";
 import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
-import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/inertia-vue3";
 import route from "@/ziggy";
-
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
 
 const form = useForm({
     email: "",
@@ -27,10 +21,6 @@ const submit = () => {
     <Head title="Log in" />
 
     <BreezeValidationErrors class="mb-4" />
-
-    <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-        {{ status }}
-    </div>
 
     <form @submit.prevent="submit">
         <div>

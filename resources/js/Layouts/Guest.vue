@@ -9,6 +9,7 @@ import { computed, ref } from "vue";
 
 const showingNavigationDropdown = ref(false);
 const user = computed(() => usePage().props.value.auth.user);
+const status = computed(() => usePage().props.value.status);
 </script>
 
 <template>
@@ -53,7 +54,7 @@ const user = computed(() => usePage().props.value.auth.user);
                                 <span class="inline-flex rounded-md">
                                     <button
                                         type="button"
-                                        class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+                                        class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-slate-900"
                                     >
                                         <!--                                        <Link-->
                                         <!--                                            v-if="!user.is_anonymous"-->
@@ -149,12 +150,12 @@ const user = computed(() => usePage().props.value.auth.user);
             class="sm:hidden"
         >
             <div class="space-y-1 pt-2 pb-3">
-                <BreezeResponsiveNavLink
-                    :href="route('dashboard')"
-                    :active="route().current('dashboard')"
-                >
-                    Dashboard
-                </BreezeResponsiveNavLink>
+                <!--                <BreezeResponsiveNavLink-->
+                <!--                    :href="route('dashboard')"-->
+                <!--                    :active="route().current('dashboard')"-->
+                <!--                >-->
+                <!--                    Dashboard-->
+                <!--                </BreezeResponsiveNavLink>-->
             </div>
 
             <!-- Responsive Settings Options -->
@@ -194,6 +195,9 @@ const user = computed(() => usePage().props.value.auth.user);
         <main
             class="mt-6 flex max-w-max rounded-lg bg-white px-6 py-4 shadow-md dark:bg-slate-800"
         >
+            <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
+                {{ status }}
+            </div>
             <slot />
         </main>
     </div>

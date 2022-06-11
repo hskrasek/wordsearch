@@ -30,9 +30,8 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Redirect with session flash to show message to check email inbox for login link
+        return redirect()->intended(RouteServiceProvider::HOME)->with('status', 'Please check your email to finish logging in.');
     }
 
     /**
