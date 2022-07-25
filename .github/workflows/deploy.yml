@@ -6,8 +6,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Debugging Environment Variables
-        run: echo $(cat ${{ github.env }})
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup PHP
@@ -33,7 +31,6 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Install Composer dependencies
         run: |
-          echo "Username: ${{ secrets.NOVA_USERNAME }}"
           composer config http-basic.nova.laravel.com "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_LICENSE_KEY }}"
           composer install --prefer-dist --no-interaction --no-dev --no-autoloader
       - name: Generate Optimized Autoloader
