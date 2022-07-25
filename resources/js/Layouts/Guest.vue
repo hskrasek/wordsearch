@@ -10,7 +10,10 @@ import { computed, ref } from "vue";
 const props = defineProps<{
     uuid: string;
     auth: {
-        user: unknown;
+        user: {
+            username: string;
+            is_anonymous: boolean;
+        };
     };
     status: string;
 }>();
