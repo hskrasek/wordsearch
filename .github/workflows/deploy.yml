@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debugging Environment Variables
-        run: cat ${{ github.env }}
+        run: echo $(cat ${{ github.env }})
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup PHP
