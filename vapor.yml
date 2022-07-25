@@ -6,7 +6,7 @@ environments:
         memory: 1024
         cli-memory: 512
         database: wordsearch-beta
-        storage: wordsearch-beta-database-artifacts
+        storage: wordsearch-beta-artifacts
         runtime: 'php-8.1:al2'
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --prefer-dist --no-interaction --no-dev --no-autoloader'
@@ -23,7 +23,7 @@ environments:
         memory: 1024
         cli-memory: 512
         database: wordsearch
-        storage: wordsearch-production-database-artifacts
+        storage: wordsearch-production-artifacts
         runtime: 'php-8.1:al2'
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --prefer-dist --no-interaction --no-dev --no-autoloader'
