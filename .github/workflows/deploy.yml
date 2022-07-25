@@ -6,6 +6,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Debugging Environment Variables
+        run: echo '${{ toJSON(env) }}'
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup PHP
