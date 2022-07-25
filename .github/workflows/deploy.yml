@@ -9,7 +9,7 @@ jobs:
       - name: Debugging Environment Variables
         run: echo '$GITHUB_CONTEXT'
       - run:
-          echo '${{ toJSON(github) }}'
+          echo '${{ env.NOVA_USERNAME }}'
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup PHP
