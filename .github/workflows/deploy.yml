@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debugging Environment Variables
-        run: echo '${{ toJSON(env) }}'
+        run: echo '${GITHUB_CONTEXT}'
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup PHP
