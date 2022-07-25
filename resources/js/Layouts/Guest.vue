@@ -4,12 +4,20 @@ import BreezeDropdown from "@/Components/Dropdown.vue";
 import BreezeDropdownLink from "@/Components/DropdownLink.vue";
 import BreezeNavLink from "@/Components/NavLink.vue";
 import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link, usePage } from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "vue";
 
+const props = defineProps<{
+    uuid: string;
+    auth: {
+        user: unknown;
+    };
+    status: string;
+}>();
+
 const showingNavigationDropdown = ref(false);
-const user = computed(() => usePage().props.value.auth.user);
-const status = computed(() => usePage().props.value.status);
+const user = computed(() => props.auth.user);
+const status = computed(() => props.status);
 </script>
 
 <template>
