@@ -20,6 +20,8 @@ jobs:
           node-version: 16
           cache: 'npm'
           cache-dependency-path: npm-shrinkwrap.json
+      - name: Require Vapor CLI
+        run: composer global require laravel/vapor-cli
       - name: Determine Environment
         id: determine_environment
         run: |
@@ -46,8 +48,6 @@ jobs:
           vapor env:pull ${{ format(steps.determine_environment.outputs.environment) }}
           mv .env.${{ format(steps.determine_environment.outputs.environment) }} .env
           npm run prod
-      - name: Require Vapor CLI
-        run: composer global require laravel/vapor-cli
       - name: Create Backend Sentry release
         uses: getsentry/action-release@v1
         env:
