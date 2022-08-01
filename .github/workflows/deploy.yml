@@ -48,6 +48,8 @@ jobs:
           vapor env:pull ${{ format(steps.determine_environment.outputs.environment) }}
           mv .env.${{ format(steps.determine_environment.outputs.environment) }} .env
           npm run prod
+        env:
+          VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
       - name: Create Backend Sentry release
         uses: getsentry/action-release@v1
         env:
