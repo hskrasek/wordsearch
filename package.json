@@ -7,7 +7,9 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "build-words-importer": "cd nova-components/WordsImporter && npm run dev",
+        "build-words-importer-prod": "cd nova-components/WordsImporter && npm run prod"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.11.0",
