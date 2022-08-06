@@ -14,6 +14,7 @@ export default class Api {
     constructor() {
         this.axios = axios;
         this.axios.defaults.baseURL = "/api/";
+        this.axios.defaults.withCredentials = true;
     }
 
     public gameStats(gameId: string): Promise<{

@@ -28,7 +28,7 @@ class WordSeeder extends Seeder
         $now = now();
 
         LazyCollection::make(function () {
-            $handle = Storage::readStream('unigram_freq.csv');
+            $handle = Storage::disk('s3')->readStream('unigram_freq.csv');
 
             while ($line = fgetcsv($handle)) {
                 yield $line;
