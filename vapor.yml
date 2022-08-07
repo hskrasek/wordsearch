@@ -14,7 +14,7 @@ environments:
             - 'APP_URL="https://beta.wordsearch.games" php artisan ziggy:generate ./resources/ziggy.generated.js'
             - 'php artisan event:cache'
             - 'php artisan config:cache'
-            - 'npm ci && npm run prod && rm -rf node_modules'
+            - 'npm ci && npm run build && rm -rf node_modules'
         deploy:
             - 'php artisan migrate --force'
     production:
@@ -31,6 +31,6 @@ environments:
             - 'APP_URL=https://wordsearch.games php artisan ziggy:generate ./resources/ziggy.generated.js'
             - 'php artisan event:cache'
             - 'php artisan config:cache'
-            - 'npm ci && npm run prod && rm -rf node_modules'
+            - 'npm ci && npm run build && rm -rf node_modules'
         deploy:
             - 'php artisan migrate --force'
