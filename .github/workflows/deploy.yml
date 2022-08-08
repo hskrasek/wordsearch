@@ -48,6 +48,15 @@ jobs:
           npm run prod
         env:
           VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
+      - name: Configure Ziggy routes
+        run: |
+          if [ "$ENVIRONMENT" = "beta" ]; then
+            APP_URL=beta.wordsearch.games php artisan ziggy:generate
+          else
+            APP_URL=wordsearch.games php artisan ziggy:generate
+          fi
+        env:
+          ENVIRONMENT: ${{ format(steps.determine_environment.outputs.environment) }}
       - name: Create Backend Sentry release
         uses: getsentry/action-release@v1
         env:
