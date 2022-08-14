@@ -8,21 +8,14 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
-        <!-- Styles -->
-        @vite('resources/css/app.css')
+        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @routes
-        @vite('resources/js/app.js')
+        @vite('resources/js/app.ts')
         <script defer data-domain="{{ config('app.url') }}" data-exclude="/api/*" src="https://plausible.io/js/plausible.js"></script>
     </head>
     <body class="font-sans antialiased">
         @inertia
-
-        @env ('local')
-            <script src="http://localhost:8080/js/bundle.js"></script>
-        @endenv
     </body>
 </html>
