@@ -45,7 +45,7 @@ jobs:
         run: npm ci
       - name: Build Application
         run: |
-          npm run prod
+          npm run build
         env:
           VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
       - name: Configure Ziggy routes
