@@ -45,7 +45,7 @@ jobs:
         run: npm ci
       - name: Build Application
         run: |
-          VITE_DEV_URL=localhost:3000 npm run build
+          Vnpm run build
         env:
           VAPOR_API_TOKEN: ${{ secrets.VAPOR_API_TOKEN }}
       - name: Configure Ziggy routes
