@@ -1,9 +1,8 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import * as dayjs from "dayjs";
-import * as calendar from "dayjs/plugin/calendar";
-import * as relativeTime from "dayjs/plugin/relativeTime";
-import * as ObjectSupport from "dayjs/plugin/objectSupport";
-
+import dayjs from "dayjs";
+import calendar from "dayjs/plugin/calendar";
+import relativeTime from "dayjs/plugin/relativeTime";
+import ObjectSupport from "dayjs/plugin/objectSupport";
 dayjs.extend(calendar);
 dayjs.extend(relativeTime);
 dayjs.extend(ObjectSupport);
