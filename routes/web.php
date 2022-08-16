@@ -4,6 +4,8 @@ use App\Http\Controllers\CreateGame;
 use App\Http\Controllers\Game;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\SolveGame;
+use App\Http\Controllers\User;
+use App\Models\Game as GameModel;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,12 +22,19 @@ use Inertia\Inertia;
 
 Route::get('/', Home::class)->name('home');
 
-Route::post('/game', CreateGame::class)->name('game.create');
-Route::get('/game/{game}', Game::class)->name('game.play');
-Route::post('/game/{game}/solve', SolveGame::class)->name('game.solve');
+Route::post('/game', CreateGame::class)
+    ->middleware('auth:sanctum')
+    ->name('game.create')
+    ->can('create', GameModel::class);
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/game/{game}', Game::class)
+    ->middleware('auth:sanctum')
+    ->can('view', 'game')
+    ->name('game.play');
+
+Route::post('/game/{game}/solve', SolveGame::class)
+    ->middleware('auth:sanctum')
+    ->name('game.solve')
+    ->can('update', 'game');
 
 require __DIR__ . '/auth.php';

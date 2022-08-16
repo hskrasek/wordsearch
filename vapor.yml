@@ -5,15 +5,16 @@ environments:
         domain: beta.wordsearch.games
         memory: 1024
         cli-memory: 512
-        database: wordsearch
+        database: wordsearch-beta
+        storage: wordsearch-beta-artifacts
         runtime: 'php-8.1:al2'
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --prefer-dist --no-interaction --no-dev --no-autoloader'
             - 'composer dump-autoload --optimize'
-            - 'APP_URL=https://beta.wordsearch.games php artisan ziggy:generate ./resources/ziggy.generated.js'
             - 'php artisan event:cache'
             - 'php artisan config:cache'
-            - 'npm ci && npm run prod && rm -rf node_modules'
+            - 'npm ci && npm run build && rm -rf node_modules'
+            - 'APP_URL="https://beta.wordsearch.games" php artisan ziggy:generate ./resources/ziggy.generated.js'
         deploy:
             - 'php artisan migrate --force'
     production:
@@ -22,13 +23,14 @@ environments:
         memory: 1024
         cli-memory: 512
         database: wordsearch
+        storage: wordsearch-production-artifacts
         runtime: 'php-8.1:al2'
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --prefer-dist --no-interaction --no-dev --no-autoloader'
             - 'composer dump-autoload --optimize'
-            - 'APP_URL=https://wordsearch.games php artisan ziggy:generate ./resources/ziggy.generated.js'
             - 'php artisan event:cache'
             - 'php artisan config:cache'
-            - 'npm ci && npm run prod && rm -rf node_modules'
+            - 'npm ci && npm run build && rm -rf node_modules'
+            - 'APP_URL=https://wordsearch.games php artisan ziggy:generate ./resources/ziggy.generated.js'
         deploy:
             - 'php artisan migrate --force'

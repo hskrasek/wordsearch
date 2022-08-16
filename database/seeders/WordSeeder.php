@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Word;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 
 class WordSeeder extends Seeder
@@ -27,7 +28,7 @@ class WordSeeder extends Seeder
         $now = now();
 
         LazyCollection::make(function () {
-            $handle = fopen(base_path('unigram_freq.csv'), 'rb');
+            $handle = Storage::disk('s3')->readStream('unigram_freq.csv');
 
             while ($line = fgetcsv($handle)) {
                 yield $line;

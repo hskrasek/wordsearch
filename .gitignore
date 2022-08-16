@@ -1,5 +1,6 @@
 /node_modules
 /public/hot
+/public/build
 /public/storage
 /storage/*.key
 /vendor
@@ -14,8 +15,12 @@ yarn-error.log
 /.idea
 /.vscode
 _ide_helper.php
+.phpstorm.meta.php
 .vapor/
 .env.production
-.env.staging
 unigram_freq.csv
 .env.beta
+/public/css
+/public/js
+/public/mix-manifest.json
+auth.json

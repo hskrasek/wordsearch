@@ -3,6 +3,7 @@
 use App\Http\Controllers\CreateGame;
 use App\Http\Controllers\Game;
 use App\Http\Controllers\GameStats;
+use App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +23,17 @@ Route::middleware('auth:sanctum')->name('user.info')->get('/user', function (Req
 });
 
 Route::name('games.info')
+    ->middleware('auth:sanctum')
     ->get('games/{game}', Game::class);
 
 Route::name('game.stats')
+    ->middleware('auth:sanctum')
     ->get('games/{game}/stats', GameStats::class);
 
 Route::name('game.create')
+    ->middleware('auth:sanctum')
     ->post('games', CreateGame::class);
+
+Route::name('user.info')
+    ->middleware('auth:sanctum')
+    ->get('users/{user}', User::class);

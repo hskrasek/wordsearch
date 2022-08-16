@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es2015",
+        "target": "ESNext",
         "module": "es2022",
         "moduleResolution": "node",
         "baseUrl": ".",
@@ -18,7 +18,8 @@
         },
         "typeRoots": [
             "node_modules/@types",
-        ]
+        ],
+        "types": ["vite/client"]
     },
     "include": [
         "resources/js/**/*",
