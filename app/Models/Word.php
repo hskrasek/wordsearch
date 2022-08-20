@@ -99,7 +99,7 @@ class Word extends Model
                     ->where('length', '<=', $difficulty->gridSize())
                     ->whereNot('text', '~*', '[b-df-jh-np-tv-z]{2,}')
                     ->whereNot('text', '~*', '[a-z]o[a-z]+')
-                    ->inRandomOrder()
+                    ->orderByRaw('RANDOM() DESC')
                     ->orderByDesc('frequency')
                     ->limit(
                         match ($difficulty) {
