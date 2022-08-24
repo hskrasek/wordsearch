@@ -7,7 +7,6 @@ import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { InertiaProgress } from "@inertiajs/progress";
 import { ZiggyVue } from "ziggy-vue";
 import route from "ziggy";
-import Guest from "@/Layouts/Guest.vue";
 import * as Sentry from "@sentry/vue";
 
 const appName =
@@ -16,25 +15,22 @@ const appName =
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        const page = resolvePageComponent(
+        // page.then((mod) => {
+        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //     // @ts-ignore
+        //     mod.default.layout = mod.default.layout || App;
+        // });
+
+        return resolvePageComponent(
             `./Pages/${name}.vue`,
             import.meta.glob("./Pages/**/*.vue")
         );
-
-        page.then((mod) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            mod.default.layout = mod.default.layout || Guest;
-        });
-
-        return page;
     },
     setup({ el, app, props, plugin }) {
         const vueApp = createApp({ render: () => h(app, props) });
         vueApp
             .use(plugin)
             .use(ZiggyVue)
-            // .use(VuePlausible)
             .mixin({ methods: { route } })
             .mount(el);
 
