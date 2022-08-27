@@ -6,7 +6,11 @@ import { computed } from "vue";
 import route from "ziggy";
 
 const props = defineProps<{
-    difficulties: Array<{ value: number; name: string }>;
+    difficulties: Array<{
+        value: number;
+        name: string;
+        directions: Array<string>;
+    }>;
 }>();
 
 const difficultyColorMap = {
@@ -38,6 +42,7 @@ const actions = computed(() => {
             icon: PlayIcon,
             iconForeground: colors.iconForeground,
             iconBackground: colors.iconBackground,
+            directions: difficulty.directions,
         };
     });
 });
@@ -102,11 +107,15 @@ const actions = computed(() => {
                                 {{ action.title }}
                             </Link>
                         </h3>
-                        <p class="mt-2 text-sm text-gray-500">
-                            Doloribus dolores nostrum quia qui natus officia
-                            quod et dolorem. Sit repellendus qui ut at
-                            blanditiis et quo et molestiae.
-                        </p>
+                        <p class="mt-2 text-sm text-gray-500">Directions:</p>
+                        <ul class="mt-2 text-sm text-gray-500">
+                            <li
+                                v-for="direction in action.directions"
+                                :key="direction"
+                            >
+                                {{ direction }}
+                            </li>
+                        </ul>
                     </div>
                     <span
                         class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"

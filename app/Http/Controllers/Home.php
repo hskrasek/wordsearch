@@ -24,7 +24,7 @@ class Home extends Controller
         }
 
         return Inertia::render('Home', props: [
-            'difficulties' => array_map(fn(Difficulty $difficulty) => (array)$difficulty, Difficulty::cases()),
+            'difficulties' => array_map(fn(Difficulty $difficulty) => (array)$difficulty + ['directions' => $difficulty->directions()], Difficulty::cases()),
         ]);
     }
 }

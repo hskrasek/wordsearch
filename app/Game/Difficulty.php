@@ -5,14 +5,34 @@ declare(strict_types=1);
 namespace App\Game;
 
 use App\Concerns\Game\Randomable;
+use App\Game\Attributes\Directions;
+use ArchTech\Enums\Meta\Meta;
+use ArchTech\Enums\Metadata;
 
+/**
+ * @method array directions
+ */
+#[Meta(Directions::class)]
 enum Difficulty: int
 {
+    use Metadata;
     use Randomable;
 
+    #[Directions([Direction::North, Direction::East])]
     case Easy = 0;
+
+    #[Directions([Direction::North, Direction::East, Direction::South, Direction::West])]
     case Medium = 1;
+
+    #[Directions([
+        Direction::North, Direction::East, Direction::South, Direction::West, Direction::NorthEast, Direction::SouthWest
+    ])]
     case Hard = 2;
+
+    #[Directions([
+        Direction::North, Direction::East, Direction::South, Direction::West, Direction::NorthEast,
+        Direction::SouthEast, Direction::SouthWest, Direction::NorthWest
+    ])]
     case Insane = 3;
 
     public static function fromName(string $name): ?Difficulty
