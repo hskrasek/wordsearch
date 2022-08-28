@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class LoginToken extends Model
 {
     use HasFactory;
+    use Prunable;
 
     protected $guarded = [];
 
@@ -64,5 +66,10 @@ class LoginToken extends Model
     public function isConsumed(): bool
     {
         return $this->consumed_at !== null;
+    }
+
+    public function prunable()
+    {
+        return static::where('expires_at', '<=', now()->subMonth());
     }
 }

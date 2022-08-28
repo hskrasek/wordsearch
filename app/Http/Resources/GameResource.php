@@ -41,6 +41,8 @@ class GameResource extends JsonResource
             'grid'         => $grid->toArray(),
             'words'        => WordResource::collection($this->words->sortBy(fn(Word $word) => $word->text)->values())
                 ->toArray($request),
+            'created_at' => $this->created_at,
+            'created_date' => $this->created_at->toDateString(),
         ];
     }
 }

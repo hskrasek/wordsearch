@@ -27,7 +27,7 @@ services:
             - pgsql
             - mailhog
     pgsql:
-        image: 'postgres:10.14-alpine'
+        image: 'postgres:14.3-alpine3.16'
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
         environment:

@@ -3,6 +3,9 @@ import { onMounted, reactive } from "vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import Api from "@/api";
 
+// Update Completion screen with modal from Tailwind UI
+// Find a new design for the table of stats
+
 const api = new Api();
 
 interface Stats {
