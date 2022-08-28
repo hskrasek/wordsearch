@@ -18,8 +18,7 @@ import {
     XIcon,
 } from "@heroicons/vue/outline";
 import { Link } from "@inertiajs/inertia-vue3";
-import { SearchIcon } from "@heroicons/vue/solid";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import route from "ziggy";
 
 const props = defineProps<{
@@ -106,14 +105,13 @@ const userNavigation = [
                                             :href="item.href"
                                             :class="[
                                                 active ? 'bg-gray-100' : '',
-                                                'block px-4 py-2 text-sm text-gray-700',
+                                                'block w-full px-4 py-2 text-left text-sm text-gray-700',
                                             ]"
                                             as="button"
-                                            method="item.method"
+                                            :method="item.method"
                                         >
                                             {{ item.name }}
                                         </Link>
-                                        <!-- TODO: Fix button styling issue in the menu                                        -->
                                     </MenuItem>
                                 </MenuItems>
                             </transition>
@@ -319,7 +317,7 @@ const userNavigation = [
                             <div
                                 class="overflow-hidden rounded-lg bg-white shadow"
                             >
-                                <div class="p-6">
+                                <div class="px-8 py-4">
                                     <slot name="content" />
                                 </div>
                             </div>
