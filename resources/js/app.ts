@@ -8,19 +8,16 @@ import { InertiaProgress } from "@inertiajs/progress";
 import { ZiggyVue } from "ziggy-vue";
 import route from "ziggy";
 import * as Sentry from "@sentry/vue";
+import { createPinia } from "pinia";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 
+const pinia = createPinia();
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        // page.then((mod) => {
-        //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //     // @ts-ignore
-        //     mod.default.layout = mod.default.layout || App;
-        // });
-
         return resolvePageComponent(
             `./Pages/${name}.vue`,
             import.meta.glob("./Pages/**/*.vue")
@@ -31,6 +28,7 @@ createInertiaApp({
         vueApp
             .use(plugin)
             .use(ZiggyVue)
+            .use(pinia)
             .mixin({ methods: { route } })
             .mount(el);
 
