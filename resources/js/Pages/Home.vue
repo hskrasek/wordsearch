@@ -137,17 +137,24 @@ const actions = computed(() => {
         </template>
 
         <template #sidebar>
-            <h2 class="mt-6 text-xl font-semibold dark:text-white">
-                A word from the author,
-            </h2>
-            <p class="break-words font-normal dark:text-white">
-                I hope you enjoy solving word search puzzles on my little side
-                side project. I want to keep this project active and improve it
-                along the way as I learn more. A nicer design, mobile and more
-                is on the horizon, but I wanted to get this open as soon as
-                possible. Pardon my dust while I keep making improvements.
-            </p>
-            <p class="font-thin dark:text-white">- Hunter Skrasek</p>
+            <section>
+                <h2 class="mt-6 text-xl font-semibold dark:text-white">
+                    Lorem ipsum dolor
+                </h2>
+                <p class="break-words font-normal dark:text-white">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+                    dolor elit, consectetur nec gravida sed, eleifend id felis.
+                    Cras gravida augue eu magna interdum iaculis. Maecenas a
+                    metus urna. Mauris eu congue metus, id lacinia turpis.
+                    Curabitur fringilla lacus non nulla iaculis, sit amet
+                    interdum velit commodo. Cras eget risus vel orci venenatis
+                    aliquam. Nunc vehicula tempor dignissim. In id rhoncus eros.
+                    Nulla quis ante suscipit, malesuada est at, sollicitudin
+                    diam. Nullam porta, nunc eu pellentesque placerat, urna
+                    tellus convallis elit, vitae condimentum nibh enim lobortis
+                    diam. Etiam eu eros sapien.
+                </p>
+            </section>
         </template>
     </Layout>
 </template>
