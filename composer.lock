@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4be9105137bf32bb151cf028eed9d8c0",
+    "content-hash": "8864c429fa010aebec22300fb31091c8",
     "packages": [
         {
             "name": "arandilopez/laravel-profane",
@@ -2428,7 +2428,7 @@
                 ],
                 "dusk:assets": [
                     "npm ci",
-                    "TAILWIND_MODE=build npm run build",
+                    "TAILWIND_MODE=build npm run prod",
                     "./vendor/bin/testbench-dusk nova:publish --force"
                 ],
                 "dusk:test": [

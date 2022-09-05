@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Filters\UserType;
 use App\Nova\Metrics\NewUsers;
 use App\Nova\Metrics\UsersGamesOverTime;
+use donatj\UserAgent\UserAgentParser;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Gravatar;
@@ -73,6 +74,10 @@ class User extends Resource
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
+
+            Text::make('Platform', fn () => (new UserAgentParser())->parse($this->user_agent)->platform()),
+
+            Text::make('Browser', fn () => (new UserAgentParser())->parse($this->user_agent)->browser()),
 
             Sparkline::make('Played Games')
                 ->data(new UsersGamesOverTime($this->id)),
