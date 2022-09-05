@@ -24,7 +24,10 @@ createInertiaApp({
         );
     },
     setup({ el, app, props, plugin }) {
-        const vueApp = createApp({ render: () => h(app, props) });
+        const vueApp = createApp({
+            render: () => h(app, props),
+        });
+
         vueApp
             .use(plugin)
             .use(ZiggyVue)
