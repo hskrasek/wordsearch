@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use donatj\UserAgent\UserAgent;
+use donatj\UserAgent\UserAgentParser;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Request::macro('userAgentExtended', static function (): UserAgent {
+            static $parser = new UserAgentParser();
+
+            return $parser->parse($this->userAgent());
+        });
     }
 }
