@@ -76,11 +76,9 @@ class Game extends Model
                 $game->grid->insertWord($word->text, Direction::random());
                 $successfulWords->push($word);
             } catch (GridException $exception) {
-                /** @noinspection CallableParameterUseCaseInTypeContextInspection */
                 $words = Word::excludeWords(
                     ...[
-                           ...$words,
-                           ...$successfulWords,
+                           ...$successfulWords->all(),
                            $word,
                        ]
                 )
