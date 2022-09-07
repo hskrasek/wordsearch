@@ -21,6 +21,6 @@ class VerifyLoginToken extends Controller
 
         $request->session()->regenerate(true);
 
-        return redirect('/');
+        return redirect()->intended('/');
     }
 }
