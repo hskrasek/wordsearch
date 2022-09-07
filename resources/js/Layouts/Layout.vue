@@ -27,6 +27,13 @@ const user = computed(() => props.value.auth.user);
 
 const navigation = [
     { name: "Home", href: route("home"), current: route().current("home") },
+    user.value.is_anonymous
+        ? {
+              name: "Register",
+              href: route("register"),
+              current: route().current("register"),
+          }
+        : undefined,
 ];
 // Update this navigation to be built from anonymous user or not
 const userNavigation = [
@@ -229,23 +236,17 @@ const userNavigation = [
                                                 alt=""
                                             />
                                         </div>
-                                        <div :class="[false ? 'ml-3' : '', 'min-w-0 flex-1']">
+                                        <div
+                                            :class="[
+                                                false ? 'ml-3' : '',
+                                                'min-w-0 flex-1',
+                                            ]"
+                                        >
                                             <div
                                                 v-if="!user.is_anonymous"
                                                 class="truncate text-base font-medium text-gray-800"
                                             >
                                                 {{ user.username }}
-                                            </div>
-                                            <Link
-                                                v-else
-                                                :href="route('register')"
-                                            >
-                                                Register
-                                            </Link>
-                                            <div
-                                                class="truncate text-sm font-medium text-gray-500"
-                                            >
-                                                {{ user.email }}
                                             </div>
                                         </div>
                                     </div>

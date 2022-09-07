@@ -145,7 +145,7 @@ const actions = computed(() => {
 
         <template #sidebar>
             <section>
-                <h2 class="mt-6 text-xl font-semibold dark:text-white">
+                <h2 class="text-xl font-semibold dark:text-white">
                     Word Search Games
                 </h2>
                 <p class="break-words font-normal dark:text-white">
