@@ -34,7 +34,8 @@ const navigation = [
               current: route().current("register"),
           }
         : undefined,
-];
+].filter((x) => x !== undefined);
+
 // Update this navigation to be built from anonymous user or not
 const userNavigation = [
     // { name: "Your Profile", href: "#", method: "get" },
