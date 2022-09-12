@@ -34,6 +34,13 @@ const navigation = [
               current: route().current("register"),
           }
         : undefined,
+    user.value.is_anonymous
+        ? {
+              name: "Login",
+              href: route("login"),
+              current: route().current("login"),
+          }
+        : undefined,
 ].filter((x) => x !== undefined);
 
 // Update this navigation to be built from anonymous user or not
@@ -259,8 +266,8 @@ const userNavigation = [
                                             :method="item.method"
                                             as="button"
                                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                            >{{ item.name }}</Link
-                                        >
+                                            >{{ item.name }}
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
