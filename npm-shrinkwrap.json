@@ -1,12 +1,13 @@
 {
-    "name": "wordsearch",
+    "name": "html",
     "lockfileVersion": 2,
     "requires": true,
     "packages": {
         "": {
             "dependencies": {
                 "@headlessui/vue": "^1.6.7",
-                "@heroicons/vue": "^1.0.6"
+                "@heroicons/vue": "^1.0.6",
+                "pinia": "^2.0.21"
             },
             "devDependencies": {
                 "@inertiajs/inertia": "^0.11.0",
@@ -941,6 +942,11 @@
                 "@vue/shared": "3.2.31"
             }
         },
+        "node_modules/@vue/devtools-api": {
+            "version": "6.2.1",
+            "resolved": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.2.1.tgz",
+            "integrity": "sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ=="
+        },
         "node_modules/@vue/reactivity": {
             "version": "3.2.31",
             "resolved": "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.2.31.tgz",
@@ -1704,14 +1710,20 @@
             }
         },
         "node_modules/caniuse-lite": {
-            "version": "1.0.30001315",
-            "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001315.tgz",
-            "integrity": "sha512-5v7LFQU4Sb/qvkz7JcZkvtSH1Ko+1x2kgo3ocdBeMGZSOFpuE1kkm0kpTwLtWeFrw5qw08ulLxJjVIXIS8MkiQ==",
+            "version": "1.0.30001388",
+            "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001388.tgz",
+            "integrity": "sha512-znVbq4OUjqgLxMxoNX2ZeeLR0d7lcDiE5uJ4eUiWdml1J1EkxbnQq6opT9jb9SMfJxB0XA16/ziHwni4u1I3GQ==",
             "dev": true,
-            "funding": {
-                "type": "opencollective",
-                "url": "https://opencollective.com/browserslist"
-            }
+            "funding": [
+                {
+                    "type": "opencollective",
+                    "url": "https://opencollective.com/browserslist"
+                },
+                {
+                    "type": "tidelift",
+                    "url": "https://tidelift.com/funding/github/npm/caniuse-lite"
+                }
+            ]
         },
         "node_modules/chalk": {
             "version": "4.1.2",
@@ -4348,6 +4360,56 @@
                 "node": ">=0.10.0"
             }
         },
+        "node_modules/pinia": {
+            "version": "2.0.21",
+            "resolved": "https://registry.npmjs.org/pinia/-/pinia-2.0.21.tgz",
+            "integrity": "sha512-6ol04PtL29O0Z6JHI47O3JUSoyOJ7Og0rstXrHVMZSP4zAldsQBXJCNF0i/H7m8vp/Hjd/CSmuPl7C5QAwpeWQ==",
+            "dependencies": {
+                "@vue/devtools-api": "^6.2.1",
+                "vue-demi": "*"
+            },
+            "funding": {
+                "url": "https://github.com/sponsors/posva"
+            },
+            "peerDependencies": {
+                "@vue/composition-api": "^1.4.0",
+                "typescript": ">=4.4.4",
+                "vue": "^2.6.14 || ^3.2.0"
+            },
+            "peerDependenciesMeta": {
+                "@vue/composition-api": {
+                    "optional": true
+                },
+                "typescript": {
+                    "optional": true
+                }
+            }
+        },
+        "node_modules/pinia/node_modules/vue-demi": {
+            "version": "0.13.11",
+            "resolved": "https://registry.npmjs.org/vue-demi/-/vue-demi-0.13.11.tgz",
+            "integrity": "sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==",
+            "hasInstallScript": true,
+            "bin": {
+                "vue-demi-fix": "bin/vue-demi-fix.js",
+                "vue-demi-switch": "bin/vue-demi-switch.js"
+            },
+            "engines": {
+                "node": ">=12"
+            },
+            "funding": {
+                "url": "https://github.com/sponsors/antfu"
+            },
+            "peerDependencies": {
+                "@vue/composition-api": "^1.0.0-rc.1",
+                "vue": "^3.0.0-0 || ^2.6.0"
+            },
+            "peerDependenciesMeta": {
+                "@vue/composition-api": {
+                    "optional": true
+                }
+            }
+        },
         "node_modules/plausible-tracker": {
             "version": "0.3.5",
             "resolved": "https://registry.npmjs.org/plausible-tracker/-/plausible-tracker-0.3.5.tgz",
@@ -5929,7 +5991,7 @@
             "version": "4.6.3",
             "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.6.3.tgz",
             "integrity": "sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==",
-            "dev": true,
+            "devOptional": true,
             "bin": {
                 "tsc": "bin/tsc",
                 "tsserver": "bin/tsserver"
@@ -7100,6 +7162,11 @@
                 "@vue/shared": "3.2.31"
             }
         },
+        "@vue/devtools-api": {
+            "version": "6.2.1",
+            "resolved": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.2.1.tgz",
+            "integrity": "sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ=="
+        },
         "@vue/reactivity": {
             "version": "3.2.31",
             "resolved": "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.2.31.tgz",
@@ -7753,9 +7820,9 @@
             }
         },
         "caniuse-lite": {
-            "version": "1.0.30001315",
-            "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001315.tgz",
-            "integrity": "sha512-5v7LFQU4Sb/qvkz7JcZkvtSH1Ko+1x2kgo3ocdBeMGZSOFpuE1kkm0kpTwLtWeFrw5qw08ulLxJjVIXIS8MkiQ==",
+            "version": "1.0.30001388",
+            "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001388.tgz",
+            "integrity": "sha512-znVbq4OUjqgLxMxoNX2ZeeLR0d7lcDiE5uJ4eUiWdml1J1EkxbnQq6opT9jb9SMfJxB0XA16/ziHwni4u1I3GQ==",
             "dev": true
         },
         "chalk": {
@@ -9643,6 +9710,23 @@
             "integrity": "sha1-7RQaasBDqEnqWISY59yosVMw6Qw=",
             "dev": true
         },
+        "pinia": {
+            "version": "2.0.21",
+            "resolved": "https://registry.npmjs.org/pinia/-/pinia-2.0.21.tgz",
+            "integrity": "sha512-6ol04PtL29O0Z6JHI47O3JUSoyOJ7Og0rstXrHVMZSP4zAldsQBXJCNF0i/H7m8vp/Hjd/CSmuPl7C5QAwpeWQ==",
+            "requires": {
+                "@vue/devtools-api": "^6.2.1",
+                "vue-demi": "*"
+            },
+            "dependencies": {
+                "vue-demi": {
+                    "version": "0.13.11",
+                    "resolved": "https://registry.npmjs.org/vue-demi/-/vue-demi-0.13.11.tgz",
+                    "integrity": "sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==",
+                    "requires": {}
+                }
+            }
+        },
         "plausible-tracker": {
             "version": "0.3.5",
             "resolved": "https://registry.npmjs.org/plausible-tracker/-/plausible-tracker-0.3.5.tgz",
@@ -10731,7 +10815,7 @@
             "version": "4.6.3",
             "resolved": "https://registry.npmjs.org/typescript/-/typescript-4.6.3.tgz",
             "integrity": "sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==",
-            "dev": true
+            "devOptional": true
         },
         "ua-parser-js": {
             "version": "1.0.2",

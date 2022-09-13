@@ -31,9 +31,15 @@ class AssignRole extends Command
     {
         $role = $this->anticipate('Which role would you like to assign to the user?', Role::all()->pluck('name')->toArray());
 
-        $email = $this->anticipate('Which user would you like to assign the role to?', User::registered()->pluck('email')->toArray());
+        $user = $this->anticipate('Which user would you like to assign the role to?', function (mixed $input) {
+            if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
+                return User::pluck('email')->all();
+            }
 
-        User::whereEmail($email)->first()->assignRole($role);
+            return User::pluck('id')->all();
+        });
+
+        User::when(is_numeric($user), fn ($query) => $query->where('id', $user))->when(filter_var($user, FILTER_VALIDATE_EMAIL), fn ($query) => $query->where('email', $user))->first()->assignRole($role);
 
         return 0;
     }

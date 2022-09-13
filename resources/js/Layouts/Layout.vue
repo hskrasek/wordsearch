@@ -17,31 +17,36 @@ import {
     UserCircleIcon,
     XIcon,
 } from "@heroicons/vue/outline";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, usePage } from "@inertiajs/inertia-vue3";
 import { computed } from "vue";
 import route from "ziggy";
 
-const props = defineProps<{
-    uuid: string;
-    auth: {
-        user: {
-            username: string;
-            is_anonymous: boolean;
-        };
-    };
-    status: string;
-}>();
+const props = computed(() => usePage().props.value);
 
-const user = computed(() => props.auth.user);
-// const status = computed(() => props.status);
+const user = computed(() => props.value.auth.user);
 
 const navigation = [
     { name: "Home", href: route("home"), current: route().current("home") },
-];
+    user.value.is_anonymous
+        ? {
+              name: "Register",
+              href: route("register"),
+              current: route().current("register"),
+          }
+        : undefined,
+    user.value.is_anonymous
+        ? {
+              name: "Login",
+              href: route("login"),
+              current: route().current("login"),
+          }
+        : undefined,
+].filter((x) => x !== undefined);
+
 // Update this navigation to be built from anonymous user or not
 const userNavigation = [
-    { name: "Your Profile", href: "#", method: "get" },
-    { name: "Settings", href: "#", method: "get" },
+    // { name: "Your Profile", href: "#", method: "get" },
+    // { name: "Settings", href: "#", method: "get" },
     { name: "Sign out", href: route("logout"), method: "post" },
 ];
 </script>
@@ -69,18 +74,9 @@ const userNavigation = [
                     <div
                         class="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5"
                     >
-                        <button
-                            type="button"
-                            class="flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                        >
-                            <span class="sr-only">View notifications</span>
-                            <BellIcon class="h-6 w-6" aria-hidden="true" />
-                        </button>
-
                         <!-- Profile dropdown -->
                         <Menu as="div" class="relative ml-4 flex-shrink-0">
                             <div>
-                                <!--                                    class="flex rounded-full bg-white text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100"-->
                                 <MenuButton
                                     class="flex-shrink-0 rounded-full p-1 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                                 >
@@ -144,7 +140,7 @@ const userNavigation = [
                     <div class="grid grid-cols-3 items-center gap-8">
                         <div class="col-span-2">
                             <nav class="flex space-x-4">
-                                <a
+                                <Link
                                     v-for="item in navigation"
                                     :key="item.name"
                                     :href="item.href"
@@ -159,7 +155,7 @@ const userNavigation = [
                                     "
                                 >
                                     {{ item.name }}
-                                </a>
+                                </Link>
                             </nav>
                         </div>
                     </div>
@@ -205,8 +201,8 @@ const userNavigation = [
                                         <div>
                                             <img
                                                 class="h-8 w-auto"
-                                                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                                                alt="Workflow"
+                                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                                alt="Your Company"
                                             />
                                         </div>
                                         <div class="-mr-2">
@@ -224,75 +220,54 @@ const userNavigation = [
                                         </div>
                                     </div>
                                     <div class="mt-3 space-y-1 px-2">
-                                        <a
-                                            href="#"
+                                        <Link
+                                            v-for="item in navigation"
+                                            :key="item.name"
+                                            :href="item.href"
                                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                            >Home</a
+                                            :aria-current="
+                                                item.current
+                                                    ? 'page'
+                                                    : undefined
+                                            "
                                         >
-                                        <a
-                                            href="#"
-                                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                            >Profile</a
-                                        >
-                                        <a
-                                            href="#"
-                                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                            >Resources</a
-                                        >
-                                        <a
-                                            href="#"
-                                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                            >Company Directory</a
-                                        >
-                                        <a
-                                            href="#"
-                                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                            >Openings</a
-                                        >
+                                            {{ item.name }}
+                                        </Link>
                                     </div>
                                 </div>
                                 <div class="pt-4 pb-2">
                                     <div class="flex items-center px-5">
-                                        <div class="flex-shrink-0">
+                                        <div v-if="false" class="flex-shrink-0">
                                             <img
                                                 class="h-10 w-10 rounded-full"
                                                 :src="user.imageUrl"
                                                 alt=""
                                             />
                                         </div>
-                                        <div class="ml-3 min-w-0 flex-1">
+                                        <div
+                                            :class="[
+                                                false ? 'ml-3' : '',
+                                                'min-w-0 flex-1',
+                                            ]"
+                                        >
                                             <div
+                                                v-if="!user.is_anonymous"
                                                 class="truncate text-base font-medium text-gray-800"
                                             >
-                                                {{ user.name }}
-                                            </div>
-                                            <div
-                                                class="truncate text-sm font-medium text-gray-500"
-                                            >
-                                                {{ user.email }}
+                                                {{ user.username }}
                                             </div>
                                         </div>
-                                        <button
-                                            type="button"
-                                            class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                        >
-                                            <span class="sr-only"
-                                                >View notifications</span
-                                            >
-                                            <BellIcon
-                                                class="h-6 w-6"
-                                                aria-hidden="true"
-                                            />
-                                        </button>
                                     </div>
                                     <div class="mt-3 space-y-1 px-2">
-                                        <a
+                                        <Link
                                             v-for="item in userNavigation"
                                             :key="item.name"
                                             :href="item.href"
+                                            :method="item.method"
+                                            as="button"
                                             class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800"
-                                            >{{ item.name }}</a
-                                        >
+                                            >{{ item.name }}
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

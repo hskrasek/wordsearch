@@ -2,20 +2,11 @@
 import Grid from "@/Components/Game/Grid.vue";
 import CompletionScreen from "@/Components/Game/CompletionScreen.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
-import {
-    computed,
-    ref,
-    onMounted,
-    onUnmounted,
-    reactive,
-    FunctionalComponent,
-} from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import { Cell, Word } from "@/Types/Game";
 import { bresenham } from "@/utils";
 import Layout from "@/Layouts/Layout.vue";
 import WordList from "@/Components/Game/WordList.vue";
-import Feed from "@/Components/Game/Feed.vue";
-import { ClockIcon } from "@heroicons/vue/outline";
 
 const props = defineProps<{
     uuid: string;
@@ -47,18 +38,9 @@ const form = useForm({
     coordinates: new Map(),
 });
 
-const eventFeed = reactive<
-    | any[]
-    | [
-          {
-              content: string;
-              date: string;
-              datetime: string;
-              icon: FunctionalComponent;
-              iconBackground: string;
-          }
-      ]
->([]);
+// const gameFeed = useFeedStore();
+
+// const { feed } = storeToRefs(gameFeed);
 
 // New selection mechanism:
 // Click to select start of the word, start mouse move listener
@@ -115,16 +97,7 @@ function update(event: MouseEvent) {
     cursorPositions.start = { x: event.pageX, y: event.pageY };
 }
 
-onMounted(() => {
-    window.addEventListener("click", update);
-    eventFeed.push({
-        content: "Started the game",
-        date: props.created_date,
-        datetime: props.created_at,
-        icon: ClockIcon,
-        iconBackground: "bg-gray-400",
-    });
-});
+onMounted(() => window.addEventListener("click", update));
 onUnmounted(() => window.removeEventListener("click", update));
 
 function letterSelector(x: number, y: number): void {
@@ -178,6 +151,8 @@ function solve() {
     })).post(`/game/${props.uuid}/solve`, {
         preserveScroll: true,
         onSuccess() {
+            // gameFeed.foundWord(Array.from(form.word.values()).join(""));
+
             form.reset();
             coordinateTracker.start = undefined;
             coordinateTracker.end = undefined;
@@ -185,6 +160,9 @@ function solve() {
         onError() {
             coordinateTracker.start = undefined;
             coordinateTracker.end = undefined;
+
+            // gameFeed.invalidWord(Array.from(form.word.values()).join(""));
+
             form.reset("word");
             form.coordinates.forEach((coordinate: Array<number>): void => {
                 const [x, y] = coordinate;
@@ -222,7 +200,7 @@ function solve() {
             <hr />
             <WordList :words="words" :words-remaining="wordsRemaining" />
             <hr />
-            <Feed :events="eventFeed" />
+            <!--            <Feed :events="feed" />-->
         </template>
     </Layout>
     <CompletionScreen v-if="is_completed" :game-id="uuid" />

@@ -70,7 +70,7 @@ return [
     | help search engines understand it better.
     |
     */
-	'description' => 'Play an unlimited number of word search puzzles of varying difficulties',
+	'description' => 'Tackle a limitless number of randomly generated word search puzzles.',
 
 	/*
     |--------------------------------------------------------------------------
@@ -152,7 +152,7 @@ return [
     | Here you may provide keywords relevant to your website and the specific page.
     |
     */
-	'keywords' => '',
+	'keywords' => 'word search mystery seek find puzzle game words',
 
 
 ];

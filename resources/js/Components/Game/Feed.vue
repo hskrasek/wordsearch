@@ -47,7 +47,6 @@
 </template>
 
 <script setup lang="ts">
-import { CheckIcon, ThumbUpIcon, UserIcon } from "@heroicons/vue/solid";
 import { FunctionalComponent } from "vue";
 
 defineProps<{

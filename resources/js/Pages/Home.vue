@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PlayIcon } from "@heroicons/vue/outline";
+import { StarIcon } from "@heroicons/vue/outline";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Layout from "@/Layouts/Layout.vue";
 import { computed } from "vue";
@@ -39,10 +39,11 @@ const actions = computed(() => {
         return {
             title: difficulty.name,
             href: route("game.create"),
-            icon: PlayIcon,
+            icon: StarIcon,
             iconForeground: colors.iconForeground,
             iconBackground: colors.iconBackground,
             directions: difficulty.directions,
+            stars: difficulty.value + 1,
         };
     });
 });
@@ -72,7 +73,7 @@ const actions = computed(() => {
                         actionIdx === actions.length - 1
                             ? 'rounded-bl-lg rounded-br-lg sm:rounded-bl-none'
                             : '',
-                        'group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500',
+                        'group relative bg-white p-4 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500',
                     ]"
                 >
                     <div>
@@ -85,12 +86,14 @@ const actions = computed(() => {
                         >
                             <component
                                 :is="action.icon"
+                                v-for="i in action.stars"
+                                :key="i"
                                 class="h-6 w-6"
                                 aria-hidden="true"
                             />
                         </span>
                     </div>
-                    <div class="mt-8">
+                    <div class="mt-6">
                         <h3 class="text-lg font-medium">
                             <Link
                                 :href="action.href"
@@ -108,10 +111,14 @@ const actions = computed(() => {
                             </Link>
                         </h3>
                         <p class="mt-2 text-sm text-gray-500">Directions:</p>
-                        <ul class="mt-2 text-sm text-gray-500">
+                        <ul
+                            class="mt-2 columns-2 overflow-x-auto text-sm text-gray-500"
+                        >
                             <li
-                                v-for="direction in action.directions"
-                                :key="direction"
+                                v-for="(
+                                    direction, directionIdx
+                                ) in action.directions"
+                                :key="directionIdx"
                             >
                                 {{ direction }}
                             </li>
@@ -137,17 +144,33 @@ const actions = computed(() => {
         </template>
 
         <template #sidebar>
-            <h2 class="mt-6 text-xl font-semibold dark:text-white">
-                A word from the author,
-            </h2>
-            <p class="break-words font-normal dark:text-white">
-                I hope you enjoy solving word search puzzles on my little side
-                side project. I want to keep this project active and improve it
-                along the way as I learn more. A nicer design, mobile and more
-                is on the horizon, but I wanted to get this open as soon as
-                possible. Pardon my dust while I keep making improvements.
-            </p>
-            <p class="font-thin dark:text-white">- Hunter Skrasek</p>
+            <section>
+                <h2 class="text-xl font-semibold dark:text-white">
+                    Word Search Games
+                </h2>
+                <p class="break-words font-normal dark:text-white">
+                    Children and adults have tackled these fun, brain-tickling
+                    puzzles for over five decades. Maybe you know them as word
+                    seeks, word finds, or even mystery words; Whatever the case,
+                    we offer an unlimited number of word search puzzles to play.
+                </p>
+                <h3 class="mt-3 text-lg font-semibold dark:text-white">
+                    How do you play?
+                </h3>
+                <p class="break-words font-normal dark:text-white">
+                    Well, it’s pretty simple. You’ll be given a grid of letters
+                    and a list of words when solving a puzzle. Your goal is to
+                    find each of the words hidden within the grid. Depending on
+                    your chosen difficulty, you can find words horizontally,
+                    vertically, or even diagonally. On more complex
+                    difficulties, you may even find words reversed.
+                    <br />
+                    <br />
+                    <span class="font-bold">
+                        Good luck, and happy puzzle solving!
+                    </span>
+                </p>
+            </section>
         </template>
     </Layout>
 </template>
