@@ -73,33 +73,18 @@ const submit = () => {
 
         <template #sidebar>
             <section>
-                <h2 class="text-xl font-semibold dark:text-white">
-                    Lorem ipsum
-                </h2>
+                <div class="text-center">
+                    <h2 class="text-xl font-semibold dark:text-white">
+                        Sign in with Apple
+                    </h2>
+                    <h2 class="text-xl font-semibold dark:text-white">
+                        (Coming Soon!)
+                    </h2>
+                </div>
                 <p class="break-words font-normal dark:text-white">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec cursus leo quis rutrum luctus. Phasellus blandit lorem
-                    et ultrices faucibus. Aenean sapien magna, lacinia a sapien
-                    eget, commodo consequat ipsum. Phasellus suscipit tellus
-                    erat, quis suscipit nunc tincidunt porttitor. Suspendisse
-                    eget lectus sapien. Quisque in quam at lectus ornare
-                    volutpat et sed justo. Fusce neque enim, iaculis sed
-                    condimentum et, maximus in massa. Nulla eget mauris non nisl
-                    auctor suscipit in sit amet urna.
-                </p>
-                <h3 class="text-md mt-3 font-semibold dark:text-white">
-                    Lorem ipsum
-                </h3>
-                <p class="break-words font-normal dark:text-white">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec cursus leo quis rutrum luctus. Phasellus blandit lorem
-                    et ultrices faucibus. Aenean sapien magna, lacinia a sapien
-                    eget, commodo consequat ipsum. Phasellus suscipit tellus
-                    erat, quis suscipit nunc tincidunt porttitor. Suspendisse
-                    eget lectus sapien. Quisque in quam at lectus ornare
-                    volutpat et sed justo. Fusce neque enim, iaculis sed
-                    condimentum et, maximus in massa. Nulla eget mauris non nisl
-                    auctor suscipit in sit amet urna.
+                    We understand that not everyone wants to provide us with
+                    their email. Soon you'll be able to hide your email by
+                    signing in with your Apple ID.
                 </p>
             </section>
         </template>
