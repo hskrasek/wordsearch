@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check() && !optional($request->user())->is_anonymous) {
+            if (Auth::guard($guard)->check() && optional($request->user())->is_anonymous === false) {
                 return redirect(RouteServiceProvider::HOME);
             }
         }

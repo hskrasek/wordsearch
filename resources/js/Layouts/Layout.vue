@@ -27,14 +27,14 @@ const user = computed(() => props.value.auth.user);
 
 const navigation = [
     { name: "Home", href: route("home"), current: route().current("home") },
-    user.value.is_anonymous
+    user.value?.is_anonymous
         ? {
               name: "Register",
               href: route("register"),
               current: route().current("register"),
           }
         : undefined,
-    user.value.is_anonymous
+    user.value?.is_anonymous
         ? {
               name: "Login",
               href: route("login"),
