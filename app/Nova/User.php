@@ -7,6 +7,7 @@ use App\Nova\Metrics\NewUsers;
 use App\Nova\Metrics\UsersGamesOverTime;
 use donatj\UserAgent\UserAgentParser;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasMany;
@@ -46,7 +47,7 @@ class User extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return array
      */
@@ -61,12 +62,15 @@ class User extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Username')
+            Text::make('Username', fn() => $this->is_anonymous ? 'Anonymous' : $this->username)
                 ->nullable()
                 ->sortable()
                 ->rules('required', 'string', 'profane:en,es', 'max:16')
                 ->creationRules('unique:users,username')
                 ->updateRules('unique:users,username,{{resourceId}}'),
+
+            Boolean::make('is_anonymous')
+                ->filterable(),
 
             Text::make('Email')
                 ->nullable()
@@ -75,9 +79,9 @@ class User extends Resource
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Text::make('Platform', fn () => (new UserAgentParser())->parse($this->user_agent)->platform()),
+            Text::make('Platform', fn() => (new UserAgentParser())->parse($this->user_agent)->platform()),
 
-            Text::make('Browser', fn () => (new UserAgentParser())->parse($this->user_agent)->browser()),
+            Text::make('Browser', fn() => (new UserAgentParser())->parse($this->user_agent)->browser()),
 
             Sparkline::make('Played Games')
                 ->data(new UsersGamesOverTime($this->id)),
@@ -93,7 +97,7 @@ class User extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return array
      */
@@ -107,7 +111,7 @@ class User extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return array
      */
@@ -121,7 +125,7 @@ class User extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return array
      */
@@ -133,7 +137,7 @@ class User extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return array
      */
