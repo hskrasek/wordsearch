@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -73,7 +74,7 @@ class Game extends Model
         /** @var Word $word */
         while (!($word = $words->pop()) instanceof Collection && $word !== null) {
             try {
-                $game->grid->insertWord($word->text, Direction::random());
+                $game->grid->insertWord($word->text, Arr::random($difficulty->directions()));
                 $successfulWords->push($word);
             } catch (GridException $exception) {
                 $words = Word::excludeWords(
