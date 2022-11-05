@@ -5,8 +5,9 @@ namespace App\Models;
 use App\Casts\Grid as GridCast;
 use App\Exceptions\Game\GridException;
 use App\Game\Difficulty;
-use App\Game\Direction;
 use App\Game\Grid;
+use App\Models\Scopes\WithoutDiphthongs;
+use App\Models\Scopes\WithoutWebsites;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,20 +53,20 @@ class Game extends Model
 
     protected $casts = [
         'difficulty' => Difficulty::class,
-        'grid'       => GridCast::class,
+        'grid' => GridCast::class,
     ];
 
     /**
-     * @param Difficulty $difficulty
-     * @param Collection<Word>|EloquentCollection<Word> $words
+     * @param  Difficulty  $difficulty
+     * @param  Collection<Word>|EloquentCollection<Word>  $words
      *
      * @return Game
      */
     public static function start(User $player, Difficulty $difficulty, EloquentCollection|Collection $words): Game
     {
-        $game             = new self();
+        $game = new self();
         $game->difficulty = $difficulty;
-        $game->uuid       = Str::orderedUuid();
+        $game->uuid = Str::orderedUuid();
 
         $game->grid = new Grid($difficulty->gridSize());
 
@@ -79,9 +80,9 @@ class Game extends Model
             } catch (GridException $exception) {
                 $words = Word::excludeWords(
                     ...[
-                           ...$successfulWords->all(),
-                           $word,
-                       ]
+                        ...$successfulWords->all(),
+                        $word,
+                    ]
                 )
                     ->forDifficulty($difficulty)
                     ->limit($difficulty->wordCount() - $successfulWords->count())
@@ -115,7 +116,8 @@ class Game extends Model
     {
         return $this->belongsToMany(Word::class)
             ->as('session')
-            ->withPivot(['found', 'found_at',]);
+            ->withPivot(['found', 'found_at',])
+            ->withoutGlobalScopes([WithoutDiphthongs::class, WithoutWebsites::class]);
     }
 
     public function getRouteKeyName(): string

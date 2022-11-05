@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use donatj\UserAgent\UserAgent;
 use donatj\UserAgent\UserAgentParser;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
@@ -34,5 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
             return $parser->parse($this->userAgent());
         });
+
+        Model::shouldBeStrict(! $this->app->isProduction());
     }
 }
