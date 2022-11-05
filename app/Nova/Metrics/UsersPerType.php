@@ -2,8 +2,6 @@
 
 namespace App\Nova\Metrics;
 
-use App\Game\Difficulty;
-use App\Models\Game;
 use App\Models\User;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Partition;
@@ -13,14 +11,16 @@ class UsersPerType extends Partition
     /**
      * Calculate the value of the metric.
      *
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
-     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return mixed
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->count($request, User::class, 'is_anonymous')
-            ->label(fn (bool $isAnonymous) => $isAnonymous ? 'Anonymous' : 'Registered');
+        return $this->count($request, User::class, 'email')
+            ->label(fn (?string $email) => match ($email) {
+                '' => 'Anonymous',
+                default => 'Registered',
+            });
     }
 
     /**
