@@ -17,6 +17,7 @@ const props = defineProps<{
     grid: Array<Array<Cell>>;
     // eslint-disable-next-line vue/prop-name-casing
     created_at: string;
+    // eslint-disable-next-line vue/prop-name-casing
     created_date: string;
 }>();
 
