@@ -34,7 +34,9 @@ function selectedCell(x: number, y: number): void {
 </script>
 
 <template>
-    <div class="table border-2 border-gray-800 bg-white dark:bg-slate-800">
+    <div
+        class="table w-full border-2 border-gray-800 bg-white dark:bg-slate-800"
+    >
         <div v-for="(row, x) in grid" :key="x" class="table-row">
             <Cell
                 v-for="(cell, y) in row"

@@ -51,17 +51,18 @@ class Word extends Model
     {
         return $query->when(
             $difficulty === Difficulty::Easy,
-            fn(Builder $builder) => $builder->inRandomOrder()->orderByDesc('frequency')
+            fn(Builder $builder) => $builder->inRandomOrder()->orderByDesc('frequency')->limit($difficulty->wordCount())
         )->when(
             ($difficulty === Difficulty::Medium || $difficulty === Difficulty::Hard),
             fn(Builder|CTEBuilder|Word $builder) => $builder->leastFrequentByDifficulty($difficulty)->union(
                 self::mostFrequentByDifficulty($difficulty)
             )
-        )->when($difficulty === Difficulty::Insane, function (Builder $builder) {
+        )->when($difficulty === Difficulty::Insane, function (Builder $builder) use ($difficulty) {
             return $builder->whereNot('text', '~*', '[b-df-jh-np-tv-z]{2,}')
                 ->whereNot('text', '~*', '[a-z]o[a-z]+')
                 ->inRandomOrder()
-                ->orderBy('frequency');
+                ->orderBy('frequency')
+                ->limit($difficulty->wordCount());
         });
     }
 

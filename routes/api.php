@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->name('user.info')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::name('games.info')
     ->middleware('auth:sanctum')
     ->get('games/{game}', Game::class);

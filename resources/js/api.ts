@@ -26,26 +26,7 @@ export default class Api {
         return this.axios
             .get("/games/" + gameId + "/stats")
             .then((response: AxiosResponse) => {
-                const stats = response.data;
-
-                const hours = Math.floor((stats.took as number) / 3600)
-                    .toString()
-                    .padStart(2, "0");
-                const minutes = Math.floor(((stats.took as number) % 3600) / 60)
-                    .toString()
-                    .padStart(2, "0");
-                const seconds = Math.floor((stats.took as number) % 60)
-                    .toString()
-                    .padStart(2, "0");
-
-                stats.took = `${hours}:${minutes}:${seconds}`;
-                stats.started_at = dayjs(stats.started_at).calendar();
-                stats.first_word_found_at = dayjs(
-                    stats.first_word_found_at
-                ).calendar();
-                stats.finished_at = dayjs(stats.finished_at).calendar();
-
-                return Promise.resolve(stats);
+                return Promise.resolve(response.data);
             });
     }
 

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import Grid from "../Components/Game/Grid.vue";
-import CompletionScreen from "../Components/Game/CompletionScreen.vue";
+import Grid from "@/Components/Game/Grid.vue";
+import CompletionScreen from "@/Components/Game/CompletionScreen.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
-import { computed, ref, onMounted, onUnmounted, reactive } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import { Cell, Word } from "@/Types/Game";
 import { bresenham } from "@/utils";
+import Layout from "@/Layouts/Layout.vue";
+import WordList from "@/Components/Game/WordList.vue";
 
 const props = defineProps<{
     uuid: string;
@@ -13,6 +15,10 @@ const props = defineProps<{
     is_completed: boolean;
     words: Array<Word>;
     grid: Array<Array<Cell>>;
+    // eslint-disable-next-line vue/prop-name-casing
+    created_at: string;
+    // eslint-disable-next-line vue/prop-name-casing
+    created_date: string;
 }>();
 
 // Need a better name for this
@@ -24,7 +30,7 @@ const trackingGrid = computed(() => {
     );
 });
 
-const totalWordsToFind = computed<number>(() => {
+const wordsRemaining = computed<number>(() => {
     return props.words.filter((word: Word) => !word.found).length;
 });
 
@@ -32,6 +38,10 @@ const form = useForm({
     word: new Map(),
     coordinates: new Map(),
 });
+
+// const gameFeed = useFeedStore();
+
+// const { feed } = storeToRefs(gameFeed);
 
 // New selection mechanism:
 // Click to select start of the word, start mouse move listener
@@ -142,6 +152,8 @@ function solve() {
     })).post(`/game/${props.uuid}/solve`, {
         preserveScroll: true,
         onSuccess() {
+            // gameFeed.foundWord(Array.from(form.word.values()).join(""));
+
             form.reset();
             coordinateTracker.start = undefined;
             coordinateTracker.end = undefined;
@@ -149,6 +161,9 @@ function solve() {
         onError() {
             coordinateTracker.start = undefined;
             coordinateTracker.end = undefined;
+
+            // gameFeed.invalidWord(Array.from(form.word.values()).join(""));
+
             form.reset("word");
             form.coordinates.forEach((coordinate: Array<number>): void => {
                 const [x, y] = coordinate;
@@ -165,77 +180,29 @@ function solve() {
         },
     });
 }
+
+// Implement new script logic a "feed" of events.
+// Feed should mark when a word was found
+// as well as when a word is not found
 </script>
 
 <template>
     <Head :title="'A ' + difficulty.toLowerCase() + ' word search puzzle'" />
 
-    <div class="grid w-full gap-4 md:grid-cols-2">
-        <Grid
-            :grid="trackingGrid"
-            class="col-span-1"
-            @select-cell="letterSelector"
-        />
-        <div class="col-span-1 border-2 border-gray-800 p-1.5">
+    <Layout>
+        <template #content>
+            <Grid :grid="trackingGrid" @select-cell="letterSelector" />
+        </template>
+        <template #sidebar>
             <h2 class="text-lg font-bold dark:text-white">
-                Difficulty: <span class="font-medium">{{ difficulty }}</span>
+                Difficulty:
+                <span class="font-medium">{{ difficulty }}</span>
             </h2>
             <hr />
-            <h2 class="text-lg font-bold dark:text-white">
-                Words ({{ totalWordsToFind }}):
-            </h2>
-            <div class="columns-2">
-                <ul>
-                    <li
-                        v-for="(word, i) in words"
-                        :key="i"
-                        class="dark:text-white"
-                        :class="{
-                            'line-through decoration-solid decoration-2':
-                                word.found,
-                        }"
-                    >
-                        {{ word.text }}
-                    </li>
-                </ul>
-            </div>
+            <WordList :words="words" :words-remaining="wordsRemaining" />
             <hr />
-            <div class="container">
-                <h2 class="text-lg font-bold dark:text-white">Instructions:</h2>
-                <ol class="list-inside list-decimal dark:text-white">
-                    <li>
-                        Locate the given words in the grid, running in one of
-                        <br />
-                        eight possible directions horizontally, vertically, or
-                        diagonally.
-                    </li>
-                    <li>
-                        To mark a word as found, click the first letter of the
-                        word, <br />
-                        then click the last letter of the word.
-                    </li>
-                    <li>
-                        When the correct word is selected and found, it will
-                        <br />
-                        stay highlighted a dark green color. If the selection is
-                        <br />incorrect, it will flash red for a moment.
-                    </li>
-                </ol>
-                <!-- <p>Mouse position is at: {{ x }}, {{ y }}</p>-->
-                <div
-                    v-if="form.errors.word"
-                    class="text-red-500 dark:text-rose-500"
-                >
-                    {{ form.errors.word }}
-                </div>
-                <div
-                    v-if="form.errors.coordinates"
-                    class="text-red-500 dark:text-rose-500"
-                >
-                    {{ form.errors.coordinates }}
-                </div>
-            </div>
-        </div>
-    </div>
+            <!--            <Feed :events="feed" />-->
+        </template>
+    </Layout>
     <CompletionScreen v-if="is_completed" :game-id="uuid" />
 </template>

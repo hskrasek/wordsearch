@@ -12,6 +12,22 @@ class GamePolicy
     use HandlesAuthorization;
 
     /**
+     * Perform pre-authorization checks.
+     *
+     * @param  \App\Models\User  $user
+     * @param  string  $ability
+     * @return null|bool
+     */
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param User $user

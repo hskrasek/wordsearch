@@ -5,13 +5,15 @@ namespace App\Models;
 use App\Casts\Grid as GridCast;
 use App\Exceptions\Game\GridException;
 use App\Game\Difficulty;
-use App\Game\Direction;
 use App\Game\Grid;
+use App\Models\Scopes\WithoutDiphthongs;
+use App\Models\Scopes\WithoutWebsites;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -51,20 +53,20 @@ class Game extends Model
 
     protected $casts = [
         'difficulty' => Difficulty::class,
-        'grid'       => GridCast::class,
+        'grid' => GridCast::class,
     ];
 
     /**
-     * @param Difficulty $difficulty
-     * @param Collection<Word>|EloquentCollection<Word> $words
+     * @param  Difficulty  $difficulty
+     * @param  Collection<Word>|EloquentCollection<Word>  $words
      *
      * @return Game
      */
     public static function start(User $player, Difficulty $difficulty, EloquentCollection|Collection $words): Game
     {
-        $game             = new self();
+        $game = new self();
         $game->difficulty = $difficulty;
-        $game->uuid       = Str::orderedUuid();
+        $game->uuid = Str::orderedUuid();
 
         $game->grid = new Grid($difficulty->gridSize());
 
@@ -73,16 +75,14 @@ class Game extends Model
         /** @var Word $word */
         while (!($word = $words->pop()) instanceof Collection && $word !== null) {
             try {
-                $game->grid->insertWord($word->text, Direction::random());
+                $game->grid->insertWord($word->text, Arr::random($difficulty->directions()));
                 $successfulWords->push($word);
             } catch (GridException $exception) {
-                /** @noinspection CallableParameterUseCaseInTypeContextInspection */
                 $words = Word::excludeWords(
                     ...[
-                           ...$words,
-                           ...$successfulWords,
-                           $word,
-                       ]
+                        ...$successfulWords->all(),
+                        $word,
+                    ]
                 )
                     ->forDifficulty($difficulty)
                     ->limit($difficulty->wordCount() - $successfulWords->count())
@@ -116,7 +116,8 @@ class Game extends Model
     {
         return $this->belongsToMany(Word::class)
             ->as('session')
-            ->withPivot(['found', 'found_at',]);
+            ->withPivot(['found', 'found_at',])
+            ->withoutGlobalScopes([WithoutDiphthongs::class, WithoutWebsites::class]);
     }
 
     public function getRouteKeyName(): string
