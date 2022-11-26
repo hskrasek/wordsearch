@@ -5,7 +5,6 @@ environments:
         domain: beta.wordsearch.games
         memory: 1024
         cli-memory: 512
-        database: wordsearch-beta
         storage: wordsearch-beta-artifacts
         runtime: 'php-8.1:al2'
         build:
@@ -22,7 +21,6 @@ environments:
         domain: wordsearch.games
         memory: 1024
         cli-memory: 512
-        database: wordsearch
         storage: wordsearch-production-artifacts
         runtime: 'php-8.1:al2'
         build:
