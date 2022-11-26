@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('login_tokens', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id');
             $table->string('token')->unique();
             $table->timestamp('consumed_at')->nullable();
             $table->timestamp('expires_at');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

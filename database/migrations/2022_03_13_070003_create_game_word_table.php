@@ -13,16 +13,10 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('game_word', function (Blueprint $table) {
-            $table->unsignedBigInteger('game_id');
-            $table->unsignedBigInteger('word_id');
+            $table->foreignId('game_id');
+            $table->foreignId('word_id');
 
-            $table->foreign('game_id')
-                ->references('id')
-                ->on('games')
-                ->onDelete('CASCADE');
-            $table->foreign('word_id')
-                ->references('id')
-                ->on('words');
+            $table->primary(['game_id', 'word_id']);
         });
     }
 

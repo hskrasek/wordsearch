@@ -19,8 +19,6 @@ return new class extends Migration
             $table->unsignedInteger('length');
             $table->timestamps();
         });
-
-        DB::statement('CREATE INDEX "lenth_desc" ON "words" ("length" DESC);');
     }
 
     /**

@@ -12,21 +12,11 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-
         DB::table('game_word')->truncate();
         DB::table('games')->truncate();
 
-        Schema::enableForeignKeyConstraints();
-
         Schema::table('games', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->after('id');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->cascadeOnDelete()
-                ->deferrable();
+            $table->foreignId('user_id')->after('id');
         });
     }
 
