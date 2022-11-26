@@ -69,8 +69,8 @@ class User extends Resource
                 ->creationRules('unique:users,username')
                 ->updateRules('unique:users,username,{{resourceId}}'),
 
-            Boolean::make('is_anonymous')
-                ->filterable(),
+            Boolean::make('Registered', fn () => !$this->is_anonymous)
+                ->sortable(),
 
             Text::make('Email')
                 ->nullable()
