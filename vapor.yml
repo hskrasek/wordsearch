@@ -30,5 +30,3 @@ environments:
             - 'php artisan config:cache'
             - 'npm ci && npm run build && rm -rf node_modules'
             - 'APP_URL=https://wordsearch.games php artisan ziggy:generate ./resources/ziggy.generated.js'
-        deploy:
-            - 'php artisan migrate --force'
