@@ -16,11 +16,17 @@ class UsersPerType extends Partition
      */
     public function calculate(NovaRequest $request)
     {
-        return $this->count($request, User::class, 'email')
-            ->label(fn (?string $email) => match ($email) {
-                '' => 'Anonymous',
-                default => 'Registered',
-            });
+        $query = (new User())->newQuery();
+
+        $results = $query->select(
+            'SUM(IF(email IS NOT NULL, 1, 0)) as \'Registered\''
+        )->addSelect(
+            'SUM(IF(email IS NULL, 1, 0)) as \'Anonymous\''
+        )->tap(
+            fn($query) => $this->applyFilterQuery($request, $query)
+        )->get();
+
+        return $this->result($results->all());
     }
 
     /**
