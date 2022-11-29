@@ -18,6 +18,6 @@ class WithoutDiphthongs implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->whereNot('text', '~*', '[a-z]*[aeiouy]{2,}[a-z]*');
+        $builder->whereNot($builder->raw('REGEXP_LIKE(`text`, \'[a-z]*[aeiouy]{2,}[a-z]*\')'));
     }
 }

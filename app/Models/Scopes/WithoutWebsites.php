@@ -17,6 +17,6 @@ class WithoutWebsites implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->whereNot('text', '~*', 'w{3}.*');
+        $builder->whereNot($builder->raw('REGEXP_LIKE(`text`, \'w{3}.*\')'));
     }
 }

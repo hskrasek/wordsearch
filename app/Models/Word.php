@@ -58,8 +58,8 @@ class Word extends Model
                 self::mostFrequentByDifficulty($difficulty)
             )
         )->when($difficulty === Difficulty::Insane, function (Builder $builder) use ($difficulty) {
-            return $builder->whereNot('text', '~*', '[b-df-jh-np-tv-z]{2,}')
-                ->whereNot('text', '~*', '[a-z]o[a-z]+')
+            return $builder->whereNot($builder->raw("REGEXP_LIKE(`text`, ''[b-df-jh-np-tv-z]{2,})"))
+                ->whereNot($builder->raw("REGEXP_LIKE(`text`, '[a-z]o[a-z]+')"))
                 ->inRandomOrder()
                 ->orderBy('frequency')
                 ->limit($difficulty->wordCount());
@@ -78,8 +78,8 @@ class Word extends Model
                 'least_frequent_words',
                 self::from($this->getTable())->where('length', '>=', $difficulty->minimumWordLength())
                     ->where('length', '<=', $difficulty->gridSize())
-                    ->whereNot('text', '~*', '[b-df-jh-np-tv-z]{2,}')
-                    ->whereNot('text', '~*', '[a-z]o[a-z]+')
+                    ->whereNot(self::newQuery()->raw("REGEXP_LIKE(`text`, '[b-df-jh-np-tv-z]{2,}')"))
+                    ->whereNot(self::newQuery()->raw("REGEXP_LIKE(`text`, '[a-z]o[a-z]+')"))
                     ->inRandomOrder()
                     ->orderBy('frequency')
                     ->limit(
@@ -98,8 +98,8 @@ class Word extends Model
                 'most_frequent_words',
                 self::from($this->getTable())->where('length', '>=', $difficulty->minimumWordLength())
                     ->where('length', '<=', $difficulty->gridSize())
-                    ->whereNot('text', '~*', '[b-df-jh-np-tv-z]{2,}')
-                    ->whereNot('text', '~*', '[a-z]o[a-z]+')
+                    ->whereNot(self::newQuery()->raw("REGEXP_LIKE(`text`, '[b-df-jh-np-tv-z]{2,}')"))
+                    ->whereNot(self::newQuery()->raw("REGEXP_LIKE(`text`, '[a-z]o[a-z]+')"))
                     ->orderByRaw('RANDOM() DESC')
                     ->orderByDesc('frequency')
                     ->limit(
