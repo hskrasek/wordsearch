@@ -10,12 +10,12 @@ use Illuminate\Validation\Rule;
 
 class CreateGame extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         $difficulties = collect(Difficulty::cases())->map->name;
 

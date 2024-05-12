@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('words', function () {
             return json_decode(Storage::get('words_dictionary.json'), true);
@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Request::macro('userAgentExtended', static function (): UserAgent {
             static $parser = new UserAgentParser();

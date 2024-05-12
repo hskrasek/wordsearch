@@ -17,7 +17,7 @@ class WordSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         if (Word::count() > 0) {
             $this->command->alert('Words table has data, please truncate table before proceeding');

@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
      * @param  \Closure(Request): (Response|RedirectResponse)  $next
      * @return Response|RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ?string ...$guards)
+    public function handle(Request $request, Closure $next, ?string ...$guards): \Symfony\Component\HttpFoundation\Response
     {
         $guards = empty($guards) ? [null] : $guards;
 

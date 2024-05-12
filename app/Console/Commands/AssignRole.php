@@ -27,7 +27,7 @@ class AssignRole extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $role = $this->anticipate('Which role would you like to assign to the user?', Role::all()->pluck('name')->toArray());
 

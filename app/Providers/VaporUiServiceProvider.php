@@ -13,7 +13,7 @@ class VaporUiServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->gate();
     }
@@ -37,7 +37,7 @@ class VaporUiServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
