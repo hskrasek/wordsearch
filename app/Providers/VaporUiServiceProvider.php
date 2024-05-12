@@ -25,7 +25,7 @@ class VaporUiServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function gate()
+    protected function gate(): void
     {
         Gate::define('viewVaporUI', function (?User $user = null) {
             return $user?->email === 'hunterskrasek@me.com';

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Inertia\Response;
+use Illuminate\Http\RedirectResponse;
 use App\Actions\SendLoginLink;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -17,7 +19,7 @@ class RegisteredUserController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Auth/Register');
     }
@@ -30,7 +32,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, SendLoginLink $sendLoginLink)
+    public function store(Request $request, SendLoginLink $sendLoginLink): RedirectResponse
     {
         $request->validate(
             [

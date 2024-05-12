@@ -13,7 +13,7 @@ class WithoutWebsites implements Scope
      *
      * @return void
      */
-    public function apply(Builder $builder, Model $model)
+    public function apply(Builder $builder, Model $model): void
     {
         $builder->whereNot($builder->raw('REGEXP_LIKE(`text`, \'w{3}.*\')'));
     }

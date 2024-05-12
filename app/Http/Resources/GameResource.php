@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use App\Game\Grid;
 use App\Models\Word;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -14,7 +15,7 @@ class GameResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
         /** @var Grid $grid */
         $grid = $this->grid;

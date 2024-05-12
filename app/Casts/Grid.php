@@ -17,7 +17,7 @@ class Grid implements CastsAttributes
      * @param  mixed  $value
      * @return \App\Game\Grid
      */
-    public function get(Model $model, string $key, mixed $value, array $attributes)
+    public function get(Model $model, string $key, mixed $value, array $attributes): GameGrid
     {
         return GameGrid::fromArray(json_decode($attributes['grid'], true));
     }
@@ -29,7 +29,7 @@ class Grid implements CastsAttributes
      * @param  GameGrid  $value
      * @return array
      */
-    public function set(Model $model, string $key, mixed $value, array $attributes)
+    public function set(Model $model, string $key, mixed $value, array $attributes): array
     {
         if (! $value instanceof GameGrid) {
             throw new \InvalidArgumentException('The given value is not a Grid instance.');

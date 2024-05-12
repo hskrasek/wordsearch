@@ -43,7 +43,7 @@ class UsersPerType extends Partition
      *
      * @return string
      */
-    public function uriKey()
+    public function uriKey(): string
     {
         return 'users-per-type';
     }

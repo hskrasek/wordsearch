@@ -36,7 +36,7 @@ class GamesPerDifficulty extends Partition
      *
      * @return string
      */
-    public function uriKey()
+    public function uriKey(): string
     {
         return 'games-per-difficulty';
     }

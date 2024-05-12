@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Inertia\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -17,7 +18,7 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Auth/Login', [
             'status' => session('status'),
@@ -37,7 +38,7 @@ class AuthenticatedSessionController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
