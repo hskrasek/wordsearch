@@ -16,9 +16,7 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  Request  $request
      * @param  \Closure(Request): (Response|RedirectResponse)  $next
-     * @param  string|null  ...$guards
      * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next, ?string ...$guards)
@@ -28,16 +26,16 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             // Only redirect back home if the user is registered and not on the homepage.
             if (Auth::guard($guard)->check() && optional($request->user())->is_anonymous === false && $request->routeIs('login',
-                    'verify-token', 'register',)) {
+                'verify-token', 'register', )) {
                 return redirect(RouteServiceProvider::HOME);
             }
         }
 
         // Only login and create an anonymous user if a user is not already logged in
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             Auth::login(
                 $user = User::create(
-                    ['user_agent' => $request->userAgent(),]
+                    ['user_agent' => $request->userAgent()]
                 )->givePermissionTo('view profile', 'edit profile', 'play games')
             );
 

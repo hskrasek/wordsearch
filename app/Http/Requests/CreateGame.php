@@ -31,7 +31,7 @@ class CreateGame extends FormRequest
     public function difficulty(): Difficulty
     {
         return Difficulty::fromName($this->input('difficulty')) ?? Difficulty::from(
-                (int)$this->input('difficulty')
-            );
+            (int) $this->input('difficulty')
+        );
     }
 }

@@ -12,10 +12,6 @@ class UserPolicy
 
     /**
      * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return Response|bool
      */
     public function view(User $user, User $model): Response|bool
     {
@@ -25,10 +21,6 @@ class UserPolicy
 
     /**
      * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return Response|bool
      */
     public function update(User $user, User $model): Response|bool
     {

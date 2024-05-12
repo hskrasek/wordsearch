@@ -8,7 +8,6 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Game extends Resource
 {
@@ -41,7 +40,6 @@ class Game extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -58,7 +56,7 @@ class Game extends Resource
             BelongsTo::make('Player', 'player', \App\Nova\User::class)
                 ->readonly(),
 
-            Text::make('Difficulty', fn() => $this->difficulty->name)
+            Text::make('Difficulty', fn () => $this->difficulty->name)
                 ->sortable()
                 ->readonly(),
 
@@ -75,7 +73,6 @@ class Game extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -87,7 +84,6 @@ class Game extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -99,7 +95,6 @@ class Game extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
@@ -111,7 +106,6 @@ class Game extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */

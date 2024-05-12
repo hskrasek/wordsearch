@@ -17,7 +17,6 @@ class HandleInertiaRequests extends Middleware
     /**
      * Determine the current asset version.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
     public function version(Request $request)
@@ -28,14 +27,13 @@ class HandleInertiaRequests extends Middleware
     /**
      * Define the props that are shared by default.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function share(Request $request)
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => fn() => $request->user(),
+                'user' => fn () => $request->user(),
             ],
         ]);
     }

@@ -8,7 +8,6 @@ use App\Nova\Metrics\GamesPerDay;
 use App\Nova\Metrics\GamesPerDifficulty;
 use App\Nova\Metrics\NewUsers;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -95,7 +94,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function register()
     {
         Nova::report(function (\Throwable $exception) {
-            if (app()->bound('sentry') && !app()->environment('local')) {
+            if (app()->bound('sentry') && ! app()->environment('local')) {
                 app('sentry')->capturException($exception);
             }
         });

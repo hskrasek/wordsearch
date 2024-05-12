@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
+use CountryState;
 use Illuminate\Foundation\Http\FormRequest;
 use Square\Hyrule\Hyrule;
-use CountryState;
 
 class EditUser extends FormRequest
 {

@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class Stats
 {
-    /**
-     * @param  Game  $game
-     * @return array
-     */
     public function calculate(Game $game): array
     {
         return [
@@ -37,7 +33,7 @@ class Stats
     private function completionTimeStats(Game $game): array
     {
         /** @var Collection<Carbon> $timings */
-        $timings = $game->words->map(fn(Word $word) => Carbon::parse($word->session->found_at))->sort();
+        $timings = $game->words->map(fn (Word $word) => Carbon::parse($word->session->found_at))->sort();
 
         return $this->makeStat(
             name: 'Completion Time',
@@ -49,7 +45,7 @@ class Stats
     private function averageSecondsFindingWordsStats(Game $game): array
     {
         /** @var Collection<Carbon> $timings */
-        $timings = $game->words->map(fn(Word $word) => Carbon::parse($word->session->found_at))->sort();
+        $timings = $game->words->map(fn (Word $word) => Carbon::parse($word->session->found_at))->sort();
 
         $averageSecondsBetweenWords = round($timings->prepend($game->created_at)->pipe(function (Collection $timings) {
             return $timings->map(function (Carbon $timestamp, int $key) use ($timings) {
@@ -81,7 +77,7 @@ class Stats
             ->whereNotNull('gw.found_at')
             ->where('game_id', $game->id)
             ->get()
-            ->mapWithKeys(fn(object $word) => [$word->word => $word])
+            ->mapWithKeys(fn (object $word) => [$word->word => $word])
             ->pipe(function (Collection $words) use ($game) {
                 $word = $words->first();
 
@@ -99,7 +95,7 @@ class Stats
 
                 return $word;
             })
-            ->sortBy(fn(object $word) => $word->found_in_seconds);
+            ->sortBy(fn (object $word) => $word->found_in_seconds);
 
         return [
             $this->makeStat(
@@ -118,7 +114,7 @@ class Stats
     private function firstWordFoundStats(Game $game): array
     {
         /** @var Collection<Carbon> $timings */
-        $timings = $game->words->map(fn(Word $word) => Carbon::parse($word->session->found_at))->sort();
+        $timings = $game->words->map(fn (Word $word) => Carbon::parse($word->session->found_at))->sort();
 
         return $this->makeStat(
             name: 'First Word Found',

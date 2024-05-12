@@ -11,8 +11,7 @@ class GameResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
@@ -23,9 +22,9 @@ class GameResource extends JsonResource
         $wordCoordinates = $grid->getWordCoordinates();
 
         $coordinatesToStamp = $this->words
-            ->filter(fn(Word $word) => $word->session->found)
+            ->filter(fn (Word $word) => $word->session->found)
             ->reduce(
-                fn(array $carry, Word $word) => [...$carry, ...$wordCoordinates[$word->text]],
+                fn (array $carry, Word $word) => [...$carry, ...$wordCoordinates[$word->text]],
                 []
             );
 
@@ -34,12 +33,12 @@ class GameResource extends JsonResource
         }
 
         return [
-            'id'           => $this->id,
-            'uuid'         => $this->uuid,
-            'difficulty'   => $this->difficulty->name,
+            'id' => $this->id,
+            'uuid' => $this->uuid,
+            'difficulty' => $this->difficulty->name,
             'is_completed' => $this->isCompleted,
-            'grid'         => $grid->toArray(),
-            'words'        => WordResource::collection($this->words->sortBy(fn(Word $word) => $word->text)->values())
+            'grid' => $grid->toArray(),
+            'words' => WordResource::collection($this->words->sortBy(fn (Word $word) => $word->text)->values())
                 ->toArray($request),
             'created_at' => $this->created_at,
             'created_date' => $this->created_at->toDateString(),

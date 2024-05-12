@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\PermissionRegistrar;
 
 class CreatePermissionTables extends Migration
@@ -50,7 +50,7 @@ class CreatePermissionTables extends Migration
             }
         });
 
-        Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
+        Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($columnNames, $teams) {
             $table->foreignId(PermissionRegistrar::$pivotPermission);
 
             $table->string('model_type');
@@ -70,7 +70,7 @@ class CreatePermissionTables extends Migration
 
         });
 
-        Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
+        Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($columnNames, $teams) {
             $table->foreignId(PermissionRegistrar::$pivotRole);
 
             $table->string('model_type');
@@ -89,7 +89,7 @@ class CreatePermissionTables extends Migration
             }
         });
 
-        Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
+        Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) {
             $table->foreignId(PermissionRegistrar::$pivotPermission);
             $table->foreignId(PermissionRegistrar::$pivotRole);
 

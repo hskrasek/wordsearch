@@ -11,7 +11,6 @@ class UsersPerType extends Partition
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return mixed
      */
     public function calculate(NovaRequest $request)
@@ -23,7 +22,7 @@ class UsersPerType extends Partition
         )->addSelect(
             'SUM(IF(email IS NULL, 1, 0)) as \'Anonymous\''
         )->tap(
-            fn($query) => $this->applyFilterQuery($request, $query)
+            fn ($query) => $this->applyFilterQuery($request, $query)
         )->get();
 
         return $this->result($results->all());
@@ -32,7 +31,7 @@ class UsersPerType extends Partition
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {

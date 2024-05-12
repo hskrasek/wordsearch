@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 use function retry;
 
-final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
+final class Grid implements \ArrayAccess, \JsonSerializable, Arrayable
 {
     private const PLACEHOLDER = '-';
 
@@ -26,8 +26,8 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
 
     public function insertWord(string $word, Direction $direction): void
     {
-        $wordLength        = strlen($word);
-        $letters           = Str::ucsplit($word);
+        $wordLength = strlen($word);
+        $letters = Str::ucsplit($word);
         $insertCoordinates = [];
 
         retry(100, function (int $attempts) use ($wordLength, $letters, &$insertCoordinates, &$direction) {
@@ -41,7 +41,7 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
                 // If we are iterating to a new set of x and y coordinates,
                 // and we have left over coordinates from a previous attempt
                 // to insert the word, we need to reset the insertion coordinates.
-                if (!empty($insertCoordinates)) {
+                if (! empty($insertCoordinates)) {
                     $insertCoordinates = [];
                 }
 
@@ -55,8 +55,8 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
                     // The cell is not empty, and does not equal the letter
                     if (
                         (
-                        $this->grid[$x][$y] !== '-' &&
-                        $this->grid[$x][$y] !== $letter
+                            $this->grid[$x][$y] !== '-' &&
+                            $this->grid[$x][$y] !== $letter
                         )
                     ) {
                         // Exit inserts, and try new coordinates
@@ -112,28 +112,26 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
         $this->grid = iterator_to_array(
             collect($this->grid)
                 ->mapInto(Collection::class)
-                ->map(fn(Collection $row) => $row->mapInto(Cell::class))
+                ->map(fn (Collection $row) => $row->mapInto(Cell::class))
                 ->getIterator()
         );
     }
 
     /**
-     * @param string $word
-     * @param array<array> $coordinates
+     * @param  array<array>  $coordinates
      *
-     * @return bool
      * @throws \Exception
      */
     public function findWord(string $word, array $coordinates): bool
     {
-        if (!array_key_exists($word, $this->wordCoordinates)) {
+        if (! array_key_exists($word, $this->wordCoordinates)) {
             throw GridException::wordNotInGrid($word);
         }
 
         $wordCoordinates = $this->wordCoordinates[$word];
 
         foreach ($coordinates as $coordinate) {
-            if (!$this->doesCoordinateExist($wordCoordinates, $coordinate)) {
+            if (! $this->doesCoordinateExist($wordCoordinates, $coordinate)) {
                 return false;
             }
         }
@@ -168,14 +166,14 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
     public function __toString(): string
     {
         $rowLength = 0;
-        $grid      = array_reduce($this->grid, function (string $carry, array $row) use (&$rowLength) {
+        $grid = array_reduce($this->grid, function (string $carry, array $row) use (&$rowLength) {
             $carry .= '|';
 
             foreach ($row as $cell) {
                 $carry .= " $cell ";
             }
 
-            $carry .= '|' . PHP_EOL;
+            $carry .= '|'.PHP_EOL;
 
             if ($rowLength === 0) {
                 $rowLength = strlen($carry);
@@ -184,9 +182,9 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
             return $carry;
         }, '');
 
-        $border = str_repeat('-', $rowLength - 1) . PHP_EOL;
+        $border = str_repeat('-', $rowLength - 1).PHP_EOL;
 
-        return $border . $grid . $border;
+        return $border.$grid.$border;
     }
 
     /**
@@ -218,15 +216,13 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
     public static function fromArray(array $array): self
     {
         return tap(new self(count($array['grid'])), function (self $grid) use ($array) {
-            $grid->grid            = self::unserializeGrid($array['grid']);
+            $grid->grid = self::unserializeGrid($array['grid']);
             $grid->wordCoordinates = $array['word_coordinates'];
-            $grid->size            = count($array['grid']);
+            $grid->size = count($array['grid']);
         });
     }
 
     /**
-     * @param array $grid
-     *
      * @return array<int, array<int, Cell>
      */
     private static function unserializeGrid(array $grid): array
@@ -247,7 +243,7 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
-            'grid'             => $this->toArray(),
+            'grid' => $this->toArray(),
             'word_coordinates' => $this->getWordCoordinates(),
         ];
     }
@@ -264,11 +260,11 @@ final class Grid implements \ArrayAccess, Arrayable, \JsonSerializable
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        throw new \LogicException("Grids cannot be modified in this manner");
+        throw new \LogicException('Grids cannot be modified in this manner');
     }
 
     public function offsetUnset(mixed $offset): void
     {
-        throw new \LogicException("Grids cannot be modified in this manner");
+        throw new \LogicException('Grids cannot be modified in this manner');
     }
 }

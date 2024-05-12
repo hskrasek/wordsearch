@@ -38,6 +38,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static Builder|User anonymous()
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
@@ -58,14 +59,15 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUserAgent($value)
  * @method static Builder|User whereUsername($value)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
-    use Notifiable;
     use HasRoles;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -76,7 +78,7 @@ class User extends Authenticatable
         'name',
         'email',
         'username',
-        'user_agent'
+        'user_agent',
     ];
 
     protected $appends = [
@@ -104,7 +106,7 @@ class User extends Authenticatable
     public function isAnonymous(): Attribute
     {
         return Attribute::make(
-            get: fn() => empty($this->email) || empty($this->email_verified_at),
+            get: fn () => empty($this->email) || empty($this->email_verified_at),
         );
     }
 

@@ -23,7 +23,7 @@ class SolveGame extends Controller
             $solved = $solved || $wordCoordinate === $request->coordinates()[$index];
         }
 
-        if (!$solved) {
+        if (! $solved) {
             return redirect()->route('game.play', compact('game'))->withErrors(['coordinates' => 'Incorrect coordinates for word']);
         }
 

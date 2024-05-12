@@ -8,9 +8,6 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
@@ -28,7 +25,6 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      *
@@ -39,7 +35,7 @@ class RegisteredUserController extends Controller
         $request->validate(
             [
                 'username' => 'required|string|profane:en,es|max:16|unique:users,username',
-                'email'    => 'required|string|email|max:255|unique:users,email',
+                'email' => 'required|string|email|max:255|unique:users,email',
             ]
         );
 
@@ -48,7 +44,7 @@ class RegisteredUserController extends Controller
         $user->update(
             [
                 'username' => $request->username,
-                'email'    => $request->email,
+                'email' => $request->email,
             ]
         );
 

@@ -4,7 +4,6 @@ use App\Http\Controllers\CreateGame;
 use App\Http\Controllers\Game;
 use App\Http\Controllers\GameStats;
 use App\Http\Controllers\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

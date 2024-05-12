@@ -33,31 +33,31 @@ class SolveGame extends FormRequest
             'word' => [
                 'required',
                 'string',
-                'exists:' . Word::class . ',text',
+                'exists:'.Word::class.',text',
                 Rule::in($game->words->map->text->toArray()),
             ],
             'coordinates' => [
                 'required',
-                'array'
+                'array',
             ],
             'coordinates.*.0' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:' . $game->grid->size()
+                'max:'.$game->grid->size(),
             ],
             'coordinates.*.1' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:' . $game->grid->size()
-            ]
+                'max:'.$game->grid->size(),
+            ],
         ];
     }
 
     public function word(): Word
     {
-         return Word::where(['text' => $this->input('word')])->first();
+        return Word::where(['text' => $this->input('word')])->first();
     }
 
     /**
