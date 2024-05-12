@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Inertia\Response;
-use Illuminate\Http\RedirectResponse;
 use App\Actions\SendLoginLink;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {

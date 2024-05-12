@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Casts;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Game\Grid as GameGrid;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
 
 class Grid implements CastsAttributes
 {
