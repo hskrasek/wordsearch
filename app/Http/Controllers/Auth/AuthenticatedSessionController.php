@@ -15,8 +15,6 @@ class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
-     *
-     * @return \Inertia\Response
      */
     public function create(): Response
     {
@@ -35,8 +33,6 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * Destroy an authenticated session.
-     *
-     * @return RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse
     {

@@ -12,10 +12,6 @@ class Grid implements CastsAttributes
 {
     /**
      * Cast the given value.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  mixed  $value
-     * @return \App\Game\Grid
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): GameGrid
     {
@@ -24,10 +20,6 @@ class Grid implements CastsAttributes
 
     /**
      * Prepare the given value for storage.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  GameGrid  $value
-     * @return array
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): array
     {
