@@ -39,9 +39,9 @@ class LoginToken extends Model
 
     protected $guarded = [];
 
-    protected $dates = [
-        'expires_at',
-        'consumed_at',
+    protected $casts = [
+        'expires_at' => 'datetime',
+        'consumed_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
