@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             // Only redirect back home if the user is registered and not on the homepage.
-            if (Auth::guard($guard)->check() && optional($request->user())->is_anonymous === false && $request->routeIs('login',
+            if (Auth::guard($guard)->check() && $request->user()?->is_anonymous === false && $request->routeIs('login',
                 'verify-token', 'register', )) {
                 return redirect(RouteServiceProvider::HOME);
             }
