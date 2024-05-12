@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Casts;
 
+use Illuminate\Database\Eloquent\Model;
 use App\Game\Grid as GameGrid;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
@@ -16,7 +17,7 @@ class Grid implements CastsAttributes
      * @param  mixed  $value
      * @return \App\Game\Grid
      */
-    public function get($model, string $key, $value, array $attributes)
+    public function get(Model $model, string $key, mixed $value, array $attributes)
     {
         return GameGrid::fromArray(json_decode($attributes['grid'], true));
     }
@@ -28,7 +29,7 @@ class Grid implements CastsAttributes
      * @param  GameGrid  $value
      * @return array
      */
-    public function set($model, string $key, $value, array $attributes)
+    public function set(Model $model, string $key, mixed $value, array $attributes)
     {
         if (! $value instanceof GameGrid) {
             throw new \InvalidArgumentException('The given value is not a Grid instance.');
