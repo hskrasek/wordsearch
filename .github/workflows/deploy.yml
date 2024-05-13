@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-          cache-dependency-path: npm-shrinkwrap.json
+          cache-dependency-path: package-lock.json
       - name: Require Vapor CLI
         run: composer global require laravel/vapor-cli
       - name: Determine Environment
