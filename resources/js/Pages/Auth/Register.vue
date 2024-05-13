@@ -2,7 +2,7 @@
 import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import Layout from "@/Layouts/Layout.vue";
-import route from "ziggy";
+import { route } from "ziggy-js";
 
 const form = useForm({
     username: "",

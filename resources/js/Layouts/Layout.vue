@@ -19,7 +19,7 @@ import {
 } from "@heroicons/vue/outline";
 import { Link, usePage } from "@inertiajs/inertia-vue3";
 import { computed } from "vue";
-import route from "ziggy";
+import { route } from "ziggy-js";
 
 const props = computed(() => usePage().props.value);
 

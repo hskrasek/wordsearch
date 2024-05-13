@@ -5,8 +5,8 @@ import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/inertia-vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { InertiaProgress } from "@inertiajs/progress";
-import { ZiggyVue } from "ziggy-vue";
-import route from "ziggy";
+// import { ZiggyVue } from "ziggy-vue";
+import { route } from "ziggy-js";
 import * as Sentry from "@sentry/vue";
 import { createPinia } from "pinia";
 
@@ -30,7 +30,7 @@ createInertiaApp({
 
         vueApp
             .use(plugin)
-            .use(ZiggyVue)
+            // .use(ZiggyVue)
             .use(pinia)
             .mixin({ methods: { route } })
             .mount(el);

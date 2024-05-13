@@ -3,7 +3,7 @@ import { StarIcon } from "@heroicons/vue/outline";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Layout from "@/Layouts/Layout.vue";
 import { computed } from "vue";
-import route from "ziggy";
+import { route } from "ziggy-js";
 import { PlayIcon } from "@heroicons/vue/outline";
 
 const props = defineProps<{
