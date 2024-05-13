@@ -12,7 +12,7 @@ class Home extends Controller
     public function __invoke(Request $request): Response
     {
         return Inertia::render('Home', props: [
-            'difficulties' => array_map(fn(Difficulty $difficulty) => (array)$difficulty + ['directions' => $difficulty->directions()], Difficulty::cases()),
+            'difficulties' => array_map(fn (Difficulty $difficulty) => (array) $difficulty + ['directions' => $difficulty->directions()], Difficulty::cases()),
         ]);
     }
 }

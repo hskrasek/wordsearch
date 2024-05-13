@@ -23,7 +23,7 @@ class SendLoginLink
         /** @var LoginToken $token */
         $token = $user->loginTokens()->create(
             [
-                'token'      => hash('sha512', $plainTextToken),
+                'token' => hash('sha512', $plainTextToken),
                 'expires_at' => now()->addMinutes(15),
             ]
         );

@@ -30,6 +30,7 @@ use Illuminate\Support\Str;
  * @property-read \App\Models\User|null $player
  * @property-read EloquentCollection|\App\Models\Word[] $words
  * @property-read int|null $words_count
+ *
  * @method static \Database\Factories\GameFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Game newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Game newQuery()
@@ -41,6 +42,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Game whereUuid($value)
+ *
  * @mixin \Eloquent
  */
 class Game extends Model
@@ -57,10 +59,7 @@ class Game extends Model
     ];
 
     /**
-     * @param  Difficulty  $difficulty
      * @param  Collection<Word>|EloquentCollection<Word>  $words
-     *
-     * @return Game
      */
     public static function start(User $player, Difficulty $difficulty, EloquentCollection|Collection $words): Game
     {
@@ -73,7 +72,7 @@ class Game extends Model
         $successfulWords = EloquentCollection::make();
 
         /** @var Word $word */
-        while (!($word = $words->pop()) instanceof Collection && $word !== null) {
+        while (! ($word = $words->pop()) instanceof Collection && $word !== null) {
             try {
                 $game->grid->insertWord($word->text, Arr::random($difficulty->directions()));
                 $successfulWords->push($word);
@@ -102,8 +101,8 @@ class Game extends Model
     public function isCompleted(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->words
-                    ->filter(fn(Word $word) => $word->session->found)->count() === $this->words->count()
+            get: fn () => $this->words
+                ->filter(fn (Word $word) => $word->session->found)->count() === $this->words->count()
         );
     }
 
@@ -116,7 +115,7 @@ class Game extends Model
     {
         return $this->belongsToMany(Word::class)
             ->as('session')
-            ->withPivot(['found', 'found_at',])
+            ->withPivot(['found', 'found_at'])
             ->withoutGlobalScopes([WithoutDiphthongs::class, WithoutWebsites::class]);
     }
 

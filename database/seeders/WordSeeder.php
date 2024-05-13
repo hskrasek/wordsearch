@@ -14,10 +14,8 @@ class WordSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         if (Word::count() > 0) {
             $this->command->alert('Words table has data, please truncate table before proceeding');
@@ -42,9 +40,9 @@ class WordSeeder extends Seeder
                 }
 
                 $words[] = [
-                    'text'       => \Str::upper($line[0]),
-                    'length'     => \Str::length($line[0]),
-                    'frequency'  => $line[1],
+                    'text' => \Str::upper($line[0]),
+                    'length' => \Str::length($line[0]),
+                    'frequency' => $line[1],
                     'created_at' => $now,
                     'updated_at' => $now,
                 ];
@@ -52,13 +50,13 @@ class WordSeeder extends Seeder
 
             Word::insert($words);
             $this->command->info(
-                "Memory usage after {$lines->count()} words in chunk #$chunkNumber: " . number_format(
+                "Memory usage after {$lines->count()} words in chunk #$chunkNumber: ".number_format(
                     memory_get_peak_usage() / 1048576,
                     2
-                ) . ' MB'
+                ).' MB'
             );
         });
 
-        $this->command->info('Final memory usage: ' . number_format(memory_get_peak_usage() / 1048576, 2) . ' MB');
+        $this->command->info('Final memory usage: '.number_format(memory_get_peak_usage() / 1048576, 2).' MB');
     }
 }

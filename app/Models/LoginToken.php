@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|LoginToken newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LoginToken newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LoginToken query()
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|LoginToken whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LoginToken whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LoginToken whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class LoginToken extends Model
@@ -37,9 +39,9 @@ class LoginToken extends Model
 
     protected $guarded = [];
 
-    protected $dates = [
-        'expires_at',
-        'consumed_at',
+    protected $casts = [
+        'expires_at' => 'datetime',
+        'consumed_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -55,7 +57,7 @@ class LoginToken extends Model
 
     public function isValid(): bool
     {
-        return !$this->isExpired() && !$this->isConsumed();
+        return ! $this->isExpired() && ! $this->isConsumed();
     }
 
     public function isExpired(): bool

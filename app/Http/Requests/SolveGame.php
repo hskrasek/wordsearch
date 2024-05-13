@@ -11,20 +11,16 @@ class SolveGame extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         /** @var Game $game */
         $game = $this->route('game');
@@ -33,31 +29,31 @@ class SolveGame extends FormRequest
             'word' => [
                 'required',
                 'string',
-                'exists:' . Word::class . ',text',
+                'exists:'.Word::class.',text',
                 Rule::in($game->words->map->text->toArray()),
             ],
             'coordinates' => [
                 'required',
-                'array'
+                'array',
             ],
             'coordinates.*.0' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:' . $game->grid->size()
+                'max:'.$game->grid->size(),
             ],
             'coordinates.*.1' => [
                 'required',
                 'integer',
                 'min:0',
-                'max:' . $game->grid->size()
-            ]
+                'max:'.$game->grid->size(),
+            ],
         ];
     }
 
     public function word(): Word
     {
-         return Word::where(['text' => $this->input('word')])->first();
+        return Word::where(['text' => $this->input('word')])->first();
     }
 
     /**

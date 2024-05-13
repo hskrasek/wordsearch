@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class WordResource extends JsonResource
@@ -9,14 +10,12 @@ class WordResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return [
-            'text'  => $this->text,
+            'text' => $this->text,
             'found' => $this->session?->found ?? false,
         ];
     }

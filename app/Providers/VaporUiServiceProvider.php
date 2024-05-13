@@ -10,10 +10,8 @@ class VaporUiServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->gate();
     }
@@ -22,22 +20,18 @@ class VaporUiServiceProvider extends ServiceProvider
      * Register the Vapor UI gate.
      *
      * This gate determines who can access Vapor UI in non-local environments.
-     *
-     * @return void
      */
-    protected function gate()
+    protected function gate(): void
     {
         Gate::define('viewVaporUI', function (?User $user = null) {
-            return optional($user)->email === 'hunterskrasek@me.com';
+            return $user?->email === 'hunterskrasek@me.com';
         });
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }

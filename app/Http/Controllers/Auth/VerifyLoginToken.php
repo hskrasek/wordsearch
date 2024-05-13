@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\LoginToken;
-use Illuminate\{Contracts\Foundation\Application, Http\RedirectResponse, Http\Request, Routing\Redirector};
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class VerifyLoginToken extends Controller
 {

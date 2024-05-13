@@ -10,12 +10,12 @@ use Illuminate\Validation\Rule;
 
 class CreateGame extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         $difficulties = collect(Difficulty::cases())->map->name;
 
@@ -31,7 +31,7 @@ class CreateGame extends FormRequest
     public function difficulty(): Difficulty
     {
         return Difficulty::fromName($this->input('difficulty')) ?? Difficulty::from(
-                (int)$this->input('difficulty')
-            );
+            (int) $this->input('difficulty')
+        );
     }
 }

@@ -20,6 +20,7 @@ use Staudenmeir\LaravelCte\Query\Builder as CTEBuilder;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $frequency
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Word excludeWords(\App\Models\Word ...$word)
  * @method static \Database\Factories\WordFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Word forDifficulty(\App\Game\Difficulty $difficulty)
@@ -34,6 +35,7 @@ use Staudenmeir\LaravelCte\Query\Builder as CTEBuilder;
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereLength($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Word whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Word extends Model
@@ -51,10 +53,10 @@ class Word extends Model
     {
         return $query->when(
             $difficulty === Difficulty::Easy,
-            fn(Builder $builder) => $builder->inRandomOrder()->orderByDesc('frequency')->limit($difficulty->wordCount())
+            fn (Builder $builder) => $builder->inRandomOrder()->orderByDesc('frequency')->limit($difficulty->wordCount())
         )->when(
             ($difficulty === Difficulty::Medium || $difficulty === Difficulty::Hard),
-            fn(Builder|CTEBuilder|Word $builder) => $builder->leastFrequentByDifficulty($difficulty)->union(
+            fn (Builder|CTEBuilder|Word $builder) => $builder->leastFrequentByDifficulty($difficulty)->union(
                 self::mostFrequentByDifficulty($difficulty)
             )
         )->when($difficulty === Difficulty::Insane, function (Builder $builder) use ($difficulty) {
@@ -68,7 +70,7 @@ class Word extends Model
 
     public function scopeExcludeWords(Builder $query, Word ...$word): Builder
     {
-        return $query->whereNotIn('text', array_map(static fn(Word $word) => $word->text, $word));
+        return $query->whereNotIn('text', array_map(static fn (Word $word) => $word->text, $word));
     }
 
     public function scopeLeastFrequentByDifficulty(Builder|CTEBuilder $query, Difficulty $difficulty): Builder

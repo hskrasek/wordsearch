@@ -7,20 +7,17 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.
-     *
-     * @return \Inertia\Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Auth/Register');
     }
@@ -28,18 +25,16 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, SendLoginLink $sendLoginLink)
+    public function store(Request $request, SendLoginLink $sendLoginLink): RedirectResponse
     {
         $request->validate(
             [
                 'username' => 'required|string|profane:en,es|max:16|unique:users,username',
-                'email'    => 'required|string|email|max:255|unique:users,email',
+                'email' => 'required|string|email|max:255|unique:users,email',
             ]
         );
 
@@ -48,7 +43,7 @@ class RegisteredUserController extends Controller
         $user->update(
             [
                 'username' => $request->username,
-                'email'    => $request->email,
+                'email' => $request->email,
             ]
         );
 

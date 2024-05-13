@@ -9,10 +9,8 @@ trait CreatesApplication
 {
     /**
      * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
      */
-    public function createApplication()
+    public function createApplication(): Application
     {
         /** @var Application $app */
         $app = require __DIR__.'/../bootstrap/app.php';

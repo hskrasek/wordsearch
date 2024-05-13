@@ -6,7 +6,7 @@ namespace App\Game;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-final class Cell implements Arrayable, \JsonSerializable
+final class Cell implements \JsonSerializable, Arrayable
 {
     private bool $found = false;
 
@@ -23,7 +23,7 @@ final class Cell implements Arrayable, \JsonSerializable
     {
         return [
             'letter' => $this->letter,
-            'found'  => $this->found,
+            'found' => $this->found,
         ];
     }
 

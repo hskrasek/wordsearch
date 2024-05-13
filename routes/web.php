@@ -4,10 +4,8 @@ use App\Http\Controllers\CreateGame;
 use App\Http\Controllers\Game;
 use App\Http\Controllers\Home;
 use App\Http\Controllers\SolveGame;
-use App\Http\Controllers\User;
 use App\Models\Game as GameModel;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +35,4 @@ Route::post('/game/{game}/solve', SolveGame::class)
     ->name('game.solve')
     ->can('update', 'game');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

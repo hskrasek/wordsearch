@@ -25,13 +25,13 @@ enum Difficulty: int
     case Medium = 1;
 
     #[Directions([
-        Direction::North, Direction::East, Direction::South, Direction::West, Direction::NorthEast, Direction::SouthWest
+        Direction::North, Direction::East, Direction::South, Direction::West, Direction::NorthEast, Direction::SouthWest,
     ])]
     case Hard = 2;
 
     #[Directions([
         Direction::North, Direction::East, Direction::South, Direction::West, Direction::NorthEast,
-        Direction::SouthEast, Direction::SouthWest, Direction::NorthWest
+        Direction::SouthEast, Direction::SouthWest, Direction::NorthWest,
     ])]
     case Insane = 3;
 

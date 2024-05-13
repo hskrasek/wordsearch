@@ -12,20 +12,19 @@ class GamesPerDifficulty extends Partition
     /**
      * Calculate the value of the metric.
      *
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      *
      * @return mixed
      */
     public function calculate(NovaRequest $request)
     {
         return $this->count($request, Game::class, 'difficulty')
-            ->label(fn(int $value) => Difficulty::from($value)->name);
+            ->label(fn (int $value) => Difficulty::from($value)->name);
     }
 
     /**
      * Determine for how many minutes the metric should be cached.
      *
-     * @return  \DateTimeInterface|\DateInterval|float|int
+     * @return \DateTimeInterface|\DateInterval|float|int
      */
     public function cacheFor()
     {
@@ -34,10 +33,8 @@ class GamesPerDifficulty extends Partition
 
     /**
      * Get the URI key for the metric.
-     *
-     * @return string
      */
-    public function uriKey()
+    public function uriKey(): string
     {
         return 'games-per-difficulty';
     }
