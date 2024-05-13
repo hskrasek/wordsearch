@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "arandilopez/laravel-profane": "^0.5.0",
         "archtechx/enums": "^0.3.1",
         "davmixcool/laravel-meta-manager": "^1.2",
@@ -23,7 +23,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.3",
         "laravel/framework": "^10.48",
-        "laravel/nova": "^4.0",
+        "laravel/nova": "4.24.4",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laravel/vapor-core": "^2.27",
@@ -31,7 +31,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "sentry/sentry-laravel": "^3.2",
         "spatie/laravel-permission": "^5.8",
-        "square/laravel-hyrule": "^2.0",
+        "square/laravel-hyrule": "^3.0",
         "staudenmeir/laravel-cte": "^1.7",
         "tightenco/ziggy": "^2.0"
     },
@@ -90,7 +90,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "stable",
